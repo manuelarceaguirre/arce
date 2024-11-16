@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manuel Arce | Data Scientist & Full Stack Developer</title>
+    <title>Manuel Arce | Data Scientist • Data Engineer • Actuary</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header class="hero">
         <nav>
-            <a href="#" class="logo">Manuel Arce</a>
             <ul>
                 <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -22,7 +20,7 @@
             <div class="intro">
                 <span class="greeting">👋 Hello, I'm</span>
                 <h1>Manuel Antonio <span>Arce Aguirre</span></h1>
-                <p class="tagline">Data Scientist & Full Stack Developer</p>
+                <p class="tagline">Data Scientist • Data Engineer • Actuary</p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn primary">View Projects</a>
                     <a href="#contact" class="btn secondary">Contact Me</a>
@@ -33,52 +31,40 @@
 
     <section id="about" class="about-section">
         <h2>About Me</h2>
-        <p>I'm a passionate Data Scientist and Full Stack Developer with expertise in machine learning and web development. I specialize in creating data-driven applications and interactive visualizations that bridge the gap between complex algorithms and user-friendly interfaces.</p>
-    </section>
-
-    <section id="skills" class="skills-section">
-        <h2>Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <i class="fas fa-code"></i>
-                <h3>Languages</h3>
-                <p>Python, JavaScript, TypeScript</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Frontend</h3>
-                <p>React, Next.js, Vercel</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-brain"></i>
-                <h3>ML/AI</h3>
-                <p>TensorFlow, scikit-learn</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-database"></i>
-                <h3>Data Analysis</h3>
-                <p>Pandas, NumPy, D3.js</p>
-            </div>
-        </div>
+        <p>I'm a Data Scientist and Engineer with a strong foundation in Actuarial Science. I specialize in building data pipelines, developing machine learning models, and creating interactive data visualizations. My unique combination of technical and actuarial expertise allows me to transform complex data into actionable insights.</p>
     </section>
 
     <section id="projects" class="projects-section">
         <h2>Featured Projects</h2>
         <div class="project-grid">
             <div class="project-card">
-                <img src="insurance-viz.png" alt="Insurance Model Visualizer">
-                <h3>Insurance Model Visualizer</h3>
-                <p>Interactive dashboard for insurance model analysis featuring gradient boosting visualization with key metrics including RMSE: 4,258.15, MAE: 2,440.24, and R² Score: 0.8832.</p>
-                <div class="project-links">
-                    <a href="https://insurancemodelvisualizer.vercel.app/" target="_blank" class="btn">Live Demo</a>
+                <div class="project-content">
+                    <h3>Insurance Model Visualizer</h3>
+                    <p class="project-description">An interactive dashboard that brings insurance models to life through data visualization. Features gradient boosting model analysis with key performance metrics:</p>
+                    <ul class="metrics-list">
+                        <li>RMSE: 4,258.15</li>
+                        <li>MAE: 2,440.24</li>
+                        <li>R² Score: 0.8832</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span>Next.js</span>
+                        <span>D3.js</span>
+                        <span>Machine Learning</span>
+                    </div>
+                    <a href="https://insurancemodelvisualizer.vercel.app/" target="_blank" class="btn project-btn">View Project <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
+
             <div class="project-card">
-                <img src="prog-supplement.png" alt="Programming Supplement">
-                <h3>Programming Supplement</h3>
-                <p>Educational platform focused on programming concepts with interactive learning experiences. Built with modern web technologies for optimal user engagement.</p>
-                <div class="project-links">
-                    <a href="https://programming-supplement.vercel.app/" target="_blank" class="btn">Live Demo</a>
+                <div class="project-content">
+                    <h3>Programming Supplement</h3>
+                    <p class="project-description">An educational platform focused on programming concepts with interactive learning experiences. Built to make complex technical concepts accessible and engaging.</p>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>Python</span>
+                        <span>Data Analysis</span>
+                    </div>
+                    <a href="https://programming-supplement.vercel.app/" target="_blank" class="btn project-btn">View Project <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -86,22 +72,18 @@
 
     <section id="contact" class="contact-section">
         <h2>Get In Touch</h2>
-        <div class="contact-content">
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-            <div class="social-links">
-                <a href="https://github.com/manuelarceaguirre" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="[Your LinkedIn URL]" target="_blank"><i class="fab fa-linkedin"></i></a>
-            </div>
+        <div class="social-links">
+            <a href="https://github.com/manuelarceaguirre" target="_blank" class="social-btn">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="[Your LinkedIn URL]" target="_blank" class="social-btn">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
         </div>
     </section>
 
     <footer>
-        <p>© 2024 Manuel Antonio Arce Aguirre. All Rights Reserved.</p>
+        <p>© 2024 Manuel Antonio Arce Aguirre</p>
     </footer>
 </body>
 </html>
