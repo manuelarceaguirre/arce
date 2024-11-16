@@ -5,97 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manuel Arce | Data Scientist • Data Engineer • Actuary</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header class="hero">
-        <div class="gradient-bg">
-            <nav>
-                <ul>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="hero-content">
-                <div class="hero-grid">
-                    <div class="intro" data-aos="fade-right" data-aos-duration="1000">
-                        <span class="greeting">Welcome</span>
-                        <h1 class="glitch" data-text="Manuel Antonio Arce Aguirre">Manuel Antonio Arce Aguirre</h1>
-                        <div class="title-wrapper">
-                            <p class="tagline">Data Scientist • Data Engineer • Actuary</p>
-                        </div>
-                        <p class="bio-text">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
-                        <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
-                            <a href="#projects" class="btn primary">View Projects</a>
-                            <a href="#contact" class="btn secondary">Contact Me</a>
-                        </div>
-                    </div>
-                    <div class="portrait-container" data-aos="fade-left" data-aos-duration="1000">
-                        <div class="portrait-wrapper">
-                            <img src="portrait.jpg" alt="Manuel Arce" class="portrait">
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <nav class="navbar">
+        <div class="nav-content">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <section id="about" class="about-section">
-        <h2>About Me</h2>
-        <p>I'm a Data Scientist and Engineer with a strong foundation in Actuarial Science. I specialize in building data pipelines, developing machine learning models, and creating interactive data visualizations. My unique combination of technical and actuarial expertise allows me to transform complex data into actionable insights.</p>
-    </section>
+    <main>
+        <section class="hero">
+            <span class="welcome">Welcome</span>
+            <h1>Manuel Antonio Arce Aguirre</h1>
+            <p class="title">Data Scientist • Data Engineer • Actuary</p>
+            <p class="bio">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+            <div class="portrait-container">
+                <img src="portrait.jpg" alt="Manuel Arce" class="portrait">
+            </div>
+        </section>
 
-    <section id="projects" class="projects-section">
-        <h2>Featured Projects</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <div class="project-content">
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <p>I'm a Data Scientist and Engineer with a strong foundation in Actuarial Science. I specialize in building data pipelines, developing machine learning models, and creating interactive data visualizations. My unique combination of technical and actuarial expertise allows me to transform complex data into actionable insights.</p>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2>Featured Projects</h2>
+            <div class="project-grid">
+                <article class="project-card">
                     <h3>Insurance Model Visualizer</h3>
-                    <p class="project-description">An interactive dashboard that brings insurance models to life through data visualization. Features gradient boosting model analysis with key performance metrics:</p>
-                    <ul class="metrics-list">
-                        <li>RMSE: 4,258.15</li>
-                        <li>MAE: 2,440.24</li>
-                        <li>R² Score: 0.8832</li>
-                    </ul>
+                    <p>An interactive dashboard that brings insurance models to life through data visualization.</p>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span>RMSE</span>
+                            <strong>4,258.15</strong>
+                        </div>
+                        <div class="metric">
+                            <span>MAE</span>
+                            <strong>2,440.24</strong>
+                        </div>
+                        <div class="metric">
+                            <span>R² Score</span>
+                            <strong>0.8832</strong>
+                        </div>
+                    </div>
                     <div class="tech-stack">
                         <span>Next.js</span>
                         <span>D3.js</span>
-                        <span>Machine Learning</span>
+                        <span>ML</span>
                     </div>
-                    <a href="https://insurancemodelvisualizer.vercel.app/" target="_blank" class="btn project-btn">View Project <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
+                    <a href="https://insurancemodelvisualizer.vercel.app/" class="project-link" target="_blank">View Project →</a>
+                </article>
 
-            <div class="project-card">
-                <div class="project-content">
+                <article class="project-card">
                     <h3>Programming Supplement</h3>
-                    <p class="project-description">An educational platform focused on programming concepts with interactive learning experiences. Built to make complex technical concepts accessible and engaging.</p>
+                    <p>An educational platform focused on programming concepts with interactive learning experiences.</p>
                     <div class="tech-stack">
                         <span>React</span>
                         <span>Python</span>
                         <span>Data Analysis</span>
                     </div>
-                    <a href="https://programming-supplement.vercel.app/" target="_blank" class="btn project-btn">View Project <i class="fas fa-arrow-right"></i></a>
-                </div>
+                    <a href="https://programming-supplement.vercel.app/" class="project-link" target="_blank">View Project →</a>
+                </article>
             </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <h2>Get In Touch</h2>
-        <div class="social-links">
-            <a href="https://github.com/manuelarceaguirre" target="_blank" class="social-btn">
-                <i class="fab fa-github"></i> GitHub
-            </a>
-            <a href="[Your LinkedIn URL]" target="_blank" class="social-btn">
-                <i class="fab fa-linkedin"></i> LinkedIn
-            </a>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2024 Manuel Antonio Arce Aguirre</p>
-    </footer>
+        </section>
+    </main>
 </body>
 </html>
