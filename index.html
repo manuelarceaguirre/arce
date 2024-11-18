@@ -2,111 +2,242 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manuel Arce | Portfolio</title>
+    <title>Physics Rope Simulation</title>
     <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: #0f172a;
-            color: #e2e8f0;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        .container {
-            padding: 2rem;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #f8fafc;
-        }
-
-        .network-container {
-            position: relative;
-            width: 800px;
-            height: 400px;
-            margin: 0 auto;
-        }
-
-        .fc-geometry {
+        fc-geometry {
             position: absolute;
-            width: 30px;
-            height: 30px;
             background: #000;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            cursor: move;
+            user-select: none;
         }
-
-        .camera-node {
-            background: url('camera-icon.png') no-repeat center center;
-            background-size: contain;
-        }
-
-        .fc-rope {
+        
+        fc-rope {
             position: absolute;
-            height: 1px;
-            background: #000;
-            transform-origin: left center;
             pointer-events: none;
-        }
-
-        .social-links {
-            text-align: center;
-            margin-bottom: 2rem;
+            width: 100%;
+            height: 100%;
         }
         
-        .social-links a {
-            color: #3b82f6;
-            text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .project-label {
-            position: absolute;
-            white-space: nowrap;
-            font-size: 0.875rem;
-            color: #94a3b8;
-            transform: translateY(-24px);
+        .rope-path {
+            stroke: #000;
+            stroke-width: 2;
+            fill: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hi, I'm Manuel Arce</h1>
-        
-        <div class="social-links">
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-        </div>
-        
-        <div class="network-container">
-            <!-- Camera/Main node -->
-            <div class="fc-geometry camera-node" id="box1" x="100" y="100" style="left: 321px; top: 106px;">
-                <div class="project-label">Manuel Arce</div>
-            </div>
+    <fc-geometry id="box1" x="100" y="100" width="30" height="30"></fc-geometry>
+    <fc-geometry id="box2" x="300" y="105" width="30" height="30"></fc-geometry>
+    <fc-geometry id="box3" x="200" y="150" width="30" height="30"></fc-geometry>
+    <fc-geometry id="box4" x="400" y="100" width="30" height="30"></fc-geometry>
 
-            <!-- Project nodes -->
-            <div class="fc-geometry" id="box2" x="300" y="105" style="left: 300px; top: 105px;">
-                <div class="project-label">ML Monitor</div>
-            </div>
-            <div class="fc-geometry" id="box3" x="200" y="150" style="left: 200px; top: 150px;">
-                <div class="project-label">Insurance Model Visualizer</div>
-            </div>
-            <div class="fc-geometry" id="box4" x="400" y="100" style="left: 400px; top: 100px;">
-                <div class="project-label">Programming Supplement</div>
-            </div>
+    <script type="module">
+        class Vector2D {
+            constructor(x = 0, y = 0) {
+                this.x = x;
+                this.y = y;
+            }
+            
+            add(v) {
+                return new Vector2D(this.x + v.x, this.y + v.y);
+            }
+            
+            subtract(v) {
+                return new Vector2D(this.x - v.x, this.y - v.y);
+            }
+            
+            multiply(n) {
+                return new Vector2D(this.x * n, this.y * n);
+            }
+            
+            magnitude() {
+                return Math.sqrt(this.x * this.x + this.y * this.y);
+            }
+            
+            normalize() {
+                const mag = this.magnitude();
+                if (mag === 0) return new Vector2D();
+                return this.multiply(1 / mag);
+            }
+        }
 
-            <!-- Connection lines -->
-            <fc-rope source="#box1" target="#box2"></fc-rope>
-            <fc-rope source="#box1" target="#box3"></fc-rope>
-            <fc-rope source="#box1" target="#box4"></fc-rope>
-        </div>
-    </div>
+        class RopeSegment {
+            constructor(pos) {
+                this.pos = pos;
+                this.oldPos = pos;
+            }
 
-    <script type="module" src="/wiggly.html?html-proxy&index=0.js"></script>
+            update(gravity, friction) {
+                const velocity = this.pos.subtract(this.oldPos).multiply(friction);
+                this.oldPos = this.pos;
+                this.pos = this.pos.add(velocity).add(gravity);
+            }
+        }
+
+        class PhysicsRope extends HTMLElement {
+            constructor() {
+                super();
+                this.segments = [];
+                this.gravity = new Vector2D(0, 0.5);
+                this.friction = 0.97;
+                this.segments_count = 20;
+                this.constraint_iterations = 5;
+            }
+
+            connectedCallback() {
+                this.source = document.querySelector(this.getAttribute('source'));
+                this.target = document.querySelector(this.getAttribute('target'));
+                
+                // Create SVG element
+                this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                this.svg.style.position = 'fixed';
+                this.svg.style.top = '0';
+                this.svg.style.left = '0';
+                this.svg.style.width = '100%';
+                this.svg.style.height = '100%';
+                this.svg.style.pointerEvents = 'none';
+                
+                // Create path element
+                this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                this.path.classList.add('rope-path');
+                this.svg.appendChild(this.path);
+                this.appendChild(this.svg);
+                
+                this.initializeRope();
+                this.animate();
+            }
+
+            initializeRope() {
+                const sourceRect = this.source.getBoundingClientRect();
+                const targetRect = this.target.getBoundingClientRect();
+                
+                const start = new Vector2D(
+                    sourceRect.left + sourceRect.width / 2,
+                    sourceRect.top + sourceRect.height / 2
+                );
+                const end = new Vector2D(
+                    targetRect.left + targetRect.width / 2,
+                    targetRect.top + targetRect.height / 2
+                );
+                
+                for (let i = 0; i < this.segments_count; i++) {
+                    const t = i / (this.segments_count - 1);
+                    const pos = start.add(end.subtract(start).multiply(t));
+                    this.segments.push(new RopeSegment(pos));
+                }
+            }
+
+            updateConstraints() {
+                for (let i = 0; i < this.constraint_iterations; i++) {
+                    // Update first and last points to match boxes
+                    const sourceRect = this.source.getBoundingClientRect();
+                    const targetRect = this.target.getBoundingClientRect();
+                    
+                    this.segments[0].pos = new Vector2D(
+                        sourceRect.left + sourceRect.width / 2,
+                        sourceRect.top + sourceRect.height / 2
+                    );
+                    
+                    this.segments[this.segments.length - 1].pos = new Vector2D(
+                        targetRect.left + targetRect.width / 2,
+                        targetRect.top + targetRect.height / 2
+                    );
+                    
+                    // Distance constraint
+                    for (let i = 0; i < this.segments.length - 1; i++) {
+                        const segment1 = this.segments[i];
+                        const segment2 = this.segments[i + 1];
+                        const diff = segment2.pos.subtract(segment1.pos);
+                        const dist = diff.magnitude();
+                        const diff_normal = diff.normalize();
+                        const delta = dist - 10; // segment length
+                        
+                        if (i > 0) {
+                            segment1.pos = segment1.pos.add(diff_normal.multiply(delta * 0.5));
+                        }
+                        if (i < this.segments.length - 2) {
+                            segment2.pos = segment2.pos.subtract(diff_normal.multiply(delta * 0.5));
+                        }
+                    }
+                }
+            }
+
+            updatePath() {
+                let d = `M ${this.segments[0].pos.x} ${this.segments[0].pos.y}`;
+                
+                // Create a smooth curve through all points
+                for (let i = 1; i < this.segments.length - 2; i++) {
+                    const xc = (this.segments[i].pos.x + this.segments[i + 1].pos.x) / 2;
+                    const yc = (this.segments[i].pos.y + this.segments[i + 1].pos.y) / 2;
+                    d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${xc} ${yc}`;
+                }
+                
+                // Connect to the last point
+                const i = this.segments.length - 2;
+                d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${this.segments[i + 1].pos.x} ${this.segments[i + 1].pos.y}`;
+                
+                this.path.setAttribute('d', d);
+            }
+
+            animate = () => {
+                // Update physics
+                for (const segment of this.segments) {
+                    segment.update(this.gravity, this.friction);
+                }
+                
+                this.updateConstraints();
+                this.updatePath();
+                requestAnimationFrame(this.animate);
+            }
+        }
+
+        class DraggableGeometry extends HTMLElement {
+            constructor() {
+                super();
+                this.isDragging = false;
+                this.offset = { x: 0, y: 0 };
+            }
+
+            connectedCallback() {
+                const x = this.getAttribute('x') || '0';
+                const y = this.getAttribute('y') || '0';
+                const width = this.getAttribute('width') || '30';
+                const height = this.getAttribute('height') || '30';
+                
+                this.style.left = `${x}px`;
+                this.style.top = `${y}px`;
+                this.style.width = `${width}px`;
+                this.style.height = `${height}px`;
+                
+                this.addEventListener('mousedown', this.startDragging);
+                document.addEventListener('mousemove', this.drag);
+                document.addEventListener('mouseup', this.stopDragging);
+            }
+
+            startDragging = (e) => {
+                this.isDragging = true;
+                this.offset.x = e.clientX - this.offsetLeft;
+                this.offset.y = e.clientY - this.offsetTop;
+            }
+
+            drag = (e) => {
+                if (!this.isDragging) return;
+                this.style.left = `${e.clientX - this.offset.x}px`;
+                this.style.top = `${e.clientY - this.offset.y}px`;
+            }
+
+            stopDragging = () => {
+                this.isDragging = false;
+            }
+        }
+
+        // Register custom elements
+        customElements.define('fc-geometry', DraggableGeometry);
+        customElements.define('fc-rope', PhysicsRope);
+    </script>
+
+    <fc-rope source="#box1" target="#box2"></fc-rope>
+    <fc-rope source="#box1" target="#box3"></fc-rope>
+    <fc-rope source="#box1" target="#box4"></fc-rope>
 </body>
 </html>
