@@ -1,0 +1,2 @@
+// Based on work by James Wrightson (2018)
+// MIT License - https://github.com/guerrillacontra/html5-es6-physics-rope
