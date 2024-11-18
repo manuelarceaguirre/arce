@@ -46,49 +46,6 @@
             cursor: move;
             user-select: none;
         }
-        
-        fc-rope {
-            position: absolute;
-            pointer-events: none;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .rope-path {
-            stroke: #000;
-            stroke-width: 2;
-            fill: none;
-        }
-
-        .project-info {
-            position: fixed;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: none;
-            z-index: 1000;
-            max-width: 300px;
-        }
-
-        .project-info h3 {
-            margin: 0 0 10px 0;
-        }
-
-        .project-info a {
-            display: block;
-            margin: 5px 0;
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        .project-info a:hover {
-            text-decoration: underline;
-        }
-
-        .project-node {
-            cursor: pointer;
-        }
 
         .project-label {
             position: absolute;
@@ -99,27 +56,6 @@
             width: max-content;
             left: 50%;
             transform: translateX(-50%);
-        }
-
-        #box1 .project-label {
-            top: -20px;
-        }
-
-        #box2 .project-label {
-            left: -50%;
-            transform: translateX(-100%);
-            top: 50%;
-        }
-
-        #box3 .project-label {
-            bottom: -30px;
-            top: auto;
-        }
-
-        #box4 .project-label {
-            left: 150%;
-            transform: translateX(0);
-            top: 50%;
         }
     </style>
 </head>
@@ -134,274 +70,29 @@
         </div>
     </div>
 
-    <fc-geometry id="box1" x="600" y="350" width="30" height="30" class="main-node">
+    <fc-geometry id="box1" x="900" y="350" width="30" height="30" class="main-node">
         <div class="project-label">Manuel Arce</div>
     </fc-geometry>
 
-    <fc-geometry id="box2" x="400" y="450" width="30" height="30" class="project-node" 
+    <fc-geometry id="box2" x="700" y="450" width="30" height="30" class="project-node" 
         data-title="Insurance Charges Visualizer"
         data-website="https://insurancemodelvisualizer.vercel.app/"
         data-github="https://github.com/manuelarceaguirre/insurancemodel">
         <div class="project-label">Insurance Model</div>
     </fc-geometry>
 
-    <fc-geometry id="box3" x="600" y="550" width="30" height="30" class="project-node"
+    <fc-geometry id="box3" x="900" y="550" width="30" height="30" class="project-node"
         data-title="Drift and Ft Importance Visualizer"
         data-website="https://programming-supplement.vercel.app/"
         data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
         <div class="project-label">Programming Supplement</div>
     </fc-geometry>
 
-    <fc-geometry id="box4" x="800" y="450" width="30" height="30" class="project-node"
+    <fc-geometry id="box4" x="1100" y="450" width="30" height="30" class="project-node"
         data-title="Grupo México Contribution MATLAB"
         data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
         <div class="project-label">Grupo México</div>
     </fc-geometry>
-
-    <div id="projectInfo" class="project-info">
-        <h3></h3>
-        <div class="links"></div>
-    </div>
-
-    <script type="module">
-        class Vector2D {
-            constructor(x = 0, y = 0) {
-                this.x = x;
-                this.y = y;
-            }
-            
-            add(v) {
-                return new Vector2D(this.x + v.x, this.y + v.y);
-            }
-            
-            subtract(v) {
-                return new Vector2D(this.x - v.x, this.y - v.y);
-            }
-            
-            multiply(n) {
-                return new Vector2D(this.x * n, this.y * n);
-            }
-            
-            magnitude() {
-                return Math.sqrt(this.x * this.x + this.y * this.y);
-            }
-            
-            normalize() {
-                const mag = this.magnitude();
-                if (mag === 0) return new Vector2D();
-                return this.multiply(1 / mag);
-            }
-        }
-
-        class RopeSegment {
-            constructor(pos) {
-                this.pos = pos;
-                this.oldPos = pos;
-            }
-
-            update(gravity, friction) {
-                const velocity = this.pos.subtract(this.oldPos).multiply(friction);
-                this.oldPos = this.pos;
-                this.pos = this.pos.add(velocity).add(gravity);
-            }
-        }
-
-        class PhysicsRope extends HTMLElement {
-            constructor() {
-                super();
-                this.segments = [];
-                this.gravity = new Vector2D(0, 0.5);
-                this.friction = 0.97;
-                this.segments_count = 20;
-                this.constraint_iterations = 5;
-            }
-
-            connectedCallback() {
-                this.source = document.querySelector(this.getAttribute('source'));
-                this.target = document.querySelector(this.getAttribute('target'));
-                
-                // Create SVG element
-                this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                this.svg.style.position = 'fixed';
-                this.svg.style.top = '0';
-                this.svg.style.left = '0';
-                this.svg.style.width = '100%';
-                this.svg.style.height = '100%';
-                this.svg.style.pointerEvents = 'none';
-                
-                // Create path element
-                this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                this.path.classList.add('rope-path');
-                this.svg.appendChild(this.path);
-                this.appendChild(this.svg);
-                
-                this.initializeRope();
-                this.animate();
-            }
-
-            initializeRope() {
-                const sourceRect = this.source.getBoundingClientRect();
-                const targetRect = this.target.getBoundingClientRect();
-                
-                const start = new Vector2D(
-                    sourceRect.left + sourceRect.width / 2,
-                    sourceRect.top + sourceRect.height / 2
-                );
-                const end = new Vector2D(
-                    targetRect.left + targetRect.width / 2,
-                    targetRect.top + targetRect.height / 2
-                );
-                
-                for (let i = 0; i < this.segments_count; i++) {
-                    const t = i / (this.segments_count - 1);
-                    const pos = start.add(end.subtract(start).multiply(t));
-                    this.segments.push(new RopeSegment(pos));
-                }
-            }
-
-            updateConstraints() {
-                for (let i = 0; i < this.constraint_iterations; i++) {
-                    // Update first and last points to match boxes
-                    const sourceRect = this.source.getBoundingClientRect();
-                    const targetRect = this.target.getBoundingClientRect();
-                    
-                    this.segments[0].pos = new Vector2D(
-                        sourceRect.left + sourceRect.width / 2,
-                        sourceRect.top + sourceRect.height / 2
-                    );
-                    
-                    this.segments[this.segments.length - 1].pos = new Vector2D(
-                        targetRect.left + targetRect.width / 2,
-                        targetRect.top + targetRect.height / 2
-                    );
-                    
-                    // Distance constraint
-                    for (let i = 0; i < this.segments.length - 1; i++) {
-                        const segment1 = this.segments[i];
-                        const segment2 = this.segments[i + 1];
-                        const diff = segment2.pos.subtract(segment1.pos);
-                        const dist = diff.magnitude();
-                        const diff_normal = diff.normalize();
-                        const delta = dist - 10; // segment length
-                        
-                        if (i > 0) {
-                            segment1.pos = segment1.pos.add(diff_normal.multiply(delta * 0.5));
-                        }
-                        if (i < this.segments.length - 2) {
-                            segment2.pos = segment2.pos.subtract(diff_normal.multiply(delta * 0.5));
-                        }
-                    }
-                }
-            }
-
-            updatePath() {
-                let d = `M ${this.segments[0].pos.x} ${this.segments[0].pos.y}`;
-                
-                // Create a smooth curve through all points
-                for (let i = 1; i < this.segments.length - 2; i++) {
-                    const xc = (this.segments[i].pos.x + this.segments[i + 1].pos.x) / 2;
-                    const yc = (this.segments[i].pos.y + this.segments[i + 1].pos.y) / 2;
-                    d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${xc} ${yc}`;
-                }
-                
-                // Connect to the last point
-                const i = this.segments.length - 2;
-                d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${this.segments[i + 1].pos.x} ${this.segments[i + 1].pos.y}`;
-                
-                this.path.setAttribute('d', d);
-            }
-
-            animate = () => {
-                // Update physics
-                for (const segment of this.segments) {
-                    segment.update(this.gravity, this.friction);
-                }
-                
-                this.updateConstraints();
-                this.updatePath();
-                requestAnimationFrame(this.animate);
-            }
-        }
-
-        class DraggableGeometry extends HTMLElement {
-            constructor() {
-                super();
-                this.isDragging = false;
-                this.offset = { x: 0, y: 0 };
-            }
-
-            connectedCallback() {
-                const x = this.getAttribute('x') || '0';
-                const y = this.getAttribute('y') || '0';
-                const width = this.getAttribute('width') || '30';
-                const height = this.getAttribute('height') || '30';
-                
-                this.style.left = `${x}px`;
-                this.style.top = `${y}px`;
-                this.style.width = `${width}px`;
-                this.style.height = `${height}px`;
-                
-                this.addEventListener('mousedown', this.startDragging);
-                document.addEventListener('mousemove', this.drag);
-                document.addEventListener('mouseup', this.stopDragging);
-            }
-
-            startDragging = (e) => {
-                this.isDragging = true;
-                this.offset.x = e.clientX - this.offsetLeft;
-                this.offset.y = e.clientY - this.offsetTop;
-            }
-
-            drag = (e) => {
-                if (!this.isDragging) return;
-                this.style.left = `${e.clientX - this.offset.x}px`;
-                this.style.top = `${e.clientY - this.offset.y}px`;
-            }
-
-            stopDragging = () => {
-                this.isDragging = false;
-            }
-        }
-
-        // Register custom elements
-        customElements.define('fc-geometry', DraggableGeometry);
-        customElements.define('fc-rope', PhysicsRope);
-    </script>
-
-    <script>
-        document.querySelectorAll('.project-node').forEach(node => {
-            node.addEventListener('click', (e) => {
-                const popup = document.getElementById('projectInfo');
-                const data = e.currentTarget.dataset;
-                
-                // Set content
-                popup.querySelector('h3').textContent = data.title;
-                const links = popup.querySelector('.links');
-                links.innerHTML = '';
-                
-                if (data.website) {
-                    links.innerHTML += `<a href="${data.website}" target="_blank">View Project</a>`;
-                }
-                if (data.github) {
-                    links.innerHTML += `<a href="${data.github}" target="_blank">View on GitHub</a>`;
-                }
-                
-                // Position popup near the clicked node
-                popup.style.left = `${e.pageX + 20}px`;
-                popup.style.top = `${e.pageY}px`;
-                popup.style.display = 'block';
-                
-                e.stopPropagation();
-            });
-        });
-
-        // Close popup when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.project-info')) {
-                document.getElementById('projectInfo').style.display = 'none';
-            }
-        });
-    </script>
 
     <fc-rope source="#box1" target="#box2"></fc-rope>
     <fc-rope source="#box1" target="#box3"></fc-rope>
