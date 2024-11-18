@@ -35,21 +35,22 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            background: #3b82f6;
-            border-radius: 4px;
+            background: #000;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
 
-        .fc-geometry:hover {
-            transform: scale(1.1);
+        .camera-node {
+            background: url('camera-icon.png') no-repeat center center;
+            background-size: contain;
         }
 
         .fc-rope {
             position: absolute;
-            height: 2px;
-            background: #475569;
+            height: 1px;
+            background: #000;
             transform-origin: left center;
+            pointer-events: none;
         }
 
         .social-links {
@@ -64,26 +65,12 @@
             font-size: 1.1rem;
         }
         
-        .social-links a:hover {
-            text-decoration: underline;
-        }
-        
         .project-label {
             position: absolute;
             white-space: nowrap;
             font-size: 0.875rem;
             color: #94a3b8;
             transform: translateY(-24px);
-            cursor: pointer;
-        }
-        
-        .project-label a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .project-label a:hover {
-            color: #3b82f6;
         }
     </style>
 </head>
@@ -98,74 +85,28 @@
         
         <div class="network-container">
             <!-- Camera/Main node -->
-            <div class="fc-geometry camera-node" id="box1" style="left: 400px; top: 150px;">
+            <div class="fc-geometry camera-node" id="box1" x="100" y="100" style="left: 321px; top: 106px;">
                 <div class="project-label">Manuel Arce</div>
             </div>
 
-            <!-- Three project nodes in the spread pattern -->
-            <div class="fc-geometry" id="box2" style="left: 250px; top: 300px;">
-                <div class="project-label">
-                    <a href="https://github.com/yourusername/ml-monitor" target="_blank">ML Monitor</a>
-                </div>
+            <!-- Project nodes -->
+            <div class="fc-geometry" id="box2" x="300" y="105" style="left: 300px; top: 105px;">
+                <div class="project-label">ML Monitor</div>
             </div>
-            <div class="fc-geometry" id="box3" style="left: 350px; top: 250px;">
-                <div class="project-label">
-                    <a href="https://github.com/yourusername/project2" target="_blank">Insurance Model Visualizer</a>
-                </div>
+            <div class="fc-geometry" id="box3" x="200" y="150" style="left: 200px; top: 150px;">
+                <div class="project-label">Insurance Model Visualizer</div>
             </div>
-            <div class="fc-geometry" id="box4" style="left: 500px; top: 200px;">
-                <div class="project-label">
-                    <a href="https://github.com/yourusername/project3" target="_blank">Programming Supplement</a>
-                </div>
+            <div class="fc-geometry" id="box4" x="400" y="100" style="left: 400px; top: 100px;">
+                <div class="project-label">Programming Supplement</div>
             </div>
 
             <!-- Connection lines -->
-            <div class="fc-rope" data-source="box1" data-target="box2"></div>
-            <div class="fc-rope" data-source="box1" data-target="box3"></div>
-            <div class="fc-rope" data-source="box1" data-target="box4"></div>
+            <fc-rope source="#box1" target="#box2"></fc-rope>
+            <fc-rope source="#box1" target="#box3"></fc-rope>
+            <fc-rope source="#box1" target="#box4"></fc-rope>
         </div>
     </div>
 
-    <script>
-        function updateRopes() {
-            document.querySelectorAll('.fc-rope').forEach(rope => {
-                const source = document.getElementById(rope.dataset.source);
-                const target = document.getElementById(rope.dataset.target);
-                
-                const sourceRect = source.getBoundingClientRect();
-                const targetRect = target.getBoundingClientRect();
-                
-                const sourceX = sourceRect.left + sourceRect.width / 2;
-                const sourceY = sourceRect.top + sourceRect.height / 2;
-                const targetX = targetRect.left + targetRect.width / 2;
-                const targetY = targetRect.top + targetRect.height / 2;
-                
-                const length = Math.sqrt(Math.pow(targetX - sourceX, 2) + Math.pow(targetY - sourceY, 2));
-                const angle = Math.atan2(targetY - sourceY, targetX - sourceX);
-                
-                rope.style.width = `${length}px`;
-                rope.style.left = `${sourceX}px`;
-                rope.style.top = `${sourceY}px`;
-                rope.style.transform = `rotate(${angle}rad)`;
-            });
-        }
-
-        // Initial update and window resize handling
-        updateRopes();
-        window.addEventListener('resize', updateRopes);
-
-        // Add hover effects
-        document.querySelectorAll('.fc-geometry').forEach(node => {
-            node.addEventListener('mouseenter', () => {
-                const relatedRopes = document.querySelectorAll(`.fc-rope[data-source="${node.id}"], .fc-rope[data-target="${node.id}"]`);
-                relatedRopes.forEach(rope => rope.style.background = '#3b82f6');
-            });
-            
-            node.addEventListener('mouseleave', () => {
-                const relatedRopes = document.querySelectorAll(`.fc-rope[data-source="${node.id}"], .fc-rope[data-target="${node.id}"]`);
-                relatedRopes.forEach(rope => rope.style.background = '#475569');
-            });
-        });
-    </script>
+    <script type="module" src="/wiggly.html?html-proxy&index=0.js"></script>
 </body>
 </html>
