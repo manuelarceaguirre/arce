@@ -3,80 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manuel Arce | Data Scientist • Data Engineer • Actuary</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Manuel Arce | Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .container {
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #f8fafc;
+        }
+
+        .network-container {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .fc-geometry {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #3b82f6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .fc-geometry:hover {
+            transform: scale(1.1);
+        }
+
+        .fc-rope {
+            position: absolute;
+            height: 2px;
+            background: #475569;
+            transform-origin: left center;
+        }
+
+        .project-label {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            color: #94a3b8;
+            transform: translateY(-24px);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <div class="container">
+        <h1>Hi, I'm Manuel Arce</h1>
+        
+        <div class="network-container">
+            <!-- Central node (you) -->
+            <div class="fc-geometry" id="box1" style="left: 352px; top: 85px;">
+                <div class="project-label">Data Scientist</div>
+            </div>
+
+            <!-- Project nodes -->
+            <div class="fc-geometry" id="box2" style="left: 300px; top: 105px;">
+                <div class="project-label">Insurance Model Visualizer</div>
+            </div>
+            <div class="fc-geometry" id="box3" style="left: 200px; top: 150px;">
+                <div class="project-label">Programming Supplement</div>
+            </div>
+            <div class="fc-geometry" id="box4" style="left: 400px; top: 100px;">
+                <div class="project-label">ML Monitoring</div>
+            </div>
+
+            <!-- Connection lines -->
+            <div class="fc-rope" data-source="box1" data-target="box2"></div>
+            <div class="fc-rope" data-source="box1" data-target="box3"></div>
+            <div class="fc-rope" data-source="box1" data-target="box4"></div>
         </div>
-    </nav>
+    </div>
 
-    <main>
-        <section class="hero">
-            <span class="welcome">Welcome</span>
-            <h1>Manuel Antonio Arce Aguirre</h1>
-            <p class="title">Data Scientist • Data Engineer • Actuary</p>
-            <p class="bio">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn">View Projects</a>
-                <a href="#contact" class="btn btn-outline">Contact Me</a>
-            </div>
-            <div class="portrait-container">
-                <img src="9. Fotografía para credencial.jpg" alt="Manuel Arce" class="portrait">
-            </div>
-        </section>
+    <script>
+        function updateRopes() {
+            document.querySelectorAll('.fc-rope').forEach(rope => {
+                const source = document.getElementById(rope.dataset.source);
+                const target = document.getElementById(rope.dataset.target);
+                
+                const sourceRect = source.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                
+                const sourceX = sourceRect.left + sourceRect.width / 2;
+                const sourceY = sourceRect.top + sourceRect.height / 2;
+                const targetX = targetRect.left + targetRect.width / 2;
+                const targetY = targetRect.top + targetRect.height / 2;
+                
+                const length = Math.sqrt(Math.pow(targetX - sourceX, 2) + Math.pow(targetY - sourceY, 2));
+                const angle = Math.atan2(targetY - sourceY, targetX - sourceX);
+                
+                rope.style.width = `${length}px`;
+                rope.style.left = `${sourceX}px`;
+                rope.style.top = `${sourceY}px`;
+                rope.style.transform = `rotate(${angle}rad)`;
+            });
+        }
 
-        <section id="about" class="about">
-            <h2>About Me</h2>
-            <p>I'm a Data Scientist and Engineer with a strong foundation in Actuarial Science. I specialize in building data pipelines, developing machine learning models, and creating interactive data visualizations. My unique combination of technical and actuarial expertise allows me to transform complex data into actionable insights.</p>
-        </section>
+        // Initial update and window resize handling
+        updateRopes();
+        window.addEventListener('resize', updateRopes);
 
-        <section id="projects" class="projects">
-            <h2>Featured Projects</h2>
-            <div class="project-grid">
-                <article class="project-card">
-                    <h3>Insurance Model Visualizer</h3>
-                    <p>An interactive dashboard that brings insurance models to life through data visualization.</p>
-                    <div class="metrics">
-                        <div class="metric">
-                            <span>RMSE</span>
-                            <strong>4,258.15</strong>
-                        </div>
-                        <div class="metric">
-                            <span>MAE</span>
-                            <strong>2,440.24</strong>
-                        </div>
-                        <div class="metric">
-                            <span>R² Score</span>
-                            <strong>0.8832</strong>
-                        </div>
-                    </div>
-                    <div class="tech-stack">
-                        <span>Next.js</span>
-                        <span>D3.js</span>
-                        <span>ML</span>
-                    </div>
-                    <a href="https://insurancemodelvisualizer.vercel.app/" class="project-link" target="_blank">View Project →</a>
-                </article>
-
-                <article class="project-card">
-                    <h3>Programming Supplement</h3>
-                    <p>An educational platform focused on programming concepts with interactive learning experiences.</p>
-                    <div class="tech-stack">
-                        <span>React</span>
-                        <span>Python</span>
-                        <span>Data Analysis</span>
-                    </div>
-                    <a href="https://programming-supplement.vercel.app/" class="project-link" target="_blank">View Project →</a>
-                </article>
-            </div>
-        </section>
-    </main>
+        // Add hover effects
+        document.querySelectorAll('.fc-geometry').forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                const relatedRopes = document.querySelectorAll(`.fc-rope[data-source="${node.id}"], .fc-rope[data-target="${node.id}"]`);
+                relatedRopes.forEach(rope => rope.style.background = '#3b82f6');
+            });
+            
+            node.addEventListener('mouseleave', () => {
+                const relatedRopes = document.querySelectorAll(`.fc-rope[data-source="${node.id}"], .fc-rope[data-target="${node.id}"]`);
+                relatedRopes.forEach(rope => rope.style.background = '#475569');
+            });
+        });
+    </script>
 </body>
 </html>
