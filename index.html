@@ -59,6 +59,36 @@
             stroke-width: 2;
             fill: none;
         }
+
+        .project-info {
+            position: fixed;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .project-info h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .project-info a {
+            display: block;
+            margin: 5px 0;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .project-info a:hover {
+            text-decoration: underline;
+        }
+
+        .project-node {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -72,10 +102,34 @@
         </div>
     </div>
 
-    <fc-geometry id="box1" x="900" y="350" width="30" height="30"></fc-geometry>
-    <fc-geometry id="box2" x="700" y="450" width="30" height="30"></fc-geometry>
-    <fc-geometry id="box3" x="900" y="550" width="30" height="30"></fc-geometry>
-    <fc-geometry id="box4" x="1100" y="450" width="30" height="30"></fc-geometry>
+    <fc-geometry id="box1" x="600" y="350" width="30" height="30" class="main-node">
+        <div class="project-label">Manuel Arce</div>
+    </fc-geometry>
+
+    <fc-geometry id="box2" x="400" y="450" width="30" height="30" class="project-node" 
+        data-title="Insurance Charges Visualizer"
+        data-website="https://insurancemodelvisualizer.vercel.app/"
+        data-github="https://github.com/manuelarceaguirre/insurancemodel">
+        <div class="project-label">Insurance Model</div>
+    </fc-geometry>
+
+    <fc-geometry id="box3" x="600" y="550" width="30" height="30" class="project-node"
+        data-title="Drift and Ft Importance Visualizer"
+        data-website="https://programming-supplement.vercel.app/"
+        data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
+        <div class="project-label">Programming Supplement</div>
+    </fc-geometry>
+
+    <fc-geometry id="box4" x="800" y="450" width="30" height="30" class="project-node"
+        data-title="Grupo México Contribution MATLAB"
+        data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
+        <div class="project-label">Grupo México</div>
+    </fc-geometry>
+
+    <div id="projectInfo" class="project-info">
+        <h3></h3>
+        <div class="links"></div>
+    </div>
 
     <script type="module">
         class Vector2D {
@@ -280,6 +334,41 @@
         // Register custom elements
         customElements.define('fc-geometry', DraggableGeometry);
         customElements.define('fc-rope', PhysicsRope);
+    </script>
+
+    <script>
+        document.querySelectorAll('.project-node').forEach(node => {
+            node.addEventListener('click', (e) => {
+                const popup = document.getElementById('projectInfo');
+                const data = e.currentTarget.dataset;
+                
+                // Set content
+                popup.querySelector('h3').textContent = data.title;
+                const links = popup.querySelector('.links');
+                links.innerHTML = '';
+                
+                if (data.website) {
+                    links.innerHTML += `<a href="${data.website}" target="_blank">View Project</a>`;
+                }
+                if (data.github) {
+                    links.innerHTML += `<a href="${data.github}" target="_blank">View on GitHub</a>`;
+                }
+                
+                // Position popup near the clicked node
+                popup.style.left = `${e.pageX + 20}px`;
+                popup.style.top = `${e.pageY}px`;
+                popup.style.display = 'block';
+                
+                e.stopPropagation();
+            });
+        });
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.project-info')) {
+                document.getElementById('projectInfo').style.display = 'none';
+            }
+        });
     </script>
 
     <fc-rope source="#box1" target="#box2"></fc-rope>
