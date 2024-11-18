@@ -2,8 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Physics Rope Simulation</title>
+    <title>Manuel Arce | Portfolio</title>
     <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #000;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
         fc-geometry {
             position: absolute;
             background: #000;
@@ -26,6 +62,16 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Hi, I'm Manuel Arce</h1>
+        <p class="description">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/manuelarceaguirre" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">LinkedIn</a>
+        </div>
+    </div>
+
     <fc-geometry id="box1" x="100" y="100" width="30" height="30"></fc-geometry>
     <fc-geometry id="box2" x="300" y="105" width="30" height="30"></fc-geometry>
     <fc-geometry id="box3" x="200" y="150" width="30" height="30"></fc-geometry>
