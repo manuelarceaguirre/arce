@@ -211,28 +211,31 @@ h2 {
 .network-container {
     position: relative;
     width: 800px;
-    height: 400px;
+    height: 600px;
     margin: 0 auto;
 }
 
 .fc-geometry {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    background: var(--accent);
-    border-radius: 4px;
+    width: 12px;
+    height: 12px;
+    background: #000;  /* Black squares */
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
-.fc-geometry:hover {
-    transform: scale(1.1);
+/* Special styling for camera node */
+.camera-node {
+    width: 20px;
+    height: 20px;
+    background: #3b82f6;  /* Blue color for main node */
+    position: relative;
 }
 
 .fc-rope {
     position: absolute;
-    height: 2px;
-    background: #475569;
+    height: 1px;
+    background: #000;  /* Black lines */
     transform-origin: left center;
 }
 
@@ -240,9 +243,8 @@ h2 {
     position: absolute;
     white-space: nowrap;
     font-size: 0.875rem;
-    color: var(--secondary);
+    color: #94a3b8;
     transform: translateY(-24px);
-    cursor: pointer;
 }
 
 .project-label a {
@@ -251,7 +253,7 @@ h2 {
 }
 
 .project-label a:hover {
-    color: var(--accent);
+    color: #3b82f6;
 }
 
 /* Center node styling */
