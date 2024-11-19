@@ -223,36 +223,34 @@
         @media screen and (max-width: 428px) {
             fc-geometry {
                 position: fixed !important;
-                x: initial !important;
-                y: initial !important;
                 transform: none !important;
             }
 
-            /* Main node (top) */
+            /* Main node (top) - centered below buttons */
             #box1 {
-                left: 100px !important;
-                top: 400px !important;
-                animation: none !important;  /* Disable float animation on mobile */
+                left: 180px !important;
+                top: 200px !important;  /* Moved up to be between buttons */
+                animation: none !important;
             }
 
             /* Left node */
             #box2 {
-                left: 0px !important;
-                top: 500px !important;
+                left: 80px !important;
+                top: 300px !important;  /* Adjusted to follow main node */
                 animation: none !important;
             }
 
             /* Bottom node */
             #box3 {
-                left: 100px !important;
-                top: 600px !important;
+                left: 180px !important;
+                top: 400px !important;  /* Adjusted to follow main node */
                 animation: none !important;
             }
 
             /* Right node */
             #box4 {
-                left: 200px !important;
-                top: 500px !important;
+                left: 280px !important;
+                top: 300px !important;  /* Adjusted to follow main node */
                 animation: none !important;
             }
 
@@ -260,17 +258,6 @@
             .project-label {
                 font-size: 0.75rem;
                 white-space: nowrap;
-                position: absolute;
-            }
-
-            /* Reset any transforms on labels */
-            #box1 .project-label,
-            #box2 .project-label,
-            #box3 .project-label,
-            #box4 .project-label {
-                transform: none !important;
-                left: 0 !important;
-                top: -24px !important;
             }
         }
     </style>
