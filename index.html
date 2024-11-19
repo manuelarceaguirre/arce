@@ -217,6 +217,54 @@
         .block:nth-child(13) { top: 35%; left: 20%; width: 23px; height: 23px; animation: floatBlock 14s infinite ease-in-out; }
         .block:nth-child(14) { top: 55%; left: 90%; width: 16px; height: 16px; animation: floatBlock 17s infinite ease-in-out reverse; }
         .block:nth-child(15) { top: 25%; left: 65%; width: 18px; height: 18px; animation: floatBlock 19s infinite ease-in-out; }
+
+        /* Add responsive positioning for mobile */
+        @media screen and (max-width: 768px) {
+            fc-geometry {
+                transform: scale(0.8); /* Slightly smaller nodes on mobile */
+            }
+
+            /* Adjust node positions for mobile */
+            #box1 {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                x: initial !important;
+            }
+
+            #box2 {
+                left: 20% !important;
+                x: initial !important;
+            }
+
+            #box3 {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                x: initial !important;
+            }
+
+            #box4 {
+                left: 80% !important;
+                x: initial !important;
+            }
+
+            /* Adjust label positions for mobile */
+            .project-label {
+                font-size: 0.75rem; /* Smaller text on mobile */
+                white-space: nowrap;
+            }
+        }
+
+        /* iPhone specific adjustments if needed */
+        @media screen and (max-width: 428px) { /* iPhone 13 Pro Max width */
+            fc-geometry {
+                transform: scale(0.7); /* Even smaller for iPhone */
+            }
+
+            #box1 { top: 300px !important; }
+            #box2 { top: 400px !important; }
+            #box3 { top: 500px !important; }
+            #box4 { top: 400px !important; }
+        }
     </style>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9ImJsYWNrIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSA4IDgpIi8+PC9zdmc+" />
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABQSURBVFiF7dexDcAgDERRyP4zmwUyACMkLBHRpDFSnuSqd7ZlyzYzS+zMbTgB/wHs3SU454Gqegx+tN4LwO7whQEAAAAAAAAAAAAAAAAAgPcAS/oYCgwvpqwAAAAASUVORK5CYII=" />
