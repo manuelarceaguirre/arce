@@ -33,11 +33,43 @@
         }
 
         .social-links a {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin: 0 10px;
+            padding: 8px 16px;
             color: #000;
             text-decoration: none;
-            padding: 5px 10px;
+            border: 1px solid #000;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .social-links img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .social-links a:hover img {
+            filter: invert(1);  /* Makes the black logo white on hover */
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10px, -10px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
         }
 
         fc-geometry {
@@ -45,6 +77,50 @@
             background: #000;
             cursor: move;
             user-select: none;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        fc-rope {
+            position: absolute;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .rope-path {
+            stroke: #000;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .project-info {
+            position: fixed;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            max-width: 300px;
+        }
+
+        .project-info h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .project-info a {
+            display: block;
+            margin: 5px 0;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .project-info a:hover {
+            text-decoration: underline;
+        }
+
+        .project-node {
+            cursor: pointer;
         }
 
         .project-label {
@@ -57,35 +133,147 @@
             left: 50%;
             transform: translateX(-50%);
         }
+
+        #box1 .project-label {
+            top: -20px;
+        }
+
+        #box2 .project-label {
+            left: -50%;
+            transform: translateX(-100%);
+            top: 50%;
+        }
+
+        #box3 .project-label {
+            bottom: -30px;
+            top: auto;
+        }
+
+        #box4 .project-label {
+            left: 150%;
+            transform: translateX(0);
+            top: 50%;
+        }
+
+        /* Give each node a slightly different timing */
+        #box1 { animation-delay: 0s; }
+        #box2 { animation-delay: -2s; }
+        #box3 { animation-delay: -4s; }
+        #box4 { animation-delay: -6s; }
+
+        .drag-instruction {
+            position: absolute;
+            top: 250px;  /* Adjust based on your layout */
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .background-blocks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .block {
+            position: absolute;
+            background: #000;
+            opacity: 0.05;
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes floatBlock {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(15px, -15px) rotate(45deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        /* More blocks with varied positions and animations */
+        .block:nth-child(1) { top: 15%; left: 15%; animation: floatBlock 12s infinite ease-in-out; }
+        .block:nth-child(2) { top: 75%; left: 25%; width: 15px; height: 15px; animation: floatBlock 15s infinite ease-in-out reverse; }
+        .block:nth-child(3) { top: 25%; left: 80%; width: 25px; height: 25px; animation: floatBlock 18s infinite ease-in-out; }
+        .block:nth-child(4) { top: 80%; left: 80%; width: 18px; height: 18px; animation: floatBlock 20s infinite ease-in-out reverse; }
+        .block:nth-child(5) { top: 40%; left: 60%; width: 22px; height: 22px; animation: floatBlock 16s infinite ease-in-out; }
+        .block:nth-child(6) { top: 30%; left: 40%; width: 16px; height: 16px; animation: floatBlock 14s infinite ease-in-out reverse; }
+        .block:nth-child(7) { top: 65%; left: 35%; width: 20px; height: 20px; animation: floatBlock 17s infinite ease-in-out; }
+        .block:nth-child(8) { top: 45%; left: 85%; width: 14px; height: 14px; animation: floatBlock 19s infinite ease-in-out reverse; }
+        .block:nth-child(9) { top: 10%; left: 50%; width: 24px; height: 24px; animation: floatBlock 13s infinite ease-in-out; }
+        .block:nth-child(10) { top: 85%; left: 15%; width: 17px; height: 17px; animation: floatBlock 16s infinite ease-in-out reverse; }
+        .block:nth-child(11) { top: 20%; left: 30%; width: 19px; height: 19px; animation: floatBlock 15s infinite ease-in-out; }
+        .block:nth-child(12) { top: 70%; left: 70%; width: 21px; height: 21px; animation: floatBlock 18s infinite ease-in-out reverse; }
+        .block:nth-child(13) { top: 35%; left: 20%; width: 23px; height: 23px; animation: floatBlock 14s infinite ease-in-out; }
+        .block:nth-child(14) { top: 55%; left: 90%; width: 16px; height: 16px; animation: floatBlock 17s infinite ease-in-out reverse; }
+        .block:nth-child(15) { top: 25%; left: 65%; width: 18px; height: 18px; animation: floatBlock 19s infinite ease-in-out; }
     </style>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9ImJsYWNrIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSA4IDgpIi8+PC9zdmc+" />
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABQSURBVFiF7dexDcAgDERRyP4zmwUyACMkLBHRpDFSnuSqd7ZlyzYzS+zMbTgB/wHs3SU454Gqegx+tN4LwO7whQEAAAAAAAAAAAAAAAAAgPcAS/oYCgwvpqwAAAAASUVORK5CYII=" />
 </head>
 <body>
+    <div class="background-blocks">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+    </div>
+
     <div class="header">
         <h1>Hi, I'm Manuel Arce</h1>
         <p class="description">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
         
         <div class="social-links">
-            <a href="https://github.com/manuelarceaguirre" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/manuelarceaguirre" target="_blank">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40My4zNzIuODIzIDEuMTAyLjgyMyAyLjIyMnYzLjI5M2MwIC4zMTkuMTkyLjY5NC44MDEuNTc2IDQuNzY1LTEuNTg5IDguMTk5LTYuMDg2IDguMTk5LTExLjM4NiAwLTYuNjI3LTUuMzczLTEyLTEyLTEyeiIvPjwvc3ZnPg==" alt="GitHub">
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgMGgtMTRjLTIuNzYxIDAtNSAyLjIzOS01IDV2MTRjMCAyLjc2MSAyLjIzOSA1IDUgNWgxNGMyLjc2MiAwIDUtMi4yMzkgNS01di0xNGMwLTIuNzYxLTIuMjM4LTUtNS01em0tMTEgMTloLTN2LTExaDN2MTF6bS0xLjUtMTIuMjY4Yy0uOTY2IDAtMS43NS0uNzktMS43NS0xLjc2NHMuNzg0LTEuNzY0IDEuNzUtMS43NjQgMS43NS43OSAxLjc1IDEuNzY0LS43ODMgMS43NjQtMS43NSAxLjc2NHptMTMuNSAxMi4yNjhoLTN2LTUuNjA0YzAtMy4zNjgtNC0zLjExMy00IDB2NS42MDRoLTN2LTExaDN2MS43NjVjMS4zOTYtMi41ODYgNy0yLjc3NyA3IDIuNDc2djYuNzU5eiIvPjwvc3ZnPg==" alt="LinkedIn">
+                LinkedIn
+            </a>
         </div>
     </div>
 
+    <div class="drag-instruction"> Drag the nodes to explore </div>
+
     <fc-geometry id="box1" x="900" y="350" width="30" height="30" class="main-node">
-        <div class="project-label">Manuel Arce</div>
+        <div class="project-label">Projects</div>
     </fc-geometry>
 
     <fc-geometry id="box2" x="700" y="450" width="30" height="30" class="project-node" 
         data-title="Insurance Charges Visualizer"
         data-website="https://insurancemodelvisualizer.vercel.app/"
         data-github="https://github.com/manuelarceaguirre/insurancemodel">
-        <div class="project-label">Insurance Model</div>
+        <div class="project-label">Insurance Charges Visualizer</div>
     </fc-geometry>
 
     <fc-geometry id="box3" x="900" y="550" width="30" height="30" class="project-node"
         data-title="Drift and Ft Importance Visualizer"
         data-website="https://programming-supplement.vercel.app/"
         data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
-        <div class="project-label">Programming Supplement</div>
+        <div class="project-label">Drift Visualizer</div>
     </fc-geometry>
 
     <fc-geometry id="box4" x="1100" y="450" width="30" height="30" class="project-node"
@@ -93,6 +281,251 @@
         data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
         <div class="project-label">Grupo México</div>
     </fc-geometry>
+
+    <div id="projectInfo" class="project-info">
+        <h3></h3>
+        <div class="links"></div>
+    </div>
+
+    <script type="module">
+        class Vector2D {
+            constructor(x = 0, y = 0) {
+                this.x = x;
+                this.y = y;
+            }
+            
+            add(v) {
+                return new Vector2D(this.x + v.x, this.y + v.y);
+            }
+            
+            subtract(v) {
+                return new Vector2D(this.x - v.x, this.y - v.y);
+            }
+            
+            multiply(n) {
+                return new Vector2D(this.x * n, this.y * n);
+            }
+            
+            magnitude() {
+                return Math.sqrt(this.x * this.x + this.y * this.y);
+            }
+            
+            normalize() {
+                const mag = this.magnitude();
+                if (mag === 0) return new Vector2D();
+                return this.multiply(1 / mag);
+            }
+        }
+
+        class RopeSegment {
+            constructor(pos) {
+                this.pos = pos;
+                this.oldPos = pos;
+            }
+
+            update(gravity, friction) {
+                const velocity = this.pos.subtract(this.oldPos).multiply(friction);
+                this.oldPos = this.pos;
+                this.pos = this.pos.add(velocity).add(gravity);
+            }
+        }
+
+        class PhysicsRope extends HTMLElement {
+            constructor() {
+                super();
+                this.segments = [];
+                this.gravity = new Vector2D(0, 0.5);
+                this.friction = 0.97;
+                this.segments_count = 20;
+                this.constraint_iterations = 5;
+            }
+
+            connectedCallback() {
+                this.source = document.querySelector(this.getAttribute('source'));
+                this.target = document.querySelector(this.getAttribute('target'));
+                
+                // Create SVG element
+                this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                this.svg.style.position = 'fixed';
+                this.svg.style.top = '0';
+                this.svg.style.left = '0';
+                this.svg.style.width = '100%';
+                this.svg.style.height = '100%';
+                this.svg.style.pointerEvents = 'none';
+                
+                // Create path element
+                this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                this.path.classList.add('rope-path');
+                this.svg.appendChild(this.path);
+                this.appendChild(this.svg);
+                
+                this.initializeRope();
+                this.animate();
+            }
+
+            initializeRope() {
+                const sourceRect = this.source.getBoundingClientRect();
+                const targetRect = this.target.getBoundingClientRect();
+                
+                const start = new Vector2D(
+                    sourceRect.left + sourceRect.width / 2,
+                    sourceRect.top + sourceRect.height / 2
+                );
+                const end = new Vector2D(
+                    targetRect.left + targetRect.width / 2,
+                    targetRect.top + targetRect.height / 2
+                );
+                
+                for (let i = 0; i < this.segments_count; i++) {
+                    const t = i / (this.segments_count - 1);
+                    const pos = start.add(end.subtract(start).multiply(t));
+                    this.segments.push(new RopeSegment(pos));
+                }
+            }
+
+            updateConstraints() {
+                for (let i = 0; i < this.constraint_iterations; i++) {
+                    // Update first and last points to match boxes
+                    const sourceRect = this.source.getBoundingClientRect();
+                    const targetRect = this.target.getBoundingClientRect();
+                    
+                    this.segments[0].pos = new Vector2D(
+                        sourceRect.left + sourceRect.width / 2,
+                        sourceRect.top + sourceRect.height / 2
+                    );
+                    
+                    this.segments[this.segments.length - 1].pos = new Vector2D(
+                        targetRect.left + targetRect.width / 2,
+                        targetRect.top + targetRect.height / 2
+                    );
+                    
+                    // Distance constraint
+                    for (let i = 0; i < this.segments.length - 1; i++) {
+                        const segment1 = this.segments[i];
+                        const segment2 = this.segments[i + 1];
+                        const diff = segment2.pos.subtract(segment1.pos);
+                        const dist = diff.magnitude();
+                        const diff_normal = diff.normalize();
+                        const delta = dist - 10; // segment length
+                        
+                        if (i > 0) {
+                            segment1.pos = segment1.pos.add(diff_normal.multiply(delta * 0.5));
+                        }
+                        if (i < this.segments.length - 2) {
+                            segment2.pos = segment2.pos.subtract(diff_normal.multiply(delta * 0.5));
+                        }
+                    }
+                }
+            }
+
+            updatePath() {
+                let d = `M ${this.segments[0].pos.x} ${this.segments[0].pos.y}`;
+                
+                // Create a smooth curve through all points
+                for (let i = 1; i < this.segments.length - 2; i++) {
+                    const xc = (this.segments[i].pos.x + this.segments[i + 1].pos.x) / 2;
+                    const yc = (this.segments[i].pos.y + this.segments[i + 1].pos.y) / 2;
+                    d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${xc} ${yc}`;
+                }
+                
+                // Connect to the last point
+                const i = this.segments.length - 2;
+                d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${this.segments[i + 1].pos.x} ${this.segments[i + 1].pos.y}`;
+                
+                this.path.setAttribute('d', d);
+            }
+
+            animate = () => {
+                // Update physics
+                for (const segment of this.segments) {
+                    segment.update(this.gravity, this.friction);
+                }
+                
+                this.updateConstraints();
+                this.updatePath();
+                requestAnimationFrame(this.animate);
+            }
+        }
+
+        class DraggableGeometry extends HTMLElement {
+            constructor() {
+                super();
+                this.isDragging = false;
+                this.offset = { x: 0, y: 0 };
+            }
+
+            connectedCallback() {
+                const x = this.getAttribute('x') || '0';
+                const y = this.getAttribute('y') || '0';
+                const width = this.getAttribute('width') || '30';
+                const height = this.getAttribute('height') || '30';
+                
+                this.style.left = `${x}px`;
+                this.style.top = `${y}px`;
+                this.style.width = `${width}px`;
+                this.style.height = `${height}px`;
+                
+                this.addEventListener('mousedown', this.startDragging);
+                document.addEventListener('mousemove', this.drag);
+                document.addEventListener('mouseup', this.stopDragging);
+            }
+
+            startDragging = (e) => {
+                this.isDragging = true;
+                this.offset.x = e.clientX - this.offsetLeft;
+                this.offset.y = e.clientY - this.offsetTop;
+            }
+
+            drag = (e) => {
+                if (!this.isDragging) return;
+                this.style.left = `${e.clientX - this.offset.x}px`;
+                this.style.top = `${e.clientY - this.offset.y}px`;
+            }
+
+            stopDragging = () => {
+                this.isDragging = false;
+            }
+        }
+
+        // Register custom elements
+        customElements.define('fc-geometry', DraggableGeometry);
+        customElements.define('fc-rope', PhysicsRope);
+    </script>
+
+    <script>
+        document.querySelectorAll('.project-node').forEach(node => {
+            node.addEventListener('click', (e) => {
+                const popup = document.getElementById('projectInfo');
+                const data = e.currentTarget.dataset;
+                
+                // Set content
+                popup.querySelector('h3').textContent = data.title;
+                const links = popup.querySelector('.links');
+                links.innerHTML = '';
+                
+                if (data.website) {
+                    links.innerHTML += `<a href="${data.website}" target="_blank">View Project</a>`;
+                }
+                if (data.github) {
+                    links.innerHTML += `<a href="${data.github}" target="_blank">View on GitHub</a>`;
+                }
+                
+                // Position popup near the clicked node
+                popup.style.left = `${e.pageX + 20}px`;
+                popup.style.top = `${e.pageY}px`;
+                popup.style.display = 'block';
+                
+                e.stopPropagation();
+            });
+        });
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.project-info')) {
+                document.getElementById('projectInfo').style.display = 'none';
+            }
+        });
+    </script>
 
     <fc-rope source="#box1" target="#box2"></fc-rope>
     <fc-rope source="#box1" target="#box3"></fc-rope>
