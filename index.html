@@ -33,11 +33,43 @@
         }
 
         .social-links a {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin: 0 10px;
+            padding: 8px 16px;
             color: #000;
             text-decoration: none;
-            padding: 5px 10px;
+            border: 1px solid #000;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .social-links img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .social-links a:hover img {
+            filter: invert(1);  /* Makes the black logo white on hover */
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10px, -10px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
         }
 
         fc-geometry {
@@ -45,6 +77,7 @@
             background: #000;
             cursor: move;
             user-select: none;
+            animation: float 8s ease-in-out infinite;
         }
         
         fc-rope {
@@ -121,38 +154,129 @@
             transform: translateX(0);
             top: 50%;
         }
+
+        /* Give each node a slightly different timing */
+        #box1 { animation-delay: 0s; }
+        #box2 { animation-delay: -2s; }
+        #box3 { animation-delay: -4s; }
+        #box4 { animation-delay: -6s; }
+
+        .drag-instruction {
+            position: absolute;
+            top: 250px;  /* Adjust based on your layout */
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .background-blocks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .block {
+            position: absolute;
+            background: #000;
+            opacity: 0.05;
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes floatBlock {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(15px, -15px) rotate(45deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        /* More blocks with varied positions and animations */
+        .block:nth-child(1) { top: 15%; left: 15%; animation: floatBlock 12s infinite ease-in-out; }
+        .block:nth-child(2) { top: 75%; left: 25%; width: 15px; height: 15px; animation: floatBlock 15s infinite ease-in-out reverse; }
+        .block:nth-child(3) { top: 25%; left: 80%; width: 25px; height: 25px; animation: floatBlock 18s infinite ease-in-out; }
+        .block:nth-child(4) { top: 80%; left: 80%; width: 18px; height: 18px; animation: floatBlock 20s infinite ease-in-out reverse; }
+        .block:nth-child(5) { top: 40%; left: 60%; width: 22px; height: 22px; animation: floatBlock 16s infinite ease-in-out; }
+        .block:nth-child(6) { top: 30%; left: 40%; width: 16px; height: 16px; animation: floatBlock 14s infinite ease-in-out reverse; }
+        .block:nth-child(7) { top: 65%; left: 35%; width: 20px; height: 20px; animation: floatBlock 17s infinite ease-in-out; }
+        .block:nth-child(8) { top: 45%; left: 85%; width: 14px; height: 14px; animation: floatBlock 19s infinite ease-in-out reverse; }
+        .block:nth-child(9) { top: 10%; left: 50%; width: 24px; height: 24px; animation: floatBlock 13s infinite ease-in-out; }
+        .block:nth-child(10) { top: 85%; left: 15%; width: 17px; height: 17px; animation: floatBlock 16s infinite ease-in-out reverse; }
+        .block:nth-child(11) { top: 20%; left: 30%; width: 19px; height: 19px; animation: floatBlock 15s infinite ease-in-out; }
+        .block:nth-child(12) { top: 70%; left: 70%; width: 21px; height: 21px; animation: floatBlock 18s infinite ease-in-out reverse; }
+        .block:nth-child(13) { top: 35%; left: 20%; width: 23px; height: 23px; animation: floatBlock 14s infinite ease-in-out; }
+        .block:nth-child(14) { top: 55%; left: 90%; width: 16px; height: 16px; animation: floatBlock 17s infinite ease-in-out reverse; }
+        .block:nth-child(15) { top: 25%; left: 65%; width: 18px; height: 18px; animation: floatBlock 19s infinite ease-in-out; }
     </style>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9ImJsYWNrIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSA4IDgpIi8+PC9zdmc+" />
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABQSURBVFiF7dexDcAgDERRyP4zmwUyACMkLBHRpDFSnuSqd7ZlyzYzS+zMbTgB/wHs3SU454Gqegx+tN4LwO7whQEAAAAAAAAAAAAAAAAAgPcAS/oYCgwvpqwAAAAASUVORK5CYII=" />
 </head>
 <body>
+    <div class="background-blocks">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+    </div>
+
     <div class="header">
         <h1>Hi, I'm Manuel Arce</h1>
         <p class="description">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
         
         <div class="social-links">
-            <a href="https://github.com/manuelarceaguirre" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/manuelarceaguirre" target="_blank">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40My4zNzIuODIzIDEuMTAyLjgyMyAyLjIyMnYzLjI5M2MwIC4zMTkuMTkyLjY5NC44MDEuNTc2IDQuNzY1LTEuNTg5IDguMTk5LTYuMDg2IDguMTk5LTExLjM4NiAwLTYuNjI3LTUuMzczLTEyLTEyLTEyeiIvPjwvc3ZnPg==" alt="GitHub">
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgMGgtMTRjLTIuNzYxIDAtNSAyLjIzOS01IDV2MTRjMCAyLjc2MSAyLjIzOSA1IDUgNWgxNGMyLjc2MiAwIDUtMi4yMzkgNS01di0xNGMwLTIuNzYxLTIuMjM4LTUtNS01em0tMTEgMTloLTN2LTExaDN2MTF6bS0xLjUtMTIuMjY4Yy0uOTY2IDAtMS43NS0uNzktMS43NS0xLjc2NHMuNzg0LTEuNzY0IDEuNzUtMS43NjQgMS43NS43OSAxLjc1IDEuNzY0LS43ODMgMS43NjQtMS43NSAxLjc2NHptMTMuNSAxMi4yNjhoLTN2LTUuNjA0YzAtMy4zNjgtNC0zLjExMy00IDB2NS42MDRoLTN2LTExaDN2MS43NjVjMS4zOTYtMi41ODYgNy0yLjc3NyA3IDIuNDc2djYuNzU5eiIvPjwvc3ZnPg==" alt="LinkedIn">
+                LinkedIn
+            </a>
         </div>
     </div>
 
-    <fc-geometry id="box1" x="600" y="350" width="30" height="30" class="main-node">
-        <div class="project-label">Manuel Arce</div>
+    <div class="drag-instruction"> Drag the nodes to explore </div>
+
+    <fc-geometry id="box1" x="900" y="350" width="30" height="30" class="main-node">
+        <div class="project-label">Projects</div>
     </fc-geometry>
 
-    <fc-geometry id="box2" x="400" y="450" width="30" height="30" class="project-node" 
+    <fc-geometry id="box2" x="700" y="450" width="30" height="30" class="project-node" 
         data-title="Insurance Charges Visualizer"
         data-website="https://insurancemodelvisualizer.vercel.app/"
         data-github="https://github.com/manuelarceaguirre/insurancemodel">
-        <div class="project-label">Insurance Model</div>
+        <div class="project-label">Insurance Charges Visualizer</div>
     </fc-geometry>
 
-    <fc-geometry id="box3" x="600" y="550" width="30" height="30" class="project-node"
+    <fc-geometry id="box3" x="900" y="550" width="30" height="30" class="project-node"
         data-title="Drift and Ft Importance Visualizer"
         data-website="https://programming-supplement.vercel.app/"
         data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
-        <div class="project-label">Programming Supplement</div>
+        <div class="project-label">Drift Visualizer</div>
     </fc-geometry>
 
-    <fc-geometry id="box4" x="800" y="450" width="30" height="30" class="project-node"
+    <fc-geometry id="box4" x="1100" y="450" width="30" height="30" class="project-node"
         data-title="Grupo México Contribution MATLAB"
         data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
         <div class="project-label">Grupo México</div>
