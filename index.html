@@ -217,102 +217,6 @@
         .block:nth-child(13) { top: 35%; left: 20%; width: 23px; height: 23px; animation: floatBlock 14s infinite ease-in-out; }
         .block:nth-child(14) { top: 55%; left: 90%; width: 16px; height: 16px; animation: floatBlock 17s infinite ease-in-out reverse; }
         .block:nth-child(15) { top: 25%; left: 65%; width: 18px; height: 18px; animation: floatBlock 19s infinite ease-in-out; }
-
-        /* Add responsive positioning for mobile */
-        @media screen and (max-width: 768px) {
-            fc-geometry {
-                transform: scale(0.8); /* Slightly smaller nodes on mobile */
-            }
-
-            /* Adjust node positions for mobile */
-            #box1 {
-                left: 50% !important;
-                transform: translateX(-50%) !important;
-                x: initial !important;
-            }
-
-            #box2 {
-                left: 20% !important;
-                x: initial !important;
-            }
-
-            #box3 {
-                left: 50% !important;
-                transform: translateX(-50%) !important;
-                x: initial !important;
-            }
-
-            #box4 {
-                left: 80% !important;
-                x: initial !important;
-            }
-
-            /* Adjust label positions for mobile */
-            .project-label {
-                font-size: 0.75rem; /* Smaller text on mobile */
-                white-space: nowrap;
-            }
-        }
-
-        /* iPhone specific adjustments */
-        @media screen and (max-width: 428px) {
-            /* Reset any absolute positioning from desktop */
-            fc-geometry {
-                position: absolute !important;
-                transform: none !important;
-            }
-
-            /* Main node (top) */
-            #box1 {
-                left: calc(50% - 15px) !important; /* 15px is half the node width */
-                top: 400px !important;
-                x: initial !important;
-                y: initial !important;
-            }
-
-            /* Left node */
-            #box2 {
-                left: calc(50% - 115px) !important; /* 100px left from center + half node width */
-                top: 500px !important;
-                x: initial !important;
-                y: initial !important;
-            }
-
-            /* Bottom node */
-            #box3 {
-                left: calc(50% - 15px) !important;
-                top: 600px !important;
-                x: initial !important;
-                y: initial !important;
-            }
-
-            /* Right node */
-            #box4 {
-                left: calc(50% + 85px) !important; /* 100px right from center - half node width */
-                top: 500px !important;
-                x: initial !important;
-                y: initial !important;
-            }
-
-            /* Make sure labels stay with nodes */
-            .project-label {
-                font-size: 0.75rem;
-                white-space: nowrap;
-                position: absolute;
-                width: max-content;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            /* Ensure ropes connect properly */
-            fc-rope {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                left: 0;
-                top: 0;
-            }
-        }
     </style>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9ImJsYWNrIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSA4IDgpIi8+PC9zdmc+" />
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABQSURBVFiF7dexDcAgDERRyP4zmwUyACMkLBHRpDFSnuSqd7ZlyzYzS+zMbTgB/wHs3SU454Gqegx+tN4LwO7whQEAAAAAAAAAAAAAAAAAgPcAS/oYCgwvpqwAAAAASUVORK5CYII=" />
@@ -352,33 +256,31 @@
         </div>
     </div>
 
-    <div class="drag-instruction"> Click on the nodes to explore! </div>
+    <div class="drag-instruction"> Drag the nodes to explore </div>
 
-    <div class="nodes-container">
-        <fc-geometry id="box1" width="30" height="30" class="main-node">
-            <div class="project-label">Projects</div>
-        </fc-geometry>
+    <fc-geometry id="box1" x="900" y="350" width="30" height="30" class="main-node">
+        <div class="project-label">Projects</div>
+    </fc-geometry>
 
-        <fc-geometry id="box2" width="30" height="30" class="project-node" 
-            data-title="Insurance Charges Visualizer"
-            data-website="https://insurancemodelvisualizer.vercel.app/"
-            data-github="https://github.com/manuelarceaguirre/insurancemodel">
-            <div class="project-label">Insurance Model</div>
-        </fc-geometry>
+    <fc-geometry id="box2" x="700" y="450" width="30" height="30" class="project-node" 
+        data-title="Insurance Charges Visualizer"
+        data-website="https://insurancemodelvisualizer.vercel.app/"
+        data-github="https://github.com/manuelarceaguirre/insurancemodel">
+        <div class="project-label">Insurance Charges Visualizer</div>
+    </fc-geometry>
 
-        <fc-geometry id="box3" width="30" height="30" class="project-node"
-            data-title="Drift and Ft Importance Visualizer"
-            data-website="https://programming-supplement.vercel.app/"
-            data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
-            <div class="project-label">Programming Supplement</div>
-        </fc-geometry>
+    <fc-geometry id="box3" x="900" y="550" width="30" height="30" class="project-node"
+        data-title="Drift and Ft Importance Visualizer"
+        data-website="https://programming-supplement.vercel.app/"
+        data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
+        <div class="project-label">Drift Visualizer</div>
+    </fc-geometry>
 
-        <fc-geometry id="box4" width="30" height="30" class="project-node"
-            data-title="Grupo México Contribution MATLAB"
-            data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
-            <div class="project-label">Grupo México</div>
-        </fc-geometry>
-    </div>
+    <fc-geometry id="box4" x="1100" y="450" width="30" height="30" class="project-node"
+        data-title="Grupo México Contribution MATLAB"
+        data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
+        <div class="project-label">Grupo México</div>
+    </fc-geometry>
 
     <div id="projectInfo" class="project-info">
         <h3></h3>
