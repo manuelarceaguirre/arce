@@ -217,6 +217,46 @@
         .block:nth-child(13) { top: 35%; left: 20%; width: 23px; height: 23px; animation: floatBlock 14s infinite ease-in-out; }
         .block:nth-child(14) { top: 55%; left: 90%; width: 16px; height: 16px; animation: floatBlock 17s infinite ease-in-out reverse; }
         .block:nth-child(15) { top: 25%; left: 65%; width: 18px; height: 18px; animation: floatBlock 19s infinite ease-in-out; }
+
+        /* iPhone specific positions */
+        @media screen and (max-width: 428px) {
+            /* Reset force-canvas positions */
+            fc-geometry {
+                position: fixed !important;
+                x: initial !important;
+                y: initial !important;
+            }
+
+            /* Main node (top) */
+            #box1 {
+                left: 180px !important;
+                top: 400px !important;
+            }
+
+            /* Left node */
+            #box2 {
+                left: 80px !important;
+                top: 500px !important;
+            }
+
+            /* Bottom node */
+            #box3 {
+                left: 180px !important;
+                top: 600px !important;
+            }
+
+            /* Right node */
+            #box4 {
+                left: 280px !important;
+                top: 500px !important;
+            }
+
+            /* Adjust labels for mobile */
+            .project-label {
+                font-size: 0.75rem;
+                white-space: nowrap;
+            }
+        }
     </style>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9ImJsYWNrIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSA4IDgpIi8+PC9zdmc+" />
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABQSURBVFiF7dexDcAgDERRyP4zmwUyACMkLBHRpDFSnuSqd7ZlyzYzS+zMbTgB/wHs3SU454Gqegx+tN4LwO7whQEAAAAAAAAAAAAAAAAAgPcAS/oYCgwvpqwAAAAASUVORK5CYII=" />
