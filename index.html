@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Manuel Arce | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             margin: 0;
@@ -220,39 +221,56 @@
 
         /* iPhone specific positions */
         @media screen and (max-width: 428px) {
-            /* Reset force-canvas positions */
             fc-geometry {
                 position: fixed !important;
+                x: initial !important;
+                y: initial !important;
+                transform: none !important;
             }
 
-            /* Main node (top) - moved 80px left */
+            /* Main node (top) */
             #box1 {
-                left: 100px !important;  /* 180px - 80px */
+                left: 100px !important;
                 top: 400px !important;
+                animation: none !important;  /* Disable float animation on mobile */
             }
 
-            /* Left node - moved 80px left */
+            /* Left node */
             #box2 {
-                left: 0px !important;    /* 80px - 80px */
+                left: 0px !important;
                 top: 500px !important;
+                animation: none !important;
             }
 
-            /* Bottom node - moved 80px left */
+            /* Bottom node */
             #box3 {
-                left: 100px !important;  /* 180px - 80px */
+                left: 100px !important;
                 top: 600px !important;
+                animation: none !important;
             }
 
-            /* Right node - moved 80px left */
+            /* Right node */
             #box4 {
-                left: 200px !important;  /* 280px - 80px */
+                left: 200px !important;
                 top: 500px !important;
+                animation: none !important;
             }
 
             /* Adjust labels for mobile */
             .project-label {
                 font-size: 0.75rem;
                 white-space: nowrap;
+                position: absolute;
+            }
+
+            /* Reset any transforms on labels */
+            #box1 .project-label,
+            #box2 .project-label,
+            #box3 .project-label,
+            #box4 .project-label {
+                transform: none !important;
+                left: 0 !important;
+                top: -24px !important;
             }
         }
     </style>
