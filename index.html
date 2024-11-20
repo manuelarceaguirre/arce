@@ -133,6 +133,7 @@
             width: max-content;
             left: 50%;
             transform: translateX(-50%);
+            top: -20px;
         }
 
         #box1 .project-label {
@@ -140,20 +141,33 @@
         }
 
         #box2 .project-label {
-            left: -50%;
-            transform: translateX(-100%);
-            top: 50%;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         #box3 .project-label {
-            bottom: -30px;
-            top: auto;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         #box4 .project-label {
-            left: 150%;
-            transform: translateX(0);
-            top: 50%;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #box5 .project-label {
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #box6 .project-label {
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         /* Give each node a slightly different timing */
@@ -161,6 +175,8 @@
         #box2 { animation-delay: -2s; }
         #box3 { animation-delay: -4s; }
         #box4 { animation-delay: -6s; }
+        #box5 { animation-delay: -8s; }
+        #box6 { animation-delay: -10s; }
 
         .drag-instruction {
             position: absolute;
@@ -254,6 +270,20 @@
                 animation: none !important;
             }
 
+            /* AWS node */
+            #box5 {
+                left: 180px !important;
+                top: 300px !important;
+                animation: none !important;
+            }
+
+            /* StockPredict node */
+            #box6 {
+                left: 280px !important;
+                top: 300px !important;
+                animation: none !important;
+            }
+
             /* Adjust labels for mobile */
             .project-label {
                 font-size: 0.75rem;
@@ -323,6 +353,17 @@
         data-title="Grupo México Contribution MATLAB"
         data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
         <div class="project-label">Grupo México</div>
+    </fc-geometry>
+
+    <fc-geometry id="box5" x="1000" y="300" width="30" height="30" class="project-node">
+        <div class="project-label">AWS</div>
+    </fc-geometry>
+
+    <fc-geometry id="box6" x="1200" y="250" width="30" height="30" class="project-node"
+        data-title="Stock Price Prediction with AWS"
+        data-github="https://github.com/manuelarceaguirre/aws_ml_stock_email"
+        data-description="ML pipeline using XGBoost, SageMaker, Lambda, API Gateway, and SNS for real-time stock predictions and alerts">
+        <div class="project-label">StockPredict SNS</div>
     </fc-geometry>
 
     <div id="projectInfo" class="project-info">
@@ -573,5 +614,7 @@
     <fc-rope source="#box1" target="#box2"></fc-rope>
     <fc-rope source="#box1" target="#box3"></fc-rope>
     <fc-rope source="#box1" target="#box4"></fc-rope>
+    <fc-rope source="#box1" target="#box5"></fc-rope>
+    <fc-rope source="#box5" target="#box6"></fc-rope>
 </body>
 </html>
