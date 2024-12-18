@@ -7,43 +7,66 @@
     <style>
         body {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             font-family: system-ui, -apple-system, sans-serif;
+            background: #121212; /* Dark mode background */
+            color: #eee; /* Light text on dark background */
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin: 40px 0;
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: #eee;
         }
 
         .description {
-            color: #666;
+            color: #ccc;
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 auto;
             line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .trusted-by {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+
+        .trusted-by h2 {
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .trusted-by-logos img {
+            margin: 0 10px;
+            width: 60px;
+            height: auto;
+            opacity: 0.7;
         }
 
         .social-links {
-            margin-bottom: 40px;
-            text-align: center;
+            text-align: center; 
+            margin: 20px 20px 40px; 
         }
 
         .social-links a {
             display: inline-flex;
             align-items: center;
-            margin: 0 10px;
-            padding: 8px 16px;
+            margin: 0 5px 0 0;
+            padding: 4px 8px;
             color: #000;
             text-decoration: none;
             border: 1px solid #000;
             border-radius: 20px;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            background: #fff; /* white background */
         }
 
         .social-links a:hover {
@@ -52,13 +75,9 @@
         }
 
         .social-links img {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-        }
-
-        .social-links a:hover img {
-            filter: invert(1);  /* Makes the black logo white on hover */
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
         }
 
         @keyframes float {
@@ -75,117 +94,28 @@
 
         fc-geometry {
             position: absolute;
-            background: #000;
             cursor: move;
             user-select: none;
-            animation: float 8s ease-in-out infinite;
+            ;
         }
-        
+
         fc-rope {
             position: absolute;
             pointer-events: none;
             width: 100%;
             height: 100%;
         }
-        
+
         .rope-path {
-            stroke: #000;
-            stroke-width: 2;
+            stroke: #fff; 
+            stroke-width: 1;
             fill: none;
         }
 
-        .project-info {
-            position: fixed;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: none;
-            z-index: 1000;
-            max-width: 300px;
-        }
-
-        .project-info h3 {
-            margin: 0 0 10px 0;
-        }
-
-        .project-info a {
-            display: block;
-            margin: 5px 0;
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        .project-info a:hover {
-            text-decoration: underline;
-        }
-
-        .project-node {
-            cursor: pointer;
-        }
-
-        .project-label {
-            position: absolute;
-            white-space: nowrap;
-            font-size: 0.875rem;
-            color: #666;
-            transform: translateY(-24px);
-            width: max-content;
-            left: 50%;
-            transform: translateX(-50%);
-            top: -20px;
-        }
-
-        #box1 .project-label {
-            top: -20px;
-        }
-
-        #box2 .project-label {
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #box3 .project-label {
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #box4 .project-label {
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #box5 .project-label {
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #box6 .project-label {
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* Give each node a slightly different timing */
-        #box1 { animation-delay: 0s; }
-        #box2 { animation-delay: -2s; }
-        #box3 { animation-delay: -4s; }
-        #box4 { animation-delay: -6s; }
-        #box5 { animation-delay: -8s; }
-        #box6 { animation-delay: -10s; }
-
-        .drag-instruction {
-            position: absolute;
-            top: 250px;  /* Adjust based on your layout */
-            left: 50%;
-            transform: translateX(-50%);
-            color: #666;
-            font-size: 0.875rem;
-            opacity: 0.8;
+        .rope-endpoint {
+            fill: #333; /* same color as node header */
+            stroke: #fff;
+            stroke-width: 1;
         }
 
         .background-blocks {
@@ -200,7 +130,7 @@
 
         .block {
             position: absolute;
-            background: #000;
+            background: #fff;
             opacity: 0.05;
             width: 20px;
             height: 20px;
@@ -218,7 +148,6 @@
             }
         }
 
-        /* More blocks with varied positions and animations */
         .block:nth-child(1) { top: 15%; left: 15%; animation: floatBlock 12s infinite ease-in-out; }
         .block:nth-child(2) { top: 75%; left: 25%; width: 15px; height: 15px; animation: floatBlock 15s infinite ease-in-out reverse; }
         .block:nth-child(3) { top: 25%; left: 80%; width: 25px; height: 25px; animation: floatBlock 18s infinite ease-in-out; }
@@ -235,68 +164,162 @@
         .block:nth-child(14) { top: 55%; left: 90%; width: 16px; height: 16px; animation: floatBlock 17s infinite ease-in-out reverse; }
         .block:nth-child(15) { top: 25%; left: 65%; width: 18px; height: 18px; animation: floatBlock 19s infinite ease-in-out; }
 
-        /* iPhone specific positions */
         @media screen and (max-width: 428px) {
             fc-geometry {
                 position: fixed !important;
                 transform: none !important;
             }
 
-            /* Main node (top) - moved much lower */
-            #box1 {
-                left: 180px !important;
-                top: 400px !important;  /* Increased significantly */
-                animation: none !important;
-            }
-
-            /* Left node */
-            #box2 {
-                left: 80px !important;
-                top: 500px !important;  /* Adjusted to follow main node */
-                animation: none !important;
-            }
-
-            /* Bottom node */
-            #box3 {
-                left: 180px !important;
-                top: 600px !important;  /* Adjusted to follow main node */
-                animation: none !important;
-            }
-
-            /* Right node */
-            #box4 {
-                left: 280px !important;
-                top: 500px !important;  /* Adjusted to follow main node */
-                animation: none !important;
-            }
-
-            /* AWS node */
-            #box5 {
-                left: 180px !important;
-                top: 350px !important;
-                animation: none !important;
-            }
-
-            /* StockPredict node */
-            #box6 {
-                left: 280px !important;
-                top: 350px !important;
-                animation: none !important;
-            }
-
-            /* Adjust labels for mobile */
-            .project-label {
+            .node-label {
                 font-size: 0.75rem;
                 white-space: nowrap;
             }
         }
+
+        /* Updated Node Styles */
+        .aws {
+            position: absolute;
+            background-color: #fa9e15;
+            border: 1px solid #ffffff2a;
+            border-radius: 10px;
+            min-width: 180px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 999;
+            overflow: hidden;
+        }
+        .node {
+            position: absolute;
+            background-color: #222;
+            border: 1px solid #ffffff2a;
+            border-radius: 10px;
+            min-width: 180px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .node-container {
+            display: flex;
+            flex-direction: column;
+            background-color: transparent;
+        }
+
+        .node-label {
+            color: #eee;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .node-label::before,
+        .node-label::after {
+            display: none;
+        }
+
+        .node-arrow {
+            margin-left: 8px;
+            font-size: 12px;
+            transition: transform 0.2s;
+            cursor: pointer; /* Cursor indicates clickable arrow */
+        }
+
+        .node-content {
+            padding: 8px 12px;
+            font-size: 12px;
+            display: none;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .node.show-dropdown .node-arrow {
+            transform: rotate(180deg);
+        }
+
+        .node.show-dropdown .node-content {
+            display: block;
+        }
+
+        .subsection {
+            background: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+
+        .subsection h4 {
+            margin-top: 0;
+            color: #eee;
+            font-size: 13px;
+        }
+
+        .subsection p {
+            color: #bbb;
+            font-size: 12px;
+        }
+
+        .subsection a {
+            color: #1e90ff; 
+            text-decoration: none;
+            margin-right: 8px;
+        }
+
+        .subsection a:hover {
+            text-decoration: underline;
+        }
+
+        .subsection img, .subsection video {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+
+        .drag-instruction {
+            position: absolute;
+            top: 60px; 
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ccc;
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* Update the AWS logo node style */
+        #box5 {
+            background-color: #FF9900; /* Solid AWS orange color */
+            border-radius: 12px; /* Rounded corners */
+            width: 60px; /* Adjust size as needed */
+            height: 60px; /* Adjust size as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            cursor: move;
+            z-index: 1000; /* Ensure it's above the rope lines */
+        }
+
+        #box5 img {
+            width: 40px; /* Adjust size as needed */
+            height: 40px; /* Adjust size as needed */
+            pointer-events: none; /* Prevent the image from interfering with drag events */
+        }
+
+        /* Hide rope endpoints for the AWS node */
+        #box5 + fc-rope .rope-endpoint,
+        fc-rope[source="#box5"] .rope-endpoint,
+        fc-rope[target="#box5"] .rope-endpoint {
+            display: none;
+        }
+
     </style>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIGZpbGw9ImJsYWNrIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSA4IDgpIi8+PC9zdmc+" />
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABQSURBVFiF7dexDcAgDERRyP4zmwUyACMkLBHRpDFSnuSqd7ZlyzYzS+zMbTgB/wHs3SU454Gqegx+tN4LwO7whQEAAAAAAAAAAAAAAAAAgPcAS/oYCgwvpqwAAAAASUVORK5CYII=" />
 </head>
 <body>
     <div class="background-blocks">
-        <div class="block"></div>
         <div class="block"></div>
         <div class="block"></div>
         <div class="block"></div>
@@ -317,59 +340,182 @@
         <h1>Hi, I'm Manuel Arce</h1>
         <p class="description">Risk-focused Data Scientist who builds enterprise-grade ML monitoring and validation systems</p>
         
-        <div class="social-links">
-            <a href="https://github.com/manuelarceaguirre" target="_blank">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40My4zNzIuODIzIDEuMTAyLjgyMyAyLjIyMnYzLjI5M2MwIC4zMTkuMTkyLjY5NC44MDEuNTc2IDQuNzY1LTEuNTg5IDguMTk5LTYuMDg2IDguMTk5LTExLjM4NiAwLTYuNjI3LTUuMzczLTEyLTEyLTEyeiIvPjwvc3ZnPg==" alt="GitHub">
-                GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgMGgtMTRjLTIuNzYxIDAtNSAyLjIzOS01IDV2MTRjMCAyLjc2MSAyLjIzOSA1IDUgNWgxNGMyLjc2MiAwIDUtMi4yMzkgNS01di0xNGMwLTIuNzYxLTIuMjM4LTUtNS01em0tMTEgMTloLTN2LTExaDN2MTF6bS0xLjUtMTIuMjY4Yy0uOTY2IDAtMS43NS0uNzktMS43NS0xLjc2NHMuNzg0LTEuNzY0IDEuNzUtMS43NjQgMS43NS43OSAxLjc1IDEuNzY0LS43ODMgMS43NjQtMS43NSAxLjc2NHptMTMuNSAxMi4yNjhoLTN2LTUuNjA0YzAtMy4zNjgtNC0zLjExMy00IDB2NS42MDRoLTN2LTExaDN2MS43NjVjMS4zOTYtMi41ODYgNy0yLjc3NyA3IDIuNDc2djYuNzU5eiIvPjwvc3ZnPg==" alt="LinkedIn">
-                LinkedIn
-            </a>
-        </div>
+        <!-- <div class="trusted-by">
+            <h2>Trusted by:</h2>
+            <div class="trusted-by-logos">
+                <img src="https://via.placeholder.com/60x30" alt="Company Logo">
+                <img src="https://via.placeholder.com/60x30" alt="Company Logo">
+                <img src="https://via.placeholder.com/60x30" alt="Company Logo">
+            </div>
+        </div> -->
     </div>
 
-    <div class="drag-instruction"> Click and drag the nodes to explore </div>
+    <div class="social-links">
+        <a href="https://github.com/manuelarceaguirre" target="_blank">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40My4zNzIuODIzIDEuMTAyLjgyMyAyLjIyMnYzLjI5M2MwIC4zMTkuMTkyLjY5NC44MDEuNTc2IDQuNzY1LTEuNTg5IDguMTk5LTYuMDg2IDguMTk5LTExLjM4NiAwLTYuNjI3LTUuMzczLTEyLTEyLTEyeiIvPjwvc3ZnPg==" alt="GitHub">
+            GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/manuelarceaguirre/" target="_blank">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgMGgtMTRjLTIuNzYxIDAtNSAyLjIzOS01IDV2MTRjMCAyLjc2MSAyLjIzOSA1IDUgNWgxNGMyLjc2MiAwIDUtMi4yMzkgNS01di0xNGMwLTIuNzYxLTIuMjM4LTUtNS01em0tMTEgMTloLTN2LTExaDN2MTF6bS0xLjUtMTIuMjY4Yy0uOTY2IDAtMS43NS0uNzktMS43NS0xLjc2NHMuNzg0LTEuNzY0IDEuNzUtMS43NjQgMS43NS43OSAxLjc1IDEuNzY0LS43ODMgMS43NjQtMS43NSAxLjc2NHptMTMuNSAxMi4yNjhoLTN2LTUuNjA0YzAtMy4zNjgtNC0zLjExMy00IDB2NS42MDRoLTN2LTExaDM2djEuNzY1YzEuMzk2LTIuNTg2IDctMi43NzcgNyAyLjQ3NnY2Ljc1OXoiLz48L3N2Zz4=" alt="LinkedIn">
+            LinkedIn
+        </a>
+    </div>
 
-    <fc-geometry id="box1" x="900" y="350" width="30" height="30" class="main-node">
-        <div class="project-label">Projects</div>
+    <!-- Layout:
+         Projects (header node) at far left (x=900,y=350)
+         Next level to the right: AWS (header), Grupo Mexico (project), Drift Visualizer (project), Insurance Charges Visualizer (project)
+         StockPredict SNS connected to AWS (below AWS) 
+    -->
+    <script>
+        // Update click handlers to only toggle on arrow click
+        document.querySelectorAll('.node-arrow').forEach(arrow => {
+            arrow.addEventListener('click', (e) => {
+                const node = e.currentTarget.closest('.node');
+                node.classList.toggle('show-dropdown');
+                e.stopPropagation(); // Prevent event bubbling
+            });
+        });
+    
+        // Remove the project info popup click handler from nodes
+        document.querySelectorAll('.project-node').forEach(node => {
+            node.addEventListener('click', (e) => {
+                // Only handle arrow clicks
+                if (!e.target.classList.contains('node-arrow')) {
+                    e.stopPropagation();
+                }
+            });
+        });
+    </script>
+    
+    <!-- Header Node: Projects -->
+    <fc-geometry id="box1" x="900" y="350" width="180" class="node">
+        <div class="node-container">
+            <div class="node-label">
+                Projects
+                <!-- <span class="node-arrow">▼</span> -->
+            </div>
+            <!-- <div class="node-content">
+                <p>Explore various projects connected to this node.</p>
+            </div> -->
+        </div>
     </fc-geometry>
 
-    <fc-geometry id="box2" x="700" y="450" width="30" height="30" class="project-node" 
-        data-title="Insurance Charges Visualizer"
-        data-website="https://insurancemodelvisualizer.vercel.app/"
-        data-github="https://github.com/manuelarceaguirre/insurancemodel">
-        <div class="project-label">Insurance Charges Visualizer</div>
+    <!-- Header Node: AWS -->
+    <!-- Replace the existing AWS node with this -->
+    <fc-geometry id="box5" x="1200" y="450" width="60">
+        <img src="aws-logo.png" alt="AWS" style="width: 60px; height: 60px; object-fit: contain;">
     </fc-geometry>
 
-    <fc-geometry id="box3" x="900" y="550" width="30" height="30" class="project-node"
-        data-title="Drift and Ft Importance Visualizer"
-        data-website="https://programming-supplement.vercel.app/"
-        data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement">
-        <div class="project-label">Drift Visualizer</div>
-    </fc-geometry>
+    <style>
+        /* Add this style if you want to remove any default backgrounds or borders */
+        #box5 {
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+        
+        #box5 img {
+            pointer-events: none; /* This prevents the image from interfering with drag events */
+        }
+    </style>
 
-    <fc-geometry id="box4" x="1100" y="450" width="30" height="30" class="project-node"
+    <!-- Project Node: Grupo Mexico -->
+    <fc-geometry id="box4" x="300" y="370" width="180" class="node project-node"
         data-title="Grupo México Contribution MATLAB"
-        data-website="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1">
-        <div class="project-label">Grupo México</div>
+        data-github="https://github.com/manuelarceaguirre/example"
+        data-website="https://example.com/demo1">
+        <div class="node-container">
+            <div class="node-label">
+                Grupo México
+                <span class="node-arrow">▼</span>
+            </div>
+            <div class="node-content">
+                <!-- 2 subsections for project nodes: Description and Image/Video -->
+                <div class="subsection">
+                    <h4>Description</h4>
+                    <p>Analysis of options using MATLAB techniques. <a href="https://github.com/manuelarceaguirre/example" target="_blank">GitHub</a><a href="https://example.com/demo1" target="_blank">Demo</a></p>
+                </div>
+                <div class="subsection">
+                    <h4>Image/Video</h4>
+                    <img src="https://via.placeholder.com/150" alt="Placeholder">
+                </div>
+            </div>
+        </div>
     </fc-geometry>
 
-    <fc-geometry id="box5" x="1000" y="300" width="30" height="30" class="project-node">
-        <div class="project-label">AWS</div>
+    <!-- Project Node: Drift Visualizer -->
+    <fc-geometry id="box3" x="900" y="550" width="180" class="node project-node"
+        data-title="Drift and Ft Importance Visualizer"
+        data-github="https://github.com/manuelarceaguirre/ProgrammingSupplement"
+        data-website="https://programming-supplement.vercel.app/">
+        <div class="node-container">
+            <div class="node-label">
+                Drift Visualizer
+                <span class="node-arrow">▼</span>
+            </div>
+            <div class="node-content">
+                <div class="subsection">
+                    <h4>Description</h4>
+                    <p>Understand feature drift over time. <a href="https://github.com/manuelarceaguirre/ProgrammingSupplement" target="_blank">GitHub</a><a href="https://programming-supplement.vercel.app/" target="_blank">Demo</a></p>
+                </div>
+                <div class="subsection">
+                    <h4>Image/Video</h4>
+                    <img src="https://via.placeholder.com/150" alt="Placeholder">
+                </div>
+            </div>
+        </div>
     </fc-geometry>
 
-    <fc-geometry id="box6" x="1200" y="250" width="30" height="30" class="project-node"
+    <!-- Project Node: Insurance Charges Visualizer -->
+    <fc-geometry id="box2" x="500" y="600" width="180" class="node project-node"
+        data-title="Insurance Charges Visualizer"
+        data-github="https://github.com/manuelarceaguirre/insurancemodel"
+        data-website="https://insurancemodelvisualizer.vercel.app/">
+        <div class="node-container">
+            <div class="node-label">
+                Insurance Charges Visualizer
+                <span class="node-arrow">▼</span>
+            </div>
+            <div class="node-content">
+                <div class="subsection">
+                    <h4>Description</h4>
+                    <p>Visualize insurance model predictions. <a href="https://github.com/manuelarceaguirre/insurancemodel" target="_blank">GitHub</a><a href="https://insurancemodelvisualizer.vercel.app/" target="_blank">Demo</a></p>
+                </div>
+                <div class="subsection">
+                    <h4>Image/Video</h4>
+                    <img src="https://via.placeholder.com/150" alt="Placeholder">
+                </div>
+            </div>
+        </div>
+    </fc-geometry>
+
+    <!-- Project Node: StockPredict SNS connected to AWS (below AWS) -->
+    <fc-geometry id="box6" x="1500" y="600" width="180" class="node project-node"
         data-title="Stock Price Prediction with AWS"
         data-github="https://github.com/manuelarceaguirre/aws_ml_stock_email"
-        data-description="ML pipeline using XGBoost, SageMaker, Lambda, API Gateway, and SNS for real-time stock predictions and alerts">
-        <div class="project-label">StockPredict SNS</div>
+        data-website="https://example.com/demo2">
+        <div class="node-container">
+            <div class="node-label">
+                StockPredict SNS
+                <span class="node-arrow">▼</span>
+            </div>
+            <div class="node-content">
+                <div class="subsection">
+                    <h4>Description</h4>
+                    <p>Real-time stock prediction with AWS. <a href="https://github.com/manuelarceaguirre/aws_ml_stock_email" target="_blank">GitHub</a><a href="https://example.com/demo2" target="_blank">Demo</a></p>
+                </div>
+                <div class="subsection">
+                    <h4>Image/Video</h4>
+                    <img src="https://via.placeholder.com/150" alt="Placeholder">
+                </div>
+            </div>
+        </div>
     </fc-geometry>
 
-    <div id="projectInfo" class="project-info">
+    <!-- <div id="projectInfo" class="project-info">
         <h3></h3>
         <div class="links"></div>
-    </div>
+    </div> -->
 
     <script type="module">
         class Vector2D {
@@ -428,7 +574,6 @@
                 this.source = document.querySelector(this.getAttribute('source'));
                 this.target = document.querySelector(this.getAttribute('target'));
                 
-                // Create SVG element
                 this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
                 this.svg.style.position = 'fixed';
                 this.svg.style.top = '0';
@@ -437,10 +582,20 @@
                 this.svg.style.height = '100%';
                 this.svg.style.pointerEvents = 'none';
                 
-                // Create path element
                 this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 this.path.classList.add('rope-path');
                 this.svg.appendChild(this.path);
+
+                this.sourceCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                this.sourceCircle.setAttribute('r', '5');
+                this.sourceCircle.classList.add('rope-endpoint');
+                this.svg.appendChild(this.sourceCircle);
+
+                this.targetCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                this.targetCircle.setAttribute('r', '5');
+                this.targetCircle.classList.add('rope-endpoint');
+                this.svg.appendChild(this.targetCircle);
+
                 this.appendChild(this.svg);
                 
                 this.initializeRope();
@@ -469,7 +624,6 @@
 
             updateConstraints() {
                 for (let i = 0; i < this.constraint_iterations; i++) {
-                    // Update first and last points to match boxes
                     const sourceRect = this.source.getBoundingClientRect();
                     const targetRect = this.target.getBoundingClientRect();
                     
@@ -483,14 +637,13 @@
                         targetRect.top + targetRect.height / 2
                     );
                     
-                    // Distance constraint
                     for (let i = 0; i < this.segments.length - 1; i++) {
                         const segment1 = this.segments[i];
                         const segment2 = this.segments[i + 1];
                         const diff = segment2.pos.subtract(segment1.pos);
                         const dist = diff.magnitude();
                         const diff_normal = diff.normalize();
-                        const delta = dist - 10; // segment length
+                        const delta = dist - 10; 
                         
                         if (i > 0) {
                             segment1.pos = segment1.pos.add(diff_normal.multiply(delta * 0.5));
@@ -505,22 +658,28 @@
             updatePath() {
                 let d = `M ${this.segments[0].pos.x} ${this.segments[0].pos.y}`;
                 
-                // Create a smooth curve through all points
                 for (let i = 1; i < this.segments.length - 2; i++) {
                     const xc = (this.segments[i].pos.x + this.segments[i + 1].pos.x) / 2;
                     const yc = (this.segments[i].pos.y + this.segments[i + 1].pos.y) / 2;
                     d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${xc} ${yc}`;
                 }
                 
-                // Connect to the last point
                 const i = this.segments.length - 2;
                 d += ` Q ${this.segments[i].pos.x} ${this.segments[i].pos.y}, ${this.segments[i + 1].pos.x} ${this.segments[i + 1].pos.y}`;
                 
                 this.path.setAttribute('d', d);
+
+                const firstPos = this.segments[0].pos;
+                const lastPos = this.segments[this.segments.length - 1].pos;
+
+                this.sourceCircle.setAttribute('cx', firstPos.x);
+                this.sourceCircle.setAttribute('cy', firstPos.y);
+
+                this.targetCircle.setAttribute('cx', lastPos.x);
+                this.targetCircle.setAttribute('cy', lastPos.y);
             }
 
             animate = () => {
-                // Update physics
                 for (const segment of this.segments) {
                     segment.update(this.gravity, this.friction);
                 }
@@ -542,12 +701,10 @@
                 const x = this.getAttribute('x') || '0';
                 const y = this.getAttribute('y') || '0';
                 const width = this.getAttribute('width') || '30';
-                const height = this.getAttribute('height') || '30';
                 
                 this.style.left = `${x}px`;
                 this.style.top = `${y}px`;
                 this.style.width = `${width}px`;
-                this.style.height = `${height}px`;
                 
                 this.addEventListener('mousedown', this.startDragging);
                 document.addEventListener('mousemove', this.drag);
@@ -571,34 +728,33 @@
             }
         }
 
-        // Register custom elements
         customElements.define('fc-geometry', DraggableGeometry);
         customElements.define('fc-rope', PhysicsRope);
     </script>
 
     <script>
+        // Show project info popup on project node click - only if clicking inside content area
         document.querySelectorAll('.project-node').forEach(node => {
             node.addEventListener('click', (e) => {
+                const isArrowClick = e.target.classList.contains('node-arrow');
+                if (isArrowClick) return; // If arrow clicked, do not open popup
+
                 const popup = document.getElementById('projectInfo');
                 const data = e.currentTarget.dataset;
-                
-                // Set content
-                popup.querySelector('h3').textContent = data.title;
+                popup.querySelector('h3').textContent = data.title || '';
                 const links = popup.querySelector('.links');
                 links.innerHTML = '';
                 
                 if (data.website) {
-                    links.innerHTML += `<a href="${data.website}" target="_blank">View Project</a>`;
+                    links.innerHTML += `<a href="${data.website}" target="_blank">Demo</a>`;
                 }
                 if (data.github) {
-                    links.innerHTML += `<a href="${data.github}" target="_blank">View on GitHub</a>`;
+                    links.innerHTML += `<a href="${data.github}" target="_blank">GitHub</a>`;
                 }
                 
-                // Position popup near the clicked node
                 popup.style.left = `${e.pageX + 20}px`;
                 popup.style.top = `${e.pageY}px`;
                 popup.style.display = 'block';
-                
                 e.stopPropagation();
             });
         });
@@ -609,12 +765,21 @@
                 document.getElementById('projectInfo').style.display = 'none';
             }
         });
+
+        // Toggle dropdown only by clicking arrow
+        document.querySelectorAll('.node-arrow').forEach(arrow => {
+            arrow.addEventListener('click', (e) => {
+                const node = e.currentTarget.closest('.node');
+                node.classList.toggle('show-dropdown');
+            });
+        });
     </script>
 
-    <fc-rope source="#box1" target="#box2"></fc-rope>
-    <fc-rope source="#box1" target="#box3"></fc-rope>
-    <fc-rope source="#box1" target="#box4"></fc-rope>
+    <!-- Ropes: left-to-right structure -->
     <fc-rope source="#box1" target="#box5"></fc-rope>
+    <fc-rope source="#box1" target="#box4"></fc-rope>
+    <fc-rope source="#box1" target="#box3"></fc-rope>
+    <fc-rope source="#box1" target="#box2"></fc-rope>
     <fc-rope source="#box5" target="#box6"></fc-rope>
 </body>
 </html>
