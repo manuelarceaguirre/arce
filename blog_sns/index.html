@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Manuel - Blog</title>
+    <title>SNS - Understanding Data Drift</title>
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 
     <style>
-        /* Same styling as main homepage */
         html, body {
             margin: 0;
             padding: 0;
@@ -17,15 +16,6 @@
             font-family: Inconsolata, monospace;
             font-size: 18px;
             color: #fff;
-        }
-
-        @supports (padding-top: env(safe-area-inset-top)) {
-            body {
-                height: calc(100% + env(safe-area-inset-top));
-            }
-        }
-
-        body {
             background: black;
         }
 
@@ -52,6 +42,8 @@
             position: relative;
             z-index: 1;
             padding: 2rem;
+            max-width: 750px;
+            margin: 0 auto;
         }
 
         header {
@@ -61,7 +53,6 @@
             padding: 15px 30px;
             background-color: #000;
             border-bottom: 1px solid #222;
-            font-family: Inconsolata, monospace;
         }
 
         .logo-area {
@@ -94,6 +85,43 @@
             opacity: 1;
         }
 
+        .post-header {
+            text-align: center;
+            padding: 60px 0 20px 0;
+        }
+
+        .post-header h1 {
+            color: #e2813c;
+            margin-bottom: 10px;
+        }
+
+        .reading-time {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .post-image {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .post-image img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #fff;
+        }
+
+        .post-content {
+            color: #ddd;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
         footer {
             background-color: #000;
             text-align: center;
@@ -111,194 +139,84 @@
             vertical-align: middle;
         }
 
-        /* Blog-specific styles */
-        .blog-header {
-            text-align: center;
-            padding: 60px 0;
-        }
-
-        .blog-header h1 {
-            color: #e2813c;
-            margin-bottom: 10px;
-        }
-
-        .blog-header p {
-            color: #ddd;
-            font-size: 1.1rem;
-        }
-
-        .blog-list {
-            max-width: 750px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            padding: 40px 0;
-        }
-
-        .blog-post {
-            border: 1px solid #fff;
-            padding: 20px;
-            background-color: #0e0e0e;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: background-color 0.3s;
-        }
-
-        .blog-post:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .blog-post h2 {
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: 500;
-        }
-
-        .blog-post p {
-            color: #888;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            margin: 0;
-        }
-
-        .read-more-button {
-            background-color: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            width: fit-content;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: background-color 0.2s;
-        }
-
-        .read-more-button svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .read-more-button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
     </style>
 </head>
 <body>
     <!-- Background circuit canvas -->
     <canvas id="circuitCanvas"></canvas>
-
     <div class="page-content">
         <header>
             <div class="logo-area">
-                <a href="/">Manuel</a>
+                <a href="/">Manuel Arce</a>
             </div>
             <nav>
                 <ul>
-                    <li><a href="/">HOME</a></li>
-                    <li><a href="/blog">BLOG</a></li>
+                    <li><a href="https://arce.my">HOME</a></li>
                 </ul>
             </nav>
             <div class="header-right">
                 <a href="#" title="GitHub">
                     <svg xmlns="https://github.com/manuelarceaguirre" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 
-                        0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 
-                        1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 
-                        0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 
-                        .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 
-                        0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 
-                        1.1.16 1.92.08 2.12.51.56.82 1.27.82 
-                        2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 
-                        1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 
-                        8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                        <path d="M8 0C3.58 
+                        0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 
+                        7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 
+                        1.08.58 1.23.82.72 1.21 1.87.87 
+                        2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 
+                        0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 
+                        0 0 .67-.21 2.2.82.64-.18 
+                        1.32-.27 2-.27.68 0 1.36.09 2 
+                        .27 1.53-1.04 2.2-.82 2.2-.82.44 
+                        1.1.16 1.92.08 2.12.51.56.82 
+                        1.27.82 2.15 0 3.07-1.87 
+                        3.75-3.65 3.95.29.25.54.73.54 
+                        1.48 0 1.07-.01 
+                        1.93-.01 2.2 0 .21.15.46.55.38A8.012 
+                        8.012 0 0 0 16 
+                        8c0-4.42-3.58-8-8-8z"/>
                     </svg>
                 </a>
                 <a href="#" title="LinkedIn">
                     <svg xmlns="https://www.linkedin.com/in/manuelarceaguirre/" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M0 1.146C0 
-                        .513.526 0 1.175 0h13.65C15.474 0 16 
-                        .513 16 1.146v13.708c0 .633-.526 1.146-1.175 
-                        1.146H1.175C.526 16 0 15.487 
-                        0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 
+                        .513.526 0 1.175 
+                        0h13.65C15.474 0 16 .513 16 
+                        1.146v13.708c0 .633-.526 
+                        1.146-1.175 1.146H1.175C.526 16 
+                        0 15.487 0 14.854V1.146zm4.943 
+                        12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 
                         0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 
-                        0-1.359.54-1.359 1.248 0 .694.521 
-                        1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 
-                        1.232-.878.869 0 1.216.662 1.216 
-                        1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 
+                        0-1.359.54-1.359 
+                        1.248 0 .694.521 
+                        1.248 1.327 1.248h.016zm4.908 
+                        8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 
+                        1.232-.878.869 0 1.216.662 
+                        1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 
                         0-1.845.7-2.165 1.193v.025h-.016a5.54 
                         5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 
                         0 7.225 0 7.225h2.4z"/>
                     </svg>
                 </a>
-                <a href="#" title="X">
-                    <svg xmlns="https://x.com/doomsdayi0" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M12.6.75h2.454l-5.36 
-                        6.142L16 15.25h-4.937l-3.867-5.07-4.425 
-                        5.07H.316l5.733-6.57L0 
-                        .75h5.063l3.495 4.633L12.601.75Zm-.86 
-                        13.028h1.36L4.323 2.145H2.865l8.875 
-                        11.633Z"/>
-                    </svg>
-                </a>
             </div>
         </header>
 
-        <section class="blog-header">
-            <h1>Manuel's Blog</h1>
-            <p>Insights, tutorials, and thoughts on AI, ML, and data science</p>
+        <section class="post-header">
+            <h1>Understanding Data Drift</h1>
+            <div class="reading-time">2 min read</div>
         </section>
 
-        <main class="blog-list">
-            <!-- Example blog posts -->
-            <article class="blog-post">
-                <h2><a href="/blog/post-1">Building a Data Drift Detection System</a></h2>
-                <p>Learn how to set up an end-to-end data drift detection system using AWS and XGBoost.</p>
-                <a class="read-more-button" href="/blog/post-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" 
-                              stroke-linejoin="round" stroke-width="2" 
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                    Read More
-                </a>
-            </article>
+        <div class="post-image">
+            <img src="data_drift_concept.jpg" alt="Data Drift Concept Visualization"/>
+        </div>
 
-            <article class="blog-post">
-                <h2><a href="/blog/post-2">Real-Time Stock Price Prediction</a></h2>
-                <p>Explore how to build a real-time stock prediction platform leveraging AWS services and custom ML models.</p>
-                <a class="read-more-button" href="/blog/post-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" 
-                              stroke-linejoin="round" stroke-width="2" 
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                    Read More
-                </a>
-            </article>
+        <article class="post-content">
+            <p>Data drift refers to the subtle shifts that occur within your datasets over time. Even when your model remains unchanged, the underlying data it relies on can evolve. These changes may stem from shifting user behavior, new market conditions, or updated systems feeding your pipelines.</p>
 
-            <article class="blog-post">
-                <h2><a href="/blog/post-3">Gradient Boosting for Insurance Cost Modeling</a></h2>
-                <p>Dive into parameter tuning and how visualization can help you understand model performance on insurance datasets.</p>
-                <a class="read-more-button" href="/blog/post-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" 
-                              stroke-linejoin="round" stroke-width="2" 
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                    Read More
-                </a>
-            </article>
-        </main>
+            <p>By monitoring and understanding these variations, you ensure that your model predictions remain both reliable and relevant. Establishing drift detection workflows allows you to spot issues early, investigate root causes, and take corrective action before performance issues become costly errors.</p>
 
-        <!-- <footer>
+            <p>In essence, keeping an eye on data drift is not just good practice; it’s an integral part of maintaining long-term model health and business value.</p>
+        </article>
+
+        <footer>
             <p>Trusted by:</p>
             <div class="trusted-logos">
                 <img src="company1.png" alt="Company 1" />
@@ -306,10 +224,10 @@
                 <img src="company3.png" alt="Company 3" />
             </div>
         </footer>
-    </div> -->
+    </div>
 
     <script>
-        // Reuse the background animation code from your main site
+        // Background code script (same as main site)
         const canvas = document.getElementById('circuitCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -374,8 +292,8 @@
                 points[i] = [];
                 for (let j = 0; j < cols; j++) {
                     points[i][j] = {
-                        x: j * gridSize + gridSize/2,
-                        y: i * gridSize + gridSize/2,
+                        x: j * gridSize + gridSize / 2,
+                        y: i * gridSize + gridSize / 2,
                         connected: false
                     };
                 }
@@ -468,7 +386,7 @@
                 segment.draw();
             });
 
-            if (paths[paths.length - 1].illuminated) {
+            if (paths.length > 0 && paths[paths.length - 1].illuminated) {
                 paths.forEach(segment => {
                     segment.flowProgress = 0;
                     segment.illuminated = false;
