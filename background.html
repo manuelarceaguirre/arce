@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Animated Spark Through Connections</title>
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #f0e68c;
+  background-color: rgba(240, 230, 140, 0.7);
+}
+
+#connections-svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.connection-line {
+  stroke: #666; /* Lighter grey for the base connections */
+  stroke-width: 0.5; /* Even smaller lines */
+  fill: none;
+}
+
+.spark {
+  fill: orange;
+  r: 1.5; /* Small spark size */
+}
+</style>
+</head>
+<body>
+
+<svg id="connections-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <script>
+    function createSparkAnimation(pathId, duration) {
+      const path = document.getElementById(pathId);
+      const spark = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      spark.setAttribute("class", "spark");
+
+      const animateMotion = document.createElementNS("http://www.w3.org/2000/svg", "animateMotion");
+      animateMotion.setAttribute("dur", duration + "s");
+      animateMotion.setAttribute("repeatCount", "indefinite");
+
+      const mpath = document.createElementNS("http://www.w3.org/2000/svg", "mpath");
+      mpath.setAttribute("xlink:href", "#" + pathId);
+
+      animateMotion.appendChild(mpath);
+      spark.appendChild(animateMotion);
+      path.parentNode.appendChild(spark);
+    }
+  </script>
+
+  <!-- LIST DS -->
+  <path id="ds_line1" class="connection-line" d="M 40 80 L 90 80" />
+  <path id="ds_line2" class="connection-line" d="M 90 80 L 90 110" />
+  <path id="ds_line3" class="connection-line" d="M 90 110 L 40 110" />
+  <path id="ds_line4" class="connection-line" d="M 40 110 L 40 80" />
+  <path id="ds_line5" class="connection-line" d="M 65 80 L 65 60" />
+  <path id="ds_line6" class="connection-line" d="M 65 60 L 15 60" />
+  <path id="ds_line7" class="connection-line" d="M 15 60 L 15 110" />
+  <path id="ds_line8" class="connection-line" d="M 90 110 L 140 110" />
+  <path id="ds_line9" class="connection-line" d="M 140 110 L 140 140" />
+  <path id="ds_line10" class="connection-line" d="M 140 140 L 90 140" />
+  <path id="ds_line11" class="connection-line" d="M 90 140 L 90 110" />
+  <path id="ds_line12" class="connection-line" d="M 115 110 L 115 90" />
+  <path id="ds_line13" class="connection-line" d="M 115 90 L 165 90" />
+  <path id="ds_line14" class="connection-line" d="M 165 90 L 165 140" />
+  <path id="ds_line15" class="connection-line" d="M 90 140 L 40 140" />
+  <path id="ds_line16" class="connection-line" d="M 40 140 L 40 170" />
+  <path id="ds_line17" class="connection-line" d="M 40 170 L 90 170" />
+  <path id="ds_line18" class="connection-line" d="M 90 170 L 90 140" />
+  <path id="ds_line19" class="connection-line" d="M 65 140 L 65 190" />
+  <path id="ds_line20" class="connection-line" d="M 65 190 L 15 190" />
+  <path id="ds_line21" class="connection-line" d="M 15 190 L 15 170" />
+  <path id="ds_line22" class="connection-line" d="M 140 140 L 140 170" />
+  <path id="ds_line23" class="connection-line" d="M 140 170 L 90 170" />
+
+  <!-- DIRS -->
+  <path id="dirs_line1" class="connection-line" d="M 40 230 L 90 230" />
+  <path id="dirs_line2" class="connection-line" d="M 90 230 L 90 260" />
+  <path id="dirs_line3" class="connection-line" d="M 90 260 L 40 260" />
+  <path id="dirs_line4" class="connection-line" d="M 40 260 L 40 230" />
+  <path id="dirs_line5" class="connection-line" d="M 65 230 L 65 210" />
+  <path id="dirs_line6" class="connection-line" d="M 65 210 L 15 210" />
+  <path id="dirs_line7" class="connection-line" d="M 15 210 L 15 260" />
+
+  <!-- TAPE -->
+  <path id="tape_line1" class="connection-line" d="M 190 80 L 240 80" />
+  <path id="tape_line2" class="connection-line" d="M 240 80 L 240 170" />
+  <path id="tape_line3" class="connection-line" d="M 240 170 L 190 170" />
+  <path id="tape_line4" class="connection-line" d="M 190 170 L 190 80" />
+
+  <!-- ENTRY PT and TRANSITION FUNCTIONS -->
+  <path id="entry_line1" class="connection-line" d="M 340 130 L 390 130" />
+  <path id="entry_line2" class="connection-line" d="M 390 130 L 390 160" />
+  <path id="entry_line3" class="connection-line" d="M 390 160 L 340 160" />
+  <path id="entry_line4" class="connection-line" d="M 340 160 L 340 130" />
+  <path id="entry_line5" class="connection-line" d="M 365 130 L 365 110" />
+  <path id="entry_line6" class="connection-line" d="M 365 110 L 315 110" />
+  <path id="entry_line7" class="connection-line" d="M 315 110 L 315 160" />
+  <path id="entry_line8" class="connection-line" d="M 315 160 L 340 160" />
+  <path id="entry_line9" class="connection-line" d="M 340 130 L 265 130" />
+  <path id="entry_line10" class="connection-line" d="M 265 130 L 265 80" />
+  <path id="entry_line11" class="connection-line" d="M 390 160 L 420 160" />
+  <path id="entry_line12" class="connection-line" d="M 420 160 L 420 130" />
+  <path id="entry_line13" class="connection-line" d="M 420 130 L 470 130" />
+  <path id="entry_line14" class="connection-line" d="M 470 130 L 470 160" />
+  <path id="entry_line15" class="connection-line" d="M 470 160 L 420 160" />
+  <path id="entry_line16" class="connection-line" d="M 500 130 L 550 130" />
+  <path id="entry_line17" class="connection-line" d="M 550 130 L 550 160" />
+  <path id="entry_line18" class="connection-line" d="M 550 160 L 500 160" />
+  <path id="entry_line19" class="connection-line" d="M 500 160 L 500 130" />
+  <path id="entry_line20" class="connection-line" d="M 580 130 L 630 130" />
+  <path id="entry_line21" class="connection-line" d="M 630 130 L 630 160" />
+  <path id="entry_line22" class="connection-line" d="M 630 160 L 580 160" />
+  <path id="entry_line23" class="connection-line" d="M 580 160 L 580 130" />
+  <path id="entry_line24" class="connection-line" d="M 660 130 L 710 130" />
+  <path id="entry_line25" class="connection-line" d="M 710 130 L 710 160" />
+  <path id="entry_line26" class="connection-line" d="M 710 160 L 660 160" />
+  <path id="entry_line27" class="connection-line" d="M 660 160 L 660 130" />
+  <path id="entry_line28" class="connection-line" d="M 340 160 L 340 190" />
+  <path id="entry_line29" class="connection-line" d="M 390 160 L 390 190" />
+  <path id="entry_line30" class="connection-line" d="M 420 160 L 420 190" />
+  <path id="entry_line31" class="connection-line" d="M 470 160 L 470 190" />
+  <path id="entry_line32" class="connection-line" d="M 500 160 L 500 190" />
+  <path id="entry_line33" class="connection-line" d="M 550 160 L 550 190" />
+  <path id="entry_line34" class="connection-line" d="M 580 160 L 580 190" />
+  <path id="entry_line35" class="connection-line" d="M 630 160 L 630 190" />
+  <path id="entry_line36" class="connection-line" d="M 660 160 L 660 190" />
+  <path id="entry_line37" class="connection-line" d="M 710 160 L 710 190" />
+  <path id="entry_line38" class="connection-line" d="M 265 130 L 265 190" />
+  <path id="entry_line39" class="connection-line" d="M 315 160 L 315 190" />
+
+  <!-- MAIN LOOP -->
+  <path id="main_line1" class="connection-line" d="M 70 260 L 120 260" />
+  <path id="main_line2" class="connection-line" d="M 120 260 L 120 290" />
+  <path id="main_line3" class="connection-line" d="M 120 290 L 70 290" />
+  <path id="main_line4" class="connection-line" d="M 70 290 L 70 260" />
+  <path id="main_line5" class="connection-line" d="M 95 260 L 95 240" />
+  <path id="main_line6" class="connection-line" d="M 95 240 L 45 240" />
+  <path id="main_line7" class="connection-line" d="M 45 240 L 45 290" />
+  <path id="main_line8" class="connection-line" d="M 120 290 L 170 290" />
+  <path id="main_line9" class="connection-line" d="M 170 290 L 170 320" />
+  <path id="main_line10" class="connection-line" d="M 170 320 L 120 320" />
+  <path id="main_line11" class="connection-line" d="M 120 320 L 120 290" />
+  <path id="main_line12" class="connection-line" d="M 145 290 L 145 340" />
+  <path id="main_line13" class="connection-line" d="M 145 340 L 195 340" />
+  <path id="main_line14" class="connection-line" d="M 195 340 L 195 290" />
+  <path id="main_line15" class="connection-line" d="M 70 360 L 70 410" />
+  <path id="main_line16" class="connection-line" d="M 70 410 L 120 410" />
+  <path id="main_line17" class="connection-line" d="M 120 410 L 120 360" />
+  <path id="main_line18" class="connection-line" d="M 195 360 L 195 410" />
+  <path id="main_line19" class="connection-line" d="M 195 410 L 245 410" />
+  <path id="main_line20" class="connection-line" d="M 245 410 L 245 360" />
+  <path id="main_line21" class="connection-line" d="M 120 320 L 120 360" />
+  <path id="main_line22" class="connection-line" d="M 170 320 L 170 360" />
+  <path id="main_line23" class="connection-line" d="M 70 320 L 70 360" />
+  <path id="main_line24" class="connection-line" d="M 170 260 L 170 240" />
+  <path id="main_line25" class="connection-line" d="M 170 240 L 45 240" />
+
+  <!-- Bottom Section -->
+  <path id="bottom_line1" class="connection-line" d="M 120 430 L 170 430" />
+  <path id="bottom_line2" class="connection-line" d="M 170 430 L 170 460" />
+  <path id="bottom_line3" class="connection-line" d="M 170 460 L 120 460" />
+  <path id="bottom_line4" class="connection-line" d="M 120 460 L 120 430" />
+  <path id="bottom_line5" class="connection-line" d="M 145 430 L 145 480" />
+  <path id="bottom_line6" class="connection-line" d="M 145 480 L 195 480" />
+  <path id="bottom_line7" class="connection-line" d="M 195 480 L 195 430" />
+  <path id="bottom_line8" class="connection-line" d="M 245 430 L 295 430" />
+  <path id="bottom_line9" class="connection-line" d="M 295 430 L 295 460" />
+  <path id="bottom_line10" class="connection-line" d="M 295 460 L 245 460" />
+  <path id="bottom_line11" class="connection-line" d="M 245 460 L 245 430" />
+  <path id="bottom_line12" class="connection-line" d="M 270 430 L 270 480" />
+  <path id="bottom_line13" class="connection-line" d="M 270 480 L 320 480" />
+  <path id="bottom_line14" class="connection-line" d="M 320 480 L 320 430" />
+  <path id="bottom_line15" class="connection-line" d="M 320 430 L 370 430" />
+  <path id="bottom_line16" class="connection-line" d="M 370 430 L 370 460" />
+  <path id="bottom_line17" class="connection-line" d="M 370 460 L 320 460" />
+  <path id="bottom_line18" class="connection-line" d="M 400 430 L 450 430" />
+  <path id="bottom_line19" class="connection-line" d="M 450 430 L 450 460" />
+  <path id="bottom_line20" class="connection-line" d="M 450 460 L 400 460" />
+  <path id="bottom_line21" class="connection-line" d="M 400 460 L 400 430" />
+  <path id="bottom_line22" class="connection-line" d="M 425 430 L 425 480" />
+  <path id="bottom_line23" class="connection-line" d="M 425 480 L 475 480" />
+  <path id="bottom_line24" class="connection-line" d="M 475 480 L 475 430" />
+  <path id="bottom_line25" class="connection-line" d="M 510 430 L 560 430" />
+  <path id="bottom_line26" class="connection-line" d="M 560 430 L 560 460" />
+  <path id="bottom_line27" class="connection-line" d="M 560 460 L 510 460" />
+  <path id="bottom_line28" class="connection-line" d="M 510 460 L 510 430" />
+  <path id="bottom_line29" class="connection-line" d="M 535 430 L 535 480" />
+  <path id="bottom_line30" class="connection-line" d="M 535 480 L 585 480" />
+  <path id="bottom_line31" class="connection-line" d="M 585 480 L 585 430" />
+  <path id="bottom_line32" class="connection-line" d="M 590 430 L 640 430" />
+  <path id="bottom_line33" class="connection-line" d="M 640 430 L 640 460" />
+  <path id="bottom_line34" class="connection-line" d="M 640 460 L 590 460" />
+  <path id="bottom_line35" class="connection-line" d="M 590 460 L 590 430" />
+  <path id="bottom_line36" class="connection-line" d="M 615 430 L 615 480" />
+  <path id="bottom_line37" class="connection-line" d="M 615 480 L 665 480" />
+  <path id="bottom_line38" class="connection-line" d="M 665 480 L 665 430" />
+  <path id="bottom_line39" class="connection-line" d="M 670 430 L 720 430" />
+  <path id="bottom_line40" class="connection-line" d="M 720 430 L 720 460" />
+  <path id="bottom_line41" class="connection-line" d="M 720 460 L 670 460" />
+  <path id="bottom_line42" class="connection-line" d="M 670 460 L 670 430" />
+  <path id="bottom_line43" class="connection-line" d="M 245 360 L 245 410" />
+  <path id="bottom_line44" class="connection-line" d="M 295 360 L 295 410" />
+  <path id="bottom_line45" class="connection-line" d="M 370 360 L 370 410" />
+  <path id="bottom_line46" class="connection-line" d="M 450 360 L 450 410" />
+  <path id="bottom_line47" class="connection-line" d="M 510 360 L 510 410" />
+  <path id="bottom_line48" class="connection-line" d="M 590 360 L 590 410" />
+  <path id="bottom_line49" class="connection-line" d="M 670 360 L 670 410" />
+
+  <!-- ARG 2 LIST -->
+  <path id="arg_line1" class="connection-line" d="M 740 80 L 790 80" />
+  <path id="arg_line2" class="connection-line" d="M 790 80 L 790 110" />
+  <path id="arg_line3" class="connection-line" d="M 790 110 L 740 110" />
+  <path id="arg_line4" class="connection-line" d="M 740 110 L 740 80" />
+  <path id="arg_line5" class="connection-line" d="M 765 80 L 765 60" />
+  <path id="arg_line6" class="connection-line" d="M 765 60 L 715 60" />
+  <path id="arg_line7" class="connection-line" d="M 715 60 L 715 110" />
+  <path id="arg_line8" class="connection-line" d="M 790 110 L 790 140" />
+  <path id="arg_line9" class="connection-line" d="M 790 140 L 740 140" />
+  <path id="arg_line10" class="connection-line" d="M 740 140 L 740 110" />
+  <path id="arg_line11" class="connection-line" d="M 765 110 L 765 160" />
+  <path id="arg_line12" class="connection-line" d="M 765 160 L 715 160" />
+  <path id="arg_line13" class="connection-line" d="M 715 160 L 715 140" />
+  <path id="arg_line14" class="connection-line" d="M 740 140 L 740 170" />
+  <path id="arg_line15" class="connection-line" d="M 790 140 L 790 170" />
+  <path id="arg_line16" class="connection-line" d="M 790 170 L 740 170" />
+  <path id="arg_line17" class="connection-line" d="M 765 160 L 765 190" />
+  <path id="arg_line18" class="connection-line" d="M 715 160 L 715 190" />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      createSparkAnimation('ds_line1', 3.5);
+      createSparkAnimation('ds_line2', 3.0);
+      createSparkAnimation('ds_line3', 4.0);
+      createSparkAnimation('ds_line4', 3.2);
+      createSparkAnimation('ds_line5', 3.8);
+      createSparkAnimation('ds_line6', 2.8);
+      createSparkAnimation('ds_line7', 3.6);
+      createSparkAnimation('ds_line8', 3.3);
+      createSparkAnimation('ds_line9', 3.9);
+      createSparkAnimation('ds_line10', 2.9);
+      createSparkAnimation('ds_line11', 3.7);
+      createSparkAnimation('ds_line12', 2.7);
+      createSparkAnimation('ds_line13', 4.1);
+      createSparkAnimation('ds_line14', 2.6);
+      createSparkAnimation('ds_line15', 4.2);
+      createSparkAnimation('ds_line16', 2.5);
+      createSparkAnimation('ds_line17', 4.3);
+      createSparkAnimation('ds_line18', 2.4);
+      createSparkAnimation('ds_line19', 4.4);
+      createSparkAnimation('ds_line20', 2.3);
+      createSparkAnimation('ds_line21', 4.5);
+      createSparkAnimation('ds_line22', 3.1);
+      createSparkAnimation('ds_line23', 3.7);
+      createSparkAnimation('dirs_line1', 3.9);
+      createSparkAnimation('dirs_line2', 3.4);
+      createSparkAnimation('dirs_line3', 4.1);
+      createSparkAnimation('dirs_line4', 3.3);
+      createSparkAnimation('dirs_line5', 4.0);
+      createSparkAnimation('dirs_line6', 3.0);
+      createSparkAnimation('dirs_line7', 4.2);
+      createSparkAnimation('tape_line1', 3.2);
+      createSparkAnimation('tape_line2', 3.8);
+      createSparkAnimation('tape_line3', 3.1);
+      createSparkAnimation('tape_line4', 3.5);
+      createSparkAnimation('entry_line1', 3.3);
+      createSparkAnimation('entry_line2', 3.9);
+      createSparkAnimation('entry_line3', 3.4);
+      createSparkAnimation('entry_line4', 4.0);
+      createSparkAnimation('entry_line5', 3.0);
+      createSparkAnimation('entry_line6', 3.6);
+      createSparkAnimation('entry_line7', 3.5);
+      createSparkAnimation('entry_line8', 4.1);
+      createSparkAnimation('entry_line9', 3.7);
+      createSparkAnimation('entry_line10', 4.3);
+      createSparkAnimation('entry_line11', 3.8);
+      createSparkAnimation('entry_line12', 4.4);
+      createSparkAnimation('entry_line13', 3.9);
+      createSparkAnimation('entry_line14', 4.5);
+      createSparkAnimation('entry_line15', 4.0);
+      createSparkAnimation('entry_line16', 4.6);
+      createSparkAnimation('entry_line17', 4.1);
+      createSparkAnimation('entry_line18', 4.7);
+      createSparkAnimation('entry_line19', 4.2);
+      createSparkAnimation('entry_line20', 4.8);
+      createSparkAnimation('entry_line21', 4.3);
+      createSparkAnimation('entry_line22', 4.9);
+      createSparkAnimation('entry_line23', 4.4);
+      createSparkAnimation('entry_line24', 5.0);
+      createSparkAnimation('entry_line25', 4.5);
+      createSparkAnimation('entry_line26', 5.1);
+      createSparkAnimation('entry_line27', 4.6);
+      createSparkAnimation('entry_line28', 5.2);
+      createSparkAnimation('entry_line29', 4.7);
+      createSparkAnimation('entry_line30', 5.3);
+      createSparkAnimation('entry_line31', 4.8);
+    });
+  </script>
+</body>
+</html>
