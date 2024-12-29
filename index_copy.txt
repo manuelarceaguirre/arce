@@ -3,6 +3,7 @@
 <head>
     <title>Manuel - AI Tools with Circuit Background</title>
     <meta charset="utf-8">
+    <!-- Ensure iPhone fullscreen experience -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
@@ -27,7 +28,6 @@
 
         body {
             background: black;
-            /* text-shadow: 0 0 4px #C8C8C8; */
         }
 
         ::selection {
@@ -117,22 +117,7 @@
             margin-top: 15px;
         }
 
-        /* .future-section {
-            margin: 40px auto;
-            width: 750px;
-            border: 1px dashed #fff;
-            height: 100px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.9rem;
-            position: relative;
-        } */
-
-        /* Add background and styling for the inner .header section */
         .future-section .header {
-            /* background: rgba(0, 0, 0, 0); */
             padding: 20px;
             width: 100%;
             text-align: center;
@@ -154,7 +139,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1px;
-            width: 750px;
+            width: 750px; /* Desktop width */
             margin: 0 auto;
             border: 1px solid #fff;
             padding: 10px;
@@ -266,6 +251,43 @@
             gap: 8px;
             justify-content: center;
         }
+
+        /* MEDIA QUERY for iPhone (and small screens) */
+        @media only screen and (max-width: 600px) {
+            /* Let the background scroll on smaller devices */
+            html, body {
+                overflow: auto;
+            }
+            header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            /* Make the grid go to one column */
+            .tools-grid {
+                grid-template-columns: 1fr;
+                width: 90%; 
+                margin: 0 auto;
+            }
+            /* Adjust font sizes if needed */
+            .logo-area {
+                font-size: 1.1em;
+            }
+            .tool-card h3 {
+                font-size: 0.95rem;
+            }
+            .tool-card p {
+                font-size: 0.75rem;
+            }
+            .header-right svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -336,6 +358,7 @@
                     </a>
                 </div>
             </div>
+
             <div class="tool-card">
                 <div class="icon-box">
                     <span class="new-badge">AWS</span>
@@ -360,7 +383,6 @@
                         MORE
                     </a>
                 </div>
-                
             </div>
 
             <div class="tool-card">
@@ -463,8 +485,6 @@
                     </a>
                 </div>
             </div>
-
-
         </main>
 
         <!-- <footer>
@@ -493,7 +513,7 @@
         const lineColor = '#ff6b00';
         const glowColor = '#ff6b00';
         const flowingColor = '#ff6b00';
-        
+
         class PathSegment {
             constructor(x1, y1, x2, y2) {
                 this.x1 = x1;
@@ -546,8 +566,8 @@
                 points[i] = [];
                 for (let j = 0; j < cols; j++) {
                     points[i][j] = {
-                        x: j * gridSize + gridSize/2,
-                        y: i * gridSize + gridSize/2,
+                        x: j * gridSize + gridSize / 2,
+                        y: i * gridSize + gridSize / 2,
                         connected: false
                     };
                 }
@@ -649,7 +669,7 @@
             });
 
             // Reset animation when last segment is fully illuminated
-            if (paths[paths.length - 1].illuminated) {
+            if (paths.length && paths[paths.length - 1].illuminated) {
                 paths.forEach(segment => {
                     segment.flowProgress = 0;
                     segment.illuminated = false;
