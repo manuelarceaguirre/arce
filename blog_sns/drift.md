@@ -1,13 +1,15 @@
 
-I wanted to get more into the MLOps scene in my current company so I volunteered to help with the design and implementation of a AWS system or design or whatever you want to call it for detecting model drift on an XGBoost Model that tries to predict a category based on 5 arbitrary categories made by the company. My boss insisted on using EvidentlyAI library and AWS.  The problem was that we did not have the actual values of the predicted category. I was just as confused as you are but I decided to go along with the project and created this tool.
+I don't want to get fired so I got into the MLOps scene in my current company. I volunteered to help with the design and implementation of an AWS system or design or whatever you want to call it for detecting model drift on an XGBoost Model that tries to predict a category based on 5 arbitrary categories made by the company. My boss insisted on using the EvidentlyAI library and AWS.  The problem was that we did not have the actual values of the predicted datasets...
+
+ I was just as confused as you are but I decided to go along with the project and created this tool.
 
 ## How to Use
 
-1. **Create a reference dataset (your baseline data).**  
-   This is your "golden dataset" against which all future or new datasets will be compared.
+1. **Get a reference dataset (your baseline data).**  
+   This is your reality data-set. Preferably a dataset that the model was trained on.
 
-2. **Prepare your current dataset(s).**  
-   These are the datasets you want to compare against your reference. Make sure both reference and current datasets:
+2. **Prepare your current dataset(s) or predictions.**  
+   These are the datasets that the model blindly predicted, make sure both reference and current datasets:
    - Are in CSV format  
    - Have the same column structure  
    - Follow consistent data types  
@@ -50,17 +52,278 @@ When you run `generate_config.py`, you will be prompted to select which tests yo
 - Numerical columns (which can use tests like KS, Z-test, etc.)  
 - Categorical columns (which can use tests like Chi-Squared, Fisher’s exact, etc.)  
 
-Your output config file (e.g., `config.json`) might look like this:
+Your output config file (e.g., `config.json`) might look like the config file in the github repo: [Leave a star, even if you don't like it](https://github.com/manuelarceaguirre/monitorv2)
 
-~~~json
+```json
 {
-  "tests": {
-    "numerical": ["ks", "z"],
-    "categorical": ["chisquare"]
-  },
-  "sns_topic_arn": "arn:aws:sns:us-east-1:345594570065:firstsns"
+    "reference_data_path": "data/reference/Credit_score_cleaned_data_Aug.csv",
+    "local_reference_path": "Credit_score_cleaned_data_Aug.csv",
+    "predictions_folder": "data/predictions/",
+    "target": "Credit_Score",
+    "drop_columns": [
+        "Customer_ID"
+    ],
+    "time_unit_column": "Time",
+    "feature_importance_methods": [
+        "random_forest"
+    ],
+    "available_feature_importance_methods": [
+        "random_forest",
+        "permutation",
+        "mutual_info"
+    ],
+    "monitoring": {
+        "drift_threshold": 0.7,
+        "sns_topic_arn": "arn:aws:sns:us-east-1:345594570065:firstsns"
+    },
+    "drift_tests": {
+        "default": {
+            "numerical": [
+                "ks"
+            ],
+            "categorical": [
+                "chisquare"
+            ],
+            "binary": [
+                "z"
+            ]
+        },
+        "columns": {
+            "Age": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Occupation": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Annual_Income": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Monthly_Inhand_Salary": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Num_Bank_Accounts": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Num_Credit_Card": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Interest_Rate": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Num_of_Loan": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Delay_from_due_date": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Num_of_Delayed_Payment": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Changed_Credit_Limit": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Num_Credit_Inquiries": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Credit_Mix": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Outstanding_Debt": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Credit_Utilization_Ratio": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Credit_History_Age": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Payment_of_Min_Amount": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Total_EMI_per_month": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Amount_invested_monthly": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Payment_Behaviour": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Monthly_Balance": {
+                "type": "numerical",
+                "tests": [
+                    "ks"
+                ]
+            },
+            "Last_Loan_9": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_8": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_7": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_6": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_5": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_4": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_3": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_2": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            },
+            "Last_Loan_1": {
+                "type": "categorical",
+                "tests": [
+                    "chisquare"
+                ]
+            }
+        },
+        "available_drift_tests": {
+            "numerical": [
+                "ks",
+                "wasserstein",
+                "anderson",
+                "psi",
+                "kl_div",
+                "t_test",
+                "empirical_mmd",
+                "cramer_von_mises"
+            ],
+            "categorical": [
+                "chisquare",
+                "psi",
+                "jensenshannon",
+                "fisher_exact",
+                "g_test",
+                "hellinger",
+                "TVD",
+                "kl_div"
+            ],
+            "binary": [
+                "z",
+                "fisher_exact"
+            ]
+        },
+        "drift_thresholds": {
+            "dataset_drift_share": 0.1,
+            "test_thresholds": {
+                "ks": 0.05,
+                "wasserstein": 0.1,
+                "anderson": 0.05,
+                "psi": 0.2,
+                "kl_div": 0.2,
+                "jensenshannon": 0.1,
+                "chisquare": 0.05,
+                "fisher_exact": 0.05,
+                "g_test": 0.05,
+                "hellinger": 0.1,
+                "TVD": 0.1,
+                "mannw": 0.05,
+                "ed": 0.1,
+                "es": 0.05,
+                "t_test": 0.05,
+                "empirical_mmd": 0.1,
+                "cramer_von_mises": 0.05,
+                "z": 0.05
+            }
+        }
+    },
+    "results_json_path": "analysis_results.json",
+    "output_csv_path": "feature_analysis.csv"
 }
-~~~
+```
 
 ---
 
@@ -95,27 +358,27 @@ your-bucket/
    Make sure you have the AWS CLI installed and configured with your credentials.
 
 2. **Build the Docker image**  
-   ~~~bash
+   ```bash
    docker build -t your-image-name .
-   ~~~
+   ```
 
 3. **Authenticate Docker to ECR**  
-   ~~~bash
+   ```bash
    aws ecr get-login-password --region your-region | \
        docker login --username AWS \
        --password-stdin your-account-id.dkr.ecr.your-region.amazonaws.com
-   ~~~
+   ```
 
 4. **Tag the Docker image**  
-   ~~~bash
+   ```bash
    docker tag your-image-name:latest \
        your-account-id.dkr.ecr.your-region.amazonaws.com/your-repo-name:latest
-   ~~~
+   ```
 
 5. **Push the Docker image to ECR**  
-   ~~~bash
+   ```bash
    docker push your-account-id.dkr.ecr.your-region.amazonaws.com/your-repo-name:latest
-   ~~~
+   ```
 
 ---
 
@@ -147,7 +410,7 @@ Using the AWS Management Console:
 
 To test the Lambda function, you can use the following test event JSON:
 
-~~~json
+```json
 {
   "Records": [
     {
@@ -169,7 +432,7 @@ To test the Lambda function, you can use the following test event JSON:
     }
   ]
 }
-~~~
+```
 
 ---
 
@@ -194,7 +457,7 @@ To test the Lambda function, you can use the following test event JSON:
 
 Create an IAM role for your Lambda function with the following trust policy:
 
-~~~json
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -207,11 +470,11 @@ Create an IAM role for your Lambda function with the following trust policy:
     }
   ]
 }
-~~~
+```
 
 Attach a permissions policy that allows:
 
-~~~json
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -253,13 +516,13 @@ Attach a permissions policy that allows:
     }
   ]
 }
-~~~
+```
 
 ### 2. IAM User Permissions
 
 For an IAM user that will manage this setup, attach permissions that allow actions on Lambda, S3, and SNS:
 
-~~~json
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -318,11 +581,11 @@ For an IAM user that will manage this setup, attach permissions that allow actio
     }
   ]
 }
-~~~
+```
 
 ---
 
-## Conclusion
+## Now what?
 
 You now have a clear path to:
 1. Prepare your data in CSV format with matching columns.  
@@ -332,4 +595,6 @@ You now have a clear path to:
 5. Set up a Lambda function to automatically perform data drift analysis whenever a new CSV is uploaded to S3.  
 
 This setup ensures that you can detect data drift for both numerical and categorical features using Evidently AI’s various statistical tests, and receive notifications in real-time through AWS services.
+
+
 

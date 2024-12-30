@@ -7,16 +7,26 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 
+    <!-- Marked -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Prism -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-bash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/themes/prism-tomorrow.min.css">
+
     <style>
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow: hidden;
+            min-height: 100%;
             font-family: Inconsolata, monospace;
             font-size: 18px;
             color: #fff;
             background: black;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         ::selection {
@@ -42,8 +52,11 @@
             position: relative;
             z-index: 1;
             padding: 2rem;
-            max-width: 750px;
+            max-width: 800px;
             margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -109,12 +122,16 @@
         .post-image img {
             max-width: 100%;
             height: auto;
-            border: 1px solid #fff;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .post-content {
-            color: #ddd;
+            padding: 20px;
             line-height: 1.6;
+            color: #ddd;
             font-size: 1rem;
         }
 
@@ -139,6 +156,107 @@
             vertical-align: middle;
         }
 
+        .post-content code {
+            background: #222;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+        }
+
+        .post-content pre {
+            position: relative;
+            background: #1a1a1a;
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        .post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+
+        .post-content th,
+        .post-content td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .post-content th {
+            background: #222;
+        }
+
+        .post-content blockquote {
+            border-left: 3px solid #e2813c;
+            margin: 1em 0;
+            padding-left: 1em;
+            color: #888;
+        }
+
+        .error {
+            color: #ff4444;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .post-content h1,
+        .post-content h2,
+        .post-content h3,
+        .post-content h4,
+        .post-content h5,
+        .post-content h6 {
+            color: #e2813c;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        /* Container + copy button for code blocks */
+        .code-block-container {
+            position: relative;
+            margin: 1em 0;
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 4px 8px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .copy-button:hover {
+            opacity: 1;
+            background: #444;
+        }
+
+        .copy-button.copied {
+            background: #e79a09;
+            border-color: #e79a09;
+        }
+
+        .code-block-container pre {
+            margin: 0;
+            padding: 1em;
+            overflow-x: auto;
+        }
+
+        .code-block-container code {
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -200,34 +318,23 @@
         </header>
 
         <section class="post-header">
-            <h1>Understanding Data Drift</h1>
-            <div class="reading-time">2 min read</div>
+            <h1>Data Drift with no Reference</h1>
+            <div class="reading-time">7 min read</div>
         </section>
 
         <div class="post-image">
-            <img src="data_drift_concept.jpg" alt="Data Drift Concept Visualization"/>
+            <img src="diagram-20241229.svg" alt="Data Drift Concept Visualization"/>
         </div>
 
-        <article class="post-content">
-            <p>Data drift refers to the subtle shifts that occur within your datasets over time. Even when your model remains unchanged, the underlying data it relies on can evolve. These changes may stem from shifting user behavior, new market conditions, or updated systems feeding your pipelines.</p>
-
-            <p>By monitoring and understanding these variations, you ensure that your model predictions remain both reliable and relevant. Establishing drift detection workflows allows you to spot issues early, investigate root causes, and take corrective action before performance issues become costly errors.</p>
-
-            <p>In essence, keeping an eye on data drift is not just good practice; it’s an integral part of maintaining long-term model health and business value.</p>
+        <article class="post-content" id="markdown-content">
+            <!-- Markdown content will be rendered here -->
         </article>
-
-        <!-- <footer>
-            <p>Trusted by:</p>
-            <div class="trusted-logos">
-                <img src="company1.png" alt="Company 1" />
-                <img src="company2.png" alt="Company 2" />
-                <img src="company3.png" alt="Company 3" />
-            </div>
-        </footer>
-    </div> -->
+    </div>
 
     <script>
-        // Background code script (same as main site)
+        /****************************************
+         * Background circuit animation
+         ****************************************/
         const canvas = document.getElementById('circuitCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -341,7 +448,6 @@
                         currentCol++;
                     }
                 }
-
                 paths.push(...currentPath);
             }
         }
@@ -386,6 +492,7 @@
                 segment.draw();
             });
 
+            // When the last segment is fully illuminated, reset
             if (paths.length > 0 && paths[paths.length - 1].illuminated) {
                 paths.forEach(segment => {
                     segment.flowProgress = 0;
@@ -399,12 +506,77 @@
         createCircuitPath();
         animate();
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            paths.length = 0;
-            createCircuitPath();
+        /****************************************
+         * Render drift.md with Marked + Prism
+         ****************************************/
+        document.addEventListener('DOMContentLoaded', () => {
+          fetch('drift.md')
+            .then((res) => res.text())
+            .then((markdownText) => {
+              // 1) Parse with Marked (default renderer)
+              const renderedHtml = marked.parse(markdownText);
+              
+              // 2) Insert into our page
+              document.getElementById('markdown-content').innerHTML = renderedHtml;
+
+              // 3) Highlight code blocks with Prism
+              if (window.Prism) {
+                Prism.highlightAll();
+              }
+
+              // 4) Add "Copy" button to each code block
+              addCopyButtons();
+            })
+            .catch((err) => {
+              console.error('Error fetching drift.md:', err);
+              document.getElementById('markdown-content').innerHTML = 
+                `<div class="error">Error loading content: ${err.message}</div>`;
+            });
         });
+
+        function addCopyButtons() {
+          // Find each code block
+          const codeBlocks = document.querySelectorAll('pre > code');
+          codeBlocks.forEach((codeElem) => {
+            // The <pre> parent
+            const preElem = codeElem.parentNode;
+
+            // Create a container
+            const container = document.createElement('div');
+            container.classList.add('code-block-container');
+            
+            // Clone our <pre><code> block into the container
+            container.appendChild(preElem.cloneNode(true));
+
+            // Create a copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.add('copy-button');
+
+            // Copy logic
+            copyBtn.addEventListener('click', async () => {
+              const codeToCopy = codeElem.textContent;
+              try {
+                await navigator.clipboard.writeText(codeToCopy);
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                  copyBtn.textContent = 'Copy';
+                  copyBtn.classList.remove('copied');
+                }, 2000);
+              } catch (copyErr) {
+                console.error('Failed to copy:', copyErr);
+                copyBtn.textContent = 'Error';
+              }
+            });
+
+            // Append button to the container
+            container.appendChild(copyBtn);
+
+            // Replace the original <pre> in the DOM with our container
+            preElem.parentNode.replaceChild(container, preElem);
+          });
+        }
     </script>
 </body>
 </html>
