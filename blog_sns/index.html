@@ -323,7 +323,7 @@
         </section>
 
         <div class="post-image">
-            <img src="diagram-20241229.svg" alt="Data Drift Concept Visualization"/>
+            <img src="diagram-20241229.svg" alt="Data Drift Concept Visualization" onerror="this.style.display='none'"/>
         </div>
 
         <article class="post-content" id="markdown-content">
@@ -510,25 +510,46 @@
          * Render drift.md with Marked + Prism
          ****************************************/
         document.addEventListener('DOMContentLoaded', () => {
-          fetch('drift.md')
-            .then((res) => res.text())
-            .then((markdownText) => {
-              // 1) Parse with Marked (default renderer)
-              const renderedHtml = marked.parse(markdownText);
-              
-              // 2) Insert into our page
-              document.getElementById('markdown-content').innerHTML = renderedHtml;
+          // Configure marked options
+          marked.setOptions({
+            gfm: true,
+            breaks: true,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false
+          });
 
-              // 3) Highlight code blocks with Prism
+          // Custom renderer for code blocks
+          const renderer = new marked.Renderer();
+          renderer.code = function(code, language) {
+            const validLanguage = language || '';
+            return `<div class="code-block-container">
+              <button class="copy-button">Copy</button>
+              <pre><code class="language-${validLanguage}">${code}</code></pre>
+            </div>`;
+          };
+          marked.use({ renderer });
+
+          // Fetch and render markdown
+          fetch('drift.md')
+            .then(res => {
+              if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+              return res.text();
+            })
+            .then(markdownText => {
+              document.getElementById('markdown-content').innerHTML = marked.parse(markdownText);
+              
+              // Initialize Prism.js
               if (window.Prism) {
                 Prism.highlightAll();
               }
 
-              // 4) Add "Copy" button to each code block
+              // Add copy buttons
               addCopyButtons();
             })
-            .catch((err) => {
-              console.error('Error fetching drift.md:', err);
+            .catch(err => {
+              console.error('Error:', err);
               document.getElementById('markdown-content').innerHTML = 
                 `<div class="error">Error loading content: ${err.message}</div>`;
             });
