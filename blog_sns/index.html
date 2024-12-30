@@ -6,6 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Marked -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -323,7 +324,7 @@
         </section>
 
         <div class="post-image">
-            <img src="diagram-20241229.svg" alt="Data Drift Concept Visualization" onerror="this.style.display='none'"/>
+            <img src="./diagram-20241229.svg" alt="Data Drift Concept Visualization" onerror="this.style.display='none'"/>
         </div>
 
         <article class="post-content" id="markdown-content">
@@ -532,7 +533,7 @@
           marked.use({ renderer });
 
           // Fetch and render markdown
-          fetch('drift.md')
+          fetch('./drift.md')
             .then(res => {
               if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
               return res.text();
