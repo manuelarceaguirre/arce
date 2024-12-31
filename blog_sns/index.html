@@ -511,7 +511,7 @@
          * Render drift.md with Marked + Prism
          ****************************************/
         document.addEventListener('DOMContentLoaded', () => {
-          fetch('drift.md')
+          fetch('/blog_sns/drift.md')
             .then((res) => res.text())
             .then((markdownText) => {
               // 1) Parse with Marked (default renderer)
