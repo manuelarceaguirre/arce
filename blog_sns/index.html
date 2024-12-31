@@ -511,62 +511,25 @@
          * Render drift.md with Marked + Prism
          ****************************************/
         document.addEventListener('DOMContentLoaded', () => {
-          // Configure marked options
-          marked.setOptions({
-            gfm: true,
-            breaks: true,
-            pedantic: false,
-            sanitize: false,
-            smartLists: true,
-            smartypants: false
-          });
-
-          // Custom renderer for code blocks
-          const renderer = new marked.Renderer();
-          renderer.code = function(code, language) {
-            const validLanguage = language || '';
-            const escapedCode = code.replace(/&/g, '&amp;')
-                                  .replace(/</g, '&lt;')
-                                  .replace(/>/g, '&gt;')
-                                  .replace(/"/g, '&quot;')
-                                  .replace(/'/g, '&#039;');
-            return `<div class="code-block-container">
-              <button class="copy-button">Copy</button>
-              <pre><code class="language-${validLanguage}">${escapedCode}</code></pre>
-            </div>`;
-          };
-          marked.use({ renderer });
-
-          // Get the base path for the repository
-          const basePath = '/blog_sns/';
-          
-          // Fetch the markdown file using the correct path
-          const markdownPath = `${basePath}drift.md`;
-          console.log('Attempting to fetch:', markdownPath); // Debug log
-
-          fetch(markdownPath)
-            .then(res => {
-              console.log('Fetch response:', res.status, res.statusText); // Debug log
-              if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-              return res.text();
-            })
-            .then(markdownText => {
-              console.log('Markdown content length:', markdownText.length); // Debug log
-              const parsedContent = marked.parse(markdownText);
-              document.getElementById('markdown-content').innerHTML = parsedContent;
+          fetch('drift.md')
+            .then((res) => res.text())
+            .then((markdownText) => {
+              // 1) Parse with Marked (default renderer)
+              const renderedHtml = marked.parse(markdownText);
               
-              // Initialize Prism.js
+              // 2) Insert into our page
+              document.getElementById('markdown-content').innerHTML = renderedHtml;
+
+              // 3) Highlight code blocks with Prism
               if (window.Prism) {
                 Prism.highlightAll();
               }
 
-              // Add copy buttons
-              if (typeof addCopyButtons === 'function') {
-                addCopyButtons();
-              }
+              // 4) Add "Copy" button to each code block
+              addCopyButtons();
             })
-            .catch(err => {
-              console.error('Detailed error:', err); // Debug log
+            .catch((err) => {
+              console.error('Error fetching drift.md:', err);
               document.getElementById('markdown-content').innerHTML = 
                 `<div class="error">Error loading content: ${err.message}</div>`;
             });
