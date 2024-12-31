@@ -324,7 +324,7 @@
         </section>
 
         <div class="post-image">
-            <img src="./diagram-20241229.svg" alt="Data Drift Concept Visualization" onerror="this.style.display='none'"/>
+            <img src="/blog_sns/diagram-20241229.svg" alt="Data Drift Concept Visualization" onerror="this.style.display='none'"/>
         </div>
 
         <article class="post-content" id="markdown-content">
@@ -538,10 +538,10 @@
           marked.use({ renderer });
 
           // Get the base path for the repository
-          const basePath = '/arce/blog_sns/';
+          const basePath = '/blog_sns/';
           
           // Fetch the markdown file using the correct path
-          const markdownPath = `${window.location.origin}${basePath}drift.md`;
+          const markdownPath = `${basePath}drift.md`;
           console.log('Attempting to fetch:', markdownPath); // Debug log
 
           fetch(markdownPath)
