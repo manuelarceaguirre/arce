@@ -1,32 +1,34 @@
-I live 10 minutes from the border of the US and Mexico, and growing up I always heard that the rich kids only went to one high school on the other side of the border. As a kid, I did not know how much money my parents had. I did not ask for a lot of stuff but at the time. When it was time for entering high school I wanted to go to the high school across the border. My parents and I noticed they did not give scholarships, but made an appointment with the principal.
+Growing up just 10 minutes from the US-Mexico border, I always heard this thing about "the rich kids' school" on the other side. As a child, I was blissfully unaware of my family's financial situation - I didn't ask for much, and money wasn't something I thought about.
 
-At that time I was on the national fencing team and had won tons of national competitions. Me and my parents had a meeting with this funny nun who was the principal, she said that they would give me a sports scholarship to go there. When we came back it was the first time I heard, "Son we can't afford it". It was as if my mind modified my paradigm that I would never make it to the US.
+When high school approached, I set my heart on attending that prestigious cross-border school. My parents and I discovered they didn't typically offer scholarships, but we managed to secure a meeting with the principal. At the time, I was competing on the national fencing team and had lots of national championships. During our meeting, an endearing nun who served as principal offered me something unexpected - a sports scholarship.
 
-Fast forward, now I have a girlfriend who studied in a very expensive college in Los Angeles. The first time she took me to campus I cried because this was my dream. I did not want to be stuck in this place. I knew I wanted to start a life in the US, and I knew one of my options was to study and do a masters program. This step too would set me up for an O1 visa or H1B Visa and I could become an American.
+It was only after we left that meeting that I heard the crushing words from my parents for the first time: "Son, we can't afford it." That moment shifted something in my mind, creating a belief that the United States would always be out of reach for me.
 
-I saw UChicago's program (Not knowing AT ALL the prestige and the acceptance rate, you know what's funny I looked up the acceptance rate after I paid for everything and submitted my application. Google said it was 6%-8%)  and thought that Applied Data Science was my best shot since I just graduated from a Bachelors in Actuarial Science from a Mexican University. I had similar classes and the program seemed very complete. I set up my first and only information session. I was lucky enough to have the call with one of the higher-ups. 
+I discovered UChicago's program - completely unaware of its prestige and acceptance rate at the time. Ironically, I only looked up the acceptance rate (a daunting 6%-8%) after I'd already paid for and submitted my application. Applied Data Science seemed like my best shot, given that I had just graduated with a Bachelor's in Actuarial Science from a Mexican university. The coursework aligned well with my background, and the program appeared comprehensive.
+
+I scheduled my first and only information session, and by some stroke of luck, ended up having the call with one of the higher-ups in the program.
 
 I once read that universities not only look at your grades and accomplishments but another part of the decision is only based on ✨vibes✨
 
-So I asked the higher up 3 questions that revealed the hidden ✨vibes✨ of UChicago:
 
-**Me:** What is different from UChicago than the other universities?
-> "Academic Excellency bla bla the need for highly technical individuals in business decisions bla bla" 
-nothing special ok NEXT
+When I asked about UChicago's unique qualities, I got the standard response:
+> "Academic Excellency... need for highly technical individuals in business decisions..."
+Nothing special ok NEXT
   
-**Me:** What is different from the Applied Data Science program to the normal Data Science?
-> "If you want to do a PhD go to Data Science, if not do the Applied" 
+Then I asked about the difference between Applied Data Science and regular Data Science:
+> "If you want to do a PhD go Data Science, if not do Applied" 
 Okkk that's me NEXT
 
 I wanted him to reveal the ✨vibes✨ that would let me in the door. I needed a theme in my application. Why am I better than another guy with perfect scores, awards, and success INSIDE the US? It's not a secret that Mexican curriculums are FKN EASY compared to these monsters.
 
-**Me:** What do the faculty members believe in, things close to their hearts?
-> Collaboration is a big thing for us. 
+So I asked the key question:
+> "What do the faculty members believe in, what matters most to them?"
+> "Collaboration is a big thing for us."
 FINALLY SOMETHING USEFUL!
 
-So I decided to gather everything that I did in college and in my work life. Try to select the most Collaboration-oriented things and center my whole application on this single theme: Collaboration.
+So I decided to gather everything that I did in college and work life. Try to select the most Collaboration-oriented things and center my whole application on this single theme: Collaboration.
 
-The important thing is I did not lie. I have this power that in classrooms I would always make friends the very first day and together we aced every exam and every homework by teaming up and beating the professor at his own game. In my past jobs, I have been the middle man lots of times and always made entire teams work together. 
+I did not lie though. I have this power that in classrooms I would always make friends the very first day and together we aced every exam and every homework by teaming up and beating the professor at his own game. In my past jobs, I have been the middle man lots of times and always made entire teams work together. 
 
 ## Letters of Recommendation
 For the applied program you only need 2:
