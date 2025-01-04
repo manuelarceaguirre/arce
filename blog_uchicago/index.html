@@ -511,72 +511,77 @@
          * Render drift.md with Marked + Prism
          ****************************************/
         document.addEventListener('DOMContentLoaded', () => {
-          fetch('/blog_sns/howigotin.md')
-            .then((res) => res.text())
-            .then((markdownText) => {
-              // 1) Parse with Marked (default renderer)
-              const renderedHtml = marked.parse(markdownText);
-              
-              // 2) Insert into our page
-              document.getElementById('markdown-content').innerHTML = renderedHtml;
+            fetch('/blog_uchicago/howigotin.md')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then((markdownText) => {
+                    // 1) Parse with Marked (default renderer)
+                    const renderedHtml = marked.parse(markdownText);
+                    
+                    // 2) Insert into our page
+                    document.getElementById('markdown-content').innerHTML = renderedHtml;
 
-              // 3) Highlight code blocks with Prism
-              if (window.Prism) {
-                Prism.highlightAll();
-              }
+                    // 3) Highlight code blocks with Prism
+                    if (window.Prism) {
+                        Prism.highlightAll();
+                    }
 
-              // 4) Add "Copy" button to each code block
-              addCopyButtons();
-            })
-            .catch((err) => {
-              console.error('Error fetching drift.md:', err);
-              document.getElementById('markdown-content').innerHTML = 
-                `<div class="error">Error loading content: ${err.message}</div>`;
-            });
+                    // 4) Add "Copy" button to each code block
+                    addCopyButtons();
+                })
+                .catch((err) => {
+                    console.error('Error fetching howigotin.md:', err);
+                    document.getElementById('markdown-content').innerHTML = 
+                        `<div class="error">Error loading content: ${err.message}<br>Path: /blog_uchicago/howigotin.md</div>`;
+                });
         });
 
         function addCopyButtons() {
-          // Find each code block
-          const codeBlocks = document.querySelectorAll('pre > code');
-          codeBlocks.forEach((codeElem) => {
-            // The <pre> parent
-            const preElem = codeElem.parentNode;
+            // Find each code block
+            const codeBlocks = document.querySelectorAll('pre > code');
+            codeBlocks.forEach((codeElem) => {
+                // The <pre> parent
+                const preElem = codeElem.parentNode;
 
-            // Create a container
-            const container = document.createElement('div');
-            container.classList.add('code-block-container');
-            
-            // Clone our <pre><code> block into the container
-            container.appendChild(preElem.cloneNode(true));
+                // Create a container
+                const container = document.createElement('div');
+                container.classList.add('code-block-container');
+                
+                // Clone our <pre><code> block into the container
+                container.appendChild(preElem.cloneNode(true));
 
-            // Create a copy button
-            const copyBtn = document.createElement('button');
-            copyBtn.textContent = 'Copy';
-            copyBtn.classList.add('copy-button');
+                // Create a copy button
+                const copyBtn = document.createElement('button');
+                copyBtn.textContent = 'Copy';
+                copyBtn.classList.add('copy-button');
 
-            // Copy logic
-            copyBtn.addEventListener('click', async () => {
-              const codeToCopy = codeElem.textContent;
-              try {
-                await navigator.clipboard.writeText(codeToCopy);
-                copyBtn.textContent = 'Copied!';
-                copyBtn.classList.add('copied');
-                setTimeout(() => {
-                  copyBtn.textContent = 'Copy';
-                  copyBtn.classList.remove('copied');
-                }, 2000);
-              } catch (copyErr) {
-                console.error('Failed to copy:', copyErr);
-                copyBtn.textContent = 'Error';
-              }
+                // Copy logic
+                copyBtn.addEventListener('click', async () => {
+                    const codeToCopy = codeElem.textContent;
+                    try {
+                        await navigator.clipboard.writeText(codeToCopy);
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.classList.add('copied');
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    } catch (copyErr) {
+                        console.error('Failed to copy:', copyErr);
+                        copyBtn.textContent = 'Error';
+                    }
+                });
+
+                // Append button to the container
+                container.appendChild(copyBtn);
+
+                // Replace the original <pre> in the DOM with our container
+                preElem.parentNode.replaceChild(container, preElem);
             });
-
-            // Append button to the container
-            container.appendChild(copyBtn);
-
-            // Replace the original <pre> in the DOM with our container
-            preElem.parentNode.replaceChild(container, preElem);
-          });
         }
     </script>
 </body>
