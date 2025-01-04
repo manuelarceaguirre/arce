@@ -1,12 +1,14 @@
-I live 10 minutes from the border of the US and Mexico, and growing up I always heard that the rich kids only went to one high school on the other side of the border. As a kid, I did not know how much money my parents had. I did not ask for a lot of stuff but at the time, it was probably the most expensive middle school, and I got a scholarship for it. When it was time for entering high school I wanted to go to the high school across the border. My parents and I noticed they did not give scholarships. 
+I live 10 minutes from the border of the US and Mexico, and growing up I always heard that the rich kids only went to one high school on the other side of the border. As a kid, I did not know how much money my parents had. I did not ask for a lot of stuff but at the time. When it was time for entering high school I wanted to go to the high school across the border. My parents and I noticed they did not give scholarships, but made an appointment with the principal.
 
-At that time I was on the national fencing team and had won tons of national competitions. Me and my parents had a meeting with a nun who was the principal and she said that they would give me a sports scholarship to go there. When we came back it was the first time I heard, "Son we can't afford it". It was as if my mind modified my paradigm that I would never make it to the US.
+At that time I was on the national fencing team and had won tons of national competitions. Me and my parents had a meeting with this funny nun who was the principal, she said that they would give me a sports scholarship to go there. When we came back it was the first time I heard, "Son we can't afford it". It was as if my mind modified my paradigm that I would never make it to the US.
 
 Fast forward, now I have a girlfriend who studied in a very expensive college in Los Angeles. The first time she took me to campus I cried because this was my dream. I did not want to be stuck in this place. I knew I wanted to start a life in the US, and I knew one of my options was to study and do a masters program. This step too would set me up for an O1 visa or H1B Visa and I could become an American.
 
-I saw UChicago's program (Not knowing AT ALL the prestige and the acceptance rate, you know what's funny I looked up the acceptance rate after I paid for everything and submitted my application. Google said it was 6%-8%)  and thought that Applied Data Science was my best shot since I just graduated from a Bachelors in Actuarial Science from a Mexican University. I had similar classes and the program seemed very complete. I set up my first and only information session. I was lucky enough to have the call with one of the higher-ups, I believe. I once read that universities not only look at your grades and accomplishments – of course, they see that and that enters the equation – but another part of the decision to let you in or not to the party is values. 
+I saw UChicago's program (Not knowing AT ALL the prestige and the acceptance rate, you know what's funny I looked up the acceptance rate after I paid for everything and submitted my application. Google said it was 6%-8%)  and thought that Applied Data Science was my best shot since I just graduated from a Bachelors in Actuarial Science from a Mexican University. I had similar classes and the program seemed very complete. I set up my first and only information session. I was lucky enough to have the call with one of the higher-ups. 
 
-So I asked the higher up 3 questions that revealed the hidden values of UChicago:
+I once read that universities not only look at your grades and accomplishments but another part of the decision is only based on ✨vibes✨
+
+So I asked the higher up 3 questions that revealed the hidden ✨vibes✨ of UChicago:
 
 **Me:** What is different from UChicago than the other universities?
 > "Academic Excellency bla bla the need for highly technical individuals in business decisions bla bla" 
@@ -16,9 +18,9 @@ nothing special ok NEXT
 > "If you want to do a PhD go to Data Science, if not do the Applied" 
 Okkk that's me NEXT
 
-I wanted him to reveal the secrets that would let me in the door. I needed a theme in my application. Why am I better than another guy with perfect scores, awards, and success INSIDE the US? It's not a secret that Mexican curriculums are FKN EASY compared to these monsters.
+I wanted him to reveal the ✨vibes✨ that would let me in the door. I needed a theme in my application. Why am I better than another guy with perfect scores, awards, and success INSIDE the US? It's not a secret that Mexican curriculums are FKN EASY compared to these monsters.
 
-**Me:** What do the faculty members believe in, things close to their heart?
+**Me:** What do the faculty members believe in, things close to their hearts?
 > Collaboration is a big thing for us. 
 FINALLY SOMETHING USEFUL!
 
