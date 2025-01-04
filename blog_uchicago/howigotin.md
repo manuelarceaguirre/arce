@@ -13,10 +13,12 @@ I once read that universities not only look at your grades and accomplishments b
 
 When I asked about UChicago's unique qualities, I got the standard response:
 > "Academic Excellency... need for highly technical individuals in business decisions..."
+
 Nothing special ok NEXT
   
 Then I asked about the difference between Applied Data Science and regular Data Science:
 > "If you want to do a PhD go Data Science, if not do Applied" 
+
 Okkk that's me NEXT
 
 I wanted him to reveal the ✨vibes✨ that would let me in the door. I needed a theme in my application. Why am I better than another guy with perfect scores, awards, and success INSIDE the US? It's not a secret that Mexican curriculums are FKN EASY compared to these monsters.
@@ -24,6 +26,7 @@ I wanted him to reveal the ✨vibes✨ that would let me in the door. I needed a
 So I asked the key question:
 > "What do the faculty members believe in, what matters most to them?"
 > "Collaboration is a big thing for us."
+
 FINALLY SOMETHING USEFUL!
 
 So I decided to gather everything that I did in college and work life. Try to select the most Collaboration-oriented things and center my whole application on this single theme: Collaboration.
