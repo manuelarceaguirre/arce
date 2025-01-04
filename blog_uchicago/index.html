@@ -118,23 +118,25 @@
 
         .post-image {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 2rem 0;
+            padding: 0 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
 
         .post-image img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
+            margin: 0 auto;
+            display: block;
         }
 
-        /* Add mobile-specific adjustments */
+        /* Mobile adjustments */
         @media only screen and (max-width: 600px) {
             .post-image {
-                margin: 1rem 0;
-                padding: 0 1rem;
+                padding: 0 15px;
+                margin: 1rem auto;
+                max-width: 90%;
             }
         }
 
