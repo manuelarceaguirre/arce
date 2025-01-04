@@ -8,15 +8,18 @@ I saw UChicago's program and thought that Applied Data Science was my best shot 
 So I asked the higher up 3 questions that revealed the hidden values of UChicago:
 
 **Me:** What is different from UChicago than the other universities?
-> "Academic Excellency bla bla the need for highly technical individuals in business decisions bla bla" nothing special ok NEXT
+> "Academic Excellency bla bla the need for highly technical individuals in business decisions bla bla" 
+nothing special ok NEXT
   
 **Me:** What is different from the Applied Data Science program to the normal Data Science?
-> "If you want to do a PhD go to Data Science, if not do the Applied" Okkk that's me NEXT
+> "If you want to do a PhD go to Data Science, if not do the Applied" 
+Okkk that's me NEXT
 
 I wanted him to reveal the secrets that would let me in the door. I needed a theme in my application. Why am I better than another guy with perfect scores, awards, and success INSIDE the US? It's not a secret Mexican curriculums are EASY compared to these monsters.
 
 **Me:** What do the faculty members believe in, things close to their heart?
-> Collaboration is a big thing for us. FINALLY SOMETHING USEFUL!
+> Collaboration is a big thing for us. 
+FINALLY SOMETHING USEFUL!
 
 So I decided to gather everything that I did in college and in my work life. Try to select the most Collaboration-oriented things and center my whole application to this single theme: Collaboration.
 
