@@ -9,7 +9,7 @@ A lof of times I would get excited because I was finally making progress and the
 > It's not worth it.
 > You are not going to make it.
 
-And I did not have any idea on how to make this possible. So here is exactly everything I did, my thought process, and the resources I used. So you can do it too, everytime you hear these stupid phrases: Come back to this guide. Follow this plan. Stick to it and think that if a guy from Mexico with less money than your average American Mcdonald's employee, you can do it too. Without my girlfriend, I would not have been able to get in. So find someone that will support you, if you don't have one, DM me and I will remind you every day you better fucking get going.
+And I did not have any idea on how to make this possible. So here is exactly everything I did, my thought process, and the resources I used. So you can do it too, everytime you hear these stupid phrases: Come back to this guide. Follow this plan. Stick to it and think that if a guy from Mexico with less money than your average American Mcdonald's employee, got in, you can do it too. Without my girlfriend, I would not have been able to get in. So find someone that will support you, if you don't have one, DM me and I will remind you every day you better fucking get going.
 
 I discovered UChicago's program - completely unaware of its prestige and acceptance rate at the time. Ironically, I only looked up the acceptance rate (a daunting 6%-8%) after I'd already paid for and submitted my application. Applied Data Science seemed like my best shot, given that I had just graduated with a Bachelor's in Actuarial Science from a Mexican university. The coursework aligned well with my background, and the program appeared comprehensive.
 
