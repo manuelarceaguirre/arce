@@ -47,7 +47,7 @@ My strategy was the following:
 
 I texted my youngest teacher if she could write me a letter. But I wanted to tell her more about the university and the program. We sat down, gossiped, catched up, and then I reminded her all the collaboration stories I remembered from her class. Collaboration this Collaboration that. All the time. 
 
-The second one I actually by accident texted my the HEAD OF THE ENTIRE CONTINENT, it turns out my direct supervisor and him are named the same. He was super cool about it. Same thing. Called him, gossiped, catched up, and then I reminded him all the collaboration stuff I did in the company.
+For the second letter I actually texted the HEAD OF THE ENTIRE CONTINENT, it turns out my direct supervisor and him are named the same. He was super cool about it. Same thing. Called him, gossiped, catched up, and then I reminded him all the collaboration stuff I did in the company.
 
 ## Candidate Statement
 I tend to always write about my feelings but seeing lots of examples online I realized this is a bad strategy. I DO NOT recommend to be funny, the reality is you don't know what is funny for a professor or a scholarship committee.
