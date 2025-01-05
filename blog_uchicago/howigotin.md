@@ -67,11 +67,13 @@ I cloned this guys template and started writing. He even has instructions on how
 [tuna🍣 on X: "Your Resumes Are Making Me Depressed and Ashamed " / X](https://x.com/tunahorse21/status/1833720902904643904)
 [ZeroRuck on X: "How to write a resume" / X](https://x.com/zeroruck/status/1848757562293850590)
 
-Follow these articles. Remember to be follow your theme.
+Follow these articles. Remember to follow your theme.
 
 ## Programming Supplement
 This was the hardest part. The challenge is to keep it under 2 pages. So I just included the most important lines of the whole code and included a link to a visual demo of the code and a link to the github repo.
+
 [manuelarceaguirre/insurancemodel](https://github.com/manuelarceaguirre/insurancemodel)
+
 [insurancemodelvisualizer.vercel.app](https://insurancemodelvisualizer.vercel.app/)
 
 ## Virtual Portfolio
