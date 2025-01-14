@@ -12,7 +12,7 @@
             background: black;
             overflow: hidden;
         }
-        
+
         .pdf-container {
             width: 100vw;
             height: 100vh;
@@ -33,29 +33,33 @@
             color: white;
             margin-top: 20px;
             display: none;
+            text-align: center;
         }
 
         .alternative-options {
             color: white;
             margin-top: 20px;
             display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="pdf-container">
-        <!-- Try embedding with Google Docs Viewer as fallback -->
+        <!-- Display PDF using iframe -->
         <iframe class="pdf-viewer" id="pdfFrame" src="Cryptodraft.pdf" onerror="handleError()"></iframe>
-        
+
+        <!-- Error message -->
         <div class="error-message" id="errorMsg">
-            Unable to load PDF. Please ensure:
+            <p>Unable to load PDF. Please ensure:</p>
             <ul>
-                <li>Cryptodraft.pdf is in the same directory as this HTML file</li>
-                <li>Your browser supports PDF viewing</li>
-                <li>You have proper file permissions</li>
+                <li><b>Cryptodraft.pdf</b> is in the same directory as this HTML file.</li>
+                <li>Your browser supports PDF viewing.</li>
+                <li>You have proper file permissions for Cryptodraft.pdf.</li>
             </ul>
         </div>
 
+        <!-- Alternative options -->
         <div class="alternative-options" id="altOptions">
             <h3>Alternative Viewing Options:</h3>
             <button onclick="tryGoogleViewer()">View with Google Docs Viewer</button>
@@ -65,27 +69,24 @@
 
     <script>
         function handleError() {
+            // Display error message and alternative options
             document.getElementById('errorMsg').style.display = 'block';
             document.getElementById('altOptions').style.display = 'block';
         }
 
         function tryGoogleViewer() {
+            // Use Google Docs Viewer as a fallback
             const pdfFrame = document.getElementById('pdfFrame');
-            pdfFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.href)}/Cryptodraft.pdf&embedded=true`;
+            const pdfUrl = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}Cryptodraft.pdf`;
+            pdfFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
         }
 
         function downloadPDF() {
+            // Trigger PDF download
             const link = document.createElement('a');
             link.href = 'Cryptodraft.pdf';
             link.download = 'Cryptodraft.pdf';
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
-        }
-
-        // Initial check for PDF support
-        if (!window.navigator.pdfViewerEnabled) {
-            handleError();
         }
     </script>
 </body>
