@@ -19,19 +19,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         .pdf-viewer {
             width: 90%;
-            height: 95%;
+            height: 90%;
             background: #333;
             border: 2px solid #666;
+        }
+
+        .error-message {
+            color: white;
+            margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="pdf-container">
-        <iframe class="pdf-viewer" src="Cryptodraft.pdf"></iframe>
+        <iframe class="pdf-viewer" src="Cryptodraft.pdf" onerror="showError()"></iframe>
+        <div class="error-message" id="errorMsg">
+            Unable to load PDF. Please ensure:
+            <ul>
+                <li>Cryptodraft.pdf is in the same directory as this HTML file</li>
+                <li>Your browser supports PDF viewing</li>
+                <li>You have proper file permissions</li>
+            </ul>
+        </div>
     </div>
+
+    <script>
+        function showError() {
+            document.getElementById('errorMsg').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
