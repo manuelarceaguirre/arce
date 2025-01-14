@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horizontal PDF Viewer</title>
+    <title>Cryptodraft PDF Viewer</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
-            min-height: 100%;
-            font-family: Inconsolata, monospace;
-            font-size: 18px;
-            color: #fff;
+            height: 100%;
             background: black;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden;
+        }
+        
+        .pdf-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pdf-viewer {
+            width: 90%;
+            height: 95%;
+            background: #333;
+            border: 2px solid #666;
         }
     </style>
 </head>
+<body>
+    <div class="pdf-container">
+        <iframe class="pdf-viewer" src="Cryptodraft.pdf"></iframe>
+    </div>
+</body>
+</html>
