@@ -34,11 +34,19 @@
             margin-top: 20px;
             display: none;
         }
+
+        .alternative-options {
+            color: white;
+            margin-top: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="pdf-container">
-        <iframe class="pdf-viewer" src="Cryptodraft.pdf" onerror="showError()"></iframe>
+        <!-- Try embedding with Google Docs Viewer as fallback -->
+        <iframe class="pdf-viewer" id="pdfFrame" src="Cryptodraft.pdf" onerror="handleError()"></iframe>
+        
         <div class="error-message" id="errorMsg">
             Unable to load PDF. Please ensure:
             <ul>
@@ -47,11 +55,37 @@
                 <li>You have proper file permissions</li>
             </ul>
         </div>
+
+        <div class="alternative-options" id="altOptions">
+            <h3>Alternative Viewing Options:</h3>
+            <button onclick="tryGoogleViewer()">View with Google Docs Viewer</button>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </div>
     </div>
 
     <script>
-        function showError() {
+        function handleError() {
             document.getElementById('errorMsg').style.display = 'block';
+            document.getElementById('altOptions').style.display = 'block';
+        }
+
+        function tryGoogleViewer() {
+            const pdfFrame = document.getElementById('pdfFrame');
+            pdfFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.href)}/Cryptodraft.pdf&embedded=true`;
+        }
+
+        function downloadPDF() {
+            const link = document.createElement('a');
+            link.href = 'Cryptodraft.pdf';
+            link.download = 'Cryptodraft.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initial check for PDF support
+        if (!window.navigator.pdfViewerEnabled) {
+            handleError();
         }
     </script>
 </body>
