@@ -65,7 +65,7 @@
 
     <script src="../assets/js/circuit-animation.js"></script>
     <script>
-        // Render howigotin.md with Marked + Prism
+        // Render repoprompt.md with Marked + Prism
         document.addEventListener('DOMContentLoaded', () => {
             fetch('repoprompt.md')
                 .then(response => {
@@ -90,9 +90,9 @@
                     addCopyButtons();
                 })
                 .catch((err) => {
-                    console.error('Error fetching howigotin.md:', err);
+                    console.error('Error fetching repoprompt.md:', err);
                     document.getElementById('markdown-content').innerHTML = 
-                        `<div class="error">Error loading content: ${err.message}<br>Path: howigotin.md</div>`;
+                        `<div class="error">Error loading content: ${err.message}<br>Path: repoprompt.md</div>`;
                 });
         });
 
