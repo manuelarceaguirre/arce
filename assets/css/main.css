@@ -1,0 +1,507 @@
+/* Base styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Inconsolata, monospace;
+    font-size: 18px;
+    color: #fff;
+    background: black;
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+    body {
+        height: calc(100% + env(safe-area-inset-top));
+    }
+}
+
+::selection {
+    background: #0080FF;
+    text-shadow: none;
+}
+
+/* Canvas for circuit animation */
+canvas {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+pre {
+    margin: 0;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Page content wrapper */
+.page-content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #000;
+    border-bottom: 1px solid #222;
+    font-family: Inconsolata, monospace;
+}
+
+.logo-area {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-right svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.header-right svg:hover {
+    opacity: 1;
+}
+
+/* Banner and sections */
+.banner {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.banner p {
+    font-size: 1.5em;
+    margin: 0;
+    color: #ddd;
+}
+
+.hover-text {
+    color: #888;
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+.future-section .header {
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.future-section .header h1 {
+    color: #e2813c;
+    margin-bottom: 10px;
+}
+
+.future-section .header .description {
+    color: #fff;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Tools grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    width: 750px;
+    margin: 0 auto;
+    border: 1px solid #fff;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.tool-card {
+    background-color: #0e0e0e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    position: relative;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.icon-box {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.tool-button {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s;
+}
+
+.tool-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tool-button svg {
+    width: 14px;
+    height: 14px;
+}
+
+.tool-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.tool-card p {
+    color: #888;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0 0 1rem 0;
+    max-width: 200px;
+}
+
+.learn-more-button {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.new-badge {
+    background-color: #ff6b00;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-weight: 500;
+}
+
+.pending-badge {
+    background-color: #ffa500;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-weight: 500;
+}
+
+.button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* Footer */
+footer {
+    background-color: #000;
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid #222;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0 0 20px 0;
+    font-size: 1rem;
+}
+
+.trusted-logos img {
+    vertical-align: middle;
+}
+
+/* Blog post styles */
+.post-header {
+    text-align: center;
+    padding: 60px 0 20px 0;
+}
+
+.post-header h1 {
+    color: #e2813c;
+    margin-bottom: 10px;
+}
+
+.reading-time {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.post-image {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.post-image img {
+    max-width: 100%;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.post-content {
+    padding: 20px;
+    line-height: 1.6;
+    color: #ddd;
+    font-size: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content code {
+    background: #222;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: Consolas, Monaco, 'Courier New', monospace;
+}
+
+.post-content pre {
+    position: relative;
+    background: #1a1a1a;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 0;
+}
+
+.post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.post-content th,
+.post-content td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+
+.post-content th {
+    background: #222;
+}
+
+.post-content blockquote {
+    border-left: 3px solid #e2813c;
+    margin: 1em 0;
+    padding-left: 1em;
+    color: #888;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+    color: #e2813c;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.error {
+    color: #ff4444;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Code block container with copy button */
+.code-block-container {
+    position: relative;
+    margin: 1em 0;
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.copy-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    background: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.copy-button:hover {
+    opacity: 1;
+    background: #444;
+}
+
+.copy-button.copied {
+    background: #e79a09;
+    border-color: #e79a09;
+}
+
+.code-block-container pre {
+    margin: 0;
+    padding: 1em;
+    overflow-x: auto;
+}
+
+.code-block-container code {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+}
+
+/* Mobile responsive */
+@media only screen and (max-width: 600px) {
+    html, body {
+        overflow: auto;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr;
+        width: 90%; 
+        margin: 0 auto;
+    }
+    
+    .logo-area {
+        font-size: 1.1em;
+    }
+    
+    .tool-card h3 {
+        font-size: 0.95rem;
+    }
+    
+    .tool-card p {
+        font-size: 0.75rem;
+    }
+    
+    .header-right svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .post-image {
+        padding: 0 15px;
+        margin: 1rem auto;
+        max-width: 90%;
+        max-height: 300px;
+    }
+    
+    .post-image img {
+        max-height: 300px;
+    }
+}
+
+/* Blog specific styles */
+.blog-page .page-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.blog-page .post-image {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.blog-page .post-image img {
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    object-position: top;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+/* Link colors */
+.blog-page a {
+    color: #0080FF;
+    text-decoration: none;
+}
+
+.blog-page header a {
+    color: #fff;
+}
+
+.blog-page .tool-button {
+    color: #fff;
+}
+
+/* Selection colors for blog pages */
+.blog-page ::selection {
+    background: #6bb0f5;
+    text-shadow: none;
+}

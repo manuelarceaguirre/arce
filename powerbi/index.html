@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptodraft PDF Viewer</title>
+    <title>PDF Viewer - Manuel Arce</title>
+    <meta name="description" content="View PDF documents in the browser">
+    <link rel="stylesheet" href="../assets/css/main.css">
     <style>
         html, body {
             margin: 0;
@@ -42,20 +44,38 @@
             display: none;
             text-align: center;
         }
+
+        .alternative-options button {
+            background-color: #ff6b00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .alternative-options button:hover {
+            background-color: #e55a00;
+        }
     </style>
 </head>
 <body>
+    <!-- Background circuit canvas -->
+    <canvas id="circuitCanvas"></canvas>
+    
     <div class="pdf-container">
         <!-- Display PDF using iframe -->
-        <iframe class="pdf-viewer" id="pdfFrame" src="Cryptodraft.pdf" onerror="handleError()"></iframe>
+        <iframe class="pdf-viewer" id="pdfFrame" src="../docs/Cryptodraft.pdf" onerror="handleError()"></iframe>
 
         <!-- Error message -->
         <div class="error-message" id="errorMsg">
             <p>Unable to load PDF. Please ensure:</p>
             <ul>
-                <li><b>Cryptodraft.pdf</b> is in the same directory as this HTML file.</li>
+                <li><b>Cryptodraft.pdf</b> is in the docs directory.</li>
                 <li>Your browser supports PDF viewing.</li>
-                <li>You have proper file permissions for Cryptodraft.pdf.</li>
+                <li>You have proper file permissions for the PDF.</li>
             </ul>
         </div>
 
@@ -64,9 +84,11 @@
             <h3>Alternative Viewing Options:</h3>
             <button onclick="tryGoogleViewer()">View with Google Docs Viewer</button>
             <button onclick="downloadPDF()">Download PDF</button>
+            <button onclick="goHome()">Go Home</button>
         </div>
     </div>
 
+    <script src="../assets/js/circuit-animation.js"></script>
     <script>
         function handleError() {
             // Display error message and alternative options
@@ -77,16 +99,21 @@
         function tryGoogleViewer() {
             // Use Google Docs Viewer as a fallback
             const pdfFrame = document.getElementById('pdfFrame');
-            const pdfUrl = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}Cryptodraft.pdf`;
+            const pdfUrl = `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}../docs/Cryptodraft.pdf`;
             pdfFrame.src = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
         }
 
         function downloadPDF() {
             // Trigger PDF download
             const link = document.createElement('a');
-            link.href = 'Cryptodraft.pdf';
+            link.href = '../docs/Cryptodraft.pdf';
             link.download = 'Cryptodraft.pdf';
             link.click();
+        }
+
+        function goHome() {
+            // Navigate to home page
+            window.location.href = '../';
         }
     </script>
 </body>

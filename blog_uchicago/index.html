@@ -1,310 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="blog-page">
 <head>
-    <title>Manuel - AI Tools with Circuit Background</title>
+    <title>How I got into UChicago - Manuel Arce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Personal story about getting accepted to the University of Chicago">
+    <meta name="keywords" content="University of Chicago, College Admissions, Personal Story, Education">
 
-    <!-- Marked -->
+    <!-- External dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- Prism -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-json.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-bash.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/themes/prism-tomorrow.min.css">
-
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            min-height: 100%;
-            font-family: Inconsolata, monospace;
-            font-size: 18px;
-            color: #fff;
-            background: black;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        ::selection {
-            background: #6bb0f5;
-            text-shadow: none;
-        }
-
-        canvas {
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        a {
-            color: #0080FF;
-            text-decoration: none;
-        }
-
-        .page-content {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background-color: #000;
-            border-bottom: 1px solid #222;
-        }
-
-        .logo-area {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .header-right svg {
-            width: 16px;
-            height: 16px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .header-right svg:hover {
-            opacity: 1;
-        }
-
-        .post-header {
-            text-align: center;
-            padding: 60px 0 20px 0;
-        }
-
-        .post-header h1 {
-            color: #e2813c;
-            margin-bottom: 10px;
-        }
-
-        .reading-time {
-            color: #888;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .post-image {
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            text-align: center;
-            max-height: 400px;
-            overflow: hidden;
-        }
-
-        .post-image img {
-            max-width: 100%;
-            max-height: 400px;
-            width: auto;
-            height: auto;
-            border-radius: 8px;
-            margin: 0 auto;
-            display: block;
-            object-fit: cover;
-            object-position: top;
-        }
-
-        /* Mobile adjustments */
-        @media only screen and (max-width: 600px) {
-            .post-image {
-                padding: 0 15px;
-                margin: 1rem auto;
-                max-width: 90%;
-                max-height: 300px;
-            }
-            
-            .post-image img {
-                max-height: 300px;
-            }
-        }
-
-        .post-content {
-            padding: 20px;
-            line-height: 1.6;
-            color: #ddd;
-            font-size: 1rem;
-        }
-
-        .post-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        footer {
-            background-color: #000;
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid #222;
-            margin-top: 40px;
-        }
-
-        footer p {
-            margin: 0 0 20px 0;
-            font-size: 1rem;
-        }
-
-        .trusted-logos img {
-            vertical-align: middle;
-        }
-
-        .post-content code {
-            background: #222;
-            padding: 0.2em 0.4em;
-            border-radius: 3px;
-            font-family: Consolas, Monaco, 'Courier New', monospace;
-        }
-
-        .post-content pre {
-            position: relative;
-            background: #1a1a1a;
-            padding: 1em;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 0;
-        }
-
-        .post-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1em 0;
-        }
-
-        .post-content th,
-        .post-content td {
-            border: 1px solid #333;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .post-content th {
-            background: #222;
-        }
-
-        .post-content blockquote {
-            border-left: 3px solid #e2813c;
-            margin: 1em 0;
-            padding-left: 1em;
-            color: #888;
-        }
-
-        .error {
-            color: #ff4444;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .post-content h1,
-        .post-content h2,
-        .post-content h3,
-        .post-content h4,
-        .post-content h5,
-        .post-content h6 {
-            color: #e2813c;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        /* Container + copy button for code blocks */
-        .code-block-container {
-            position: relative;
-            margin: 1em 0;
-            background: #1a1a1a;
-            border-radius: 4px;
-        }
-
-        .copy-button {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            padding: 4px 8px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            color: #fff;
-            font-size: 12px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-            z-index: 10;
-        }
-
-        .copy-button:hover {
-            opacity: 1;
-            background: #444;
-        }
-
-        .copy-button.copied {
-            background: #e79a09;
-            border-color: #e79a09;
-        }
-
-        .code-block-container pre {
-            margin: 0;
-            padding: 1em;
-            overflow-x: auto;
-        }
-
-        .code-block-container code {
-            font-family: 'Fira Code', monospace;
-            font-size: 14px;
-        }
-
-        /* Update link styles */
-        a {
-            color: #0080FF;
-            text-decoration: none;
-        }
-
-        /* Keep header links white */
-        header a {
-            color: #fff;
-        }
-
-        /* Keep tool-button links white */
-        .tool-button {
-            color: #fff;
-        }
-    </style>
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
-<body>
+<body class="blog-page">
     <!-- Background circuit canvas -->
     <canvas id="circuitCanvas"></canvas>
+    
     <div class="page-content">
         <header>
             <div class="logo-area">
-                <a href="/">Manuel Arce</a>
+                <a href="../">Manuel Arce</a>
             </div>
             <nav>
                 <ul>
@@ -313,56 +37,25 @@
             </nav>
             <div class="header-right">
                 <a href="https://github.com/manuelarceaguirre" title="GitHub">
-                    <svg xmlns="https://github.com/manuelarceaguirre" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 0C3.58 
-                        0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 
-                        7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 
-                        1.08.58 1.23.82.72 1.21 1.87.87 
-                        2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 
-                        0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 
-                        0 0 .67-.21 2.2.82.64-.18 
-                        1.32-.27 2-.27.68 0 1.36.09 2 
-                        .27 1.53-1.04 2.2-.82 2.2-.82.44 
-                        1.1.16 1.92.08 2.12.51.56.82 
-                        1.27.82 2.15 0 3.07-1.87 
-                        3.75-3.65 3.95.29.25.54.73.54 
-                        1.48 0 1.07-.01 
-                        1.93-.01 2.2 0 .21.15.46.55.38A8.012 
-                        8.012 0 0 0 16 
-                        8c0-4.42-3.58-8-8-8z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                     </svg>
                 </a>
                 <a href="https://www.linkedin.com/in/manuelarceaguirre/" title="LinkedIn">
-                    <svg xmlns="https://www.linkedin.com/in/manuelarceaguirre/" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M0 1.146C0 
-                        .513.526 0 1.175 
-                        0h13.65C15.474 0 16 .513 16 
-                        1.146v13.708c0 .633-.526 
-                        1.146-1.175 1.146H1.175C.526 16 
-                        0 15.487 0 14.854V1.146zm4.943 
-                        12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 
-                        0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 
-                        0-1.359.54-1.359 
-                        1.248 0 .694.521 
-                        1.248 1.327 1.248h.016zm4.908 
-                        8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 
-                        1.232-.878.869 0 1.216.662 
-                        1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 
-                        0-1.845.7-2.165 1.193v.025h-.016a5.54 
-                        5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 
-                        0 7.225 0 7.225h2.4z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
                     </svg>
                 </a>
             </div>
         </header>
 
         <section class="post-header">
-            <h1>How I got in to UChicago</h1>
+            <h1>How I got into UChicago</h1>
             <div class="reading-time">6 min read</div>
         </section>
 
         <div class="post-image">
-            <img src="/blog_uchicago/thebear.jpg" alt="The Bear" onerror="this.style.display='none'"/>
+            <img src="../assets/images/thebear.jpg" alt="The Bear TV Show" onerror="this.style.display='none'"/>
         </div>
 
         <article class="post-content" id="markdown-content">
@@ -370,186 +63,11 @@
         </article>
     </div>
 
+    <script src="../assets/js/circuit-animation.js"></script>
     <script>
-        /****************************************
-         * Background circuit animation
-         ****************************************/
-        const canvas = document.getElementById('circuitCanvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const gridSize = 40;
-        const paths = [];
-        const backgroundColor = '#000';
-        const gridColor = '#1a1a1a';
-        const lineColor = '#ff6b00';
-        const glowColor = '#ff6b00';
-        const flowingColor = '#ff6b00';
-
-        class PathSegment {
-            constructor(x1, y1, x2, y2) {
-                this.x1 = x1;
-                this.y1 = y1;
-                this.x2 = x2;
-                this.y2 = y2;
-                this.length = Math.sqrt((x2 - x1)**2 + (y2 - y1)**2);
-                this.illuminated = false;
-                this.flowProgress = 0;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.strokeStyle = this.illuminated ? lineColor : '#222';
-                ctx.lineWidth = 3;
-                ctx.moveTo(this.x1, this.y1);
-                ctx.lineTo(this.x2, this.y2);
-                ctx.stroke();
-
-                if (this.flowProgress > 0 && this.flowProgress < 1) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = flowingColor;
-                    ctx.lineWidth = 4;
-
-                    const flowX1 = this.x1 + (this.x2 - this.x1) * Math.max(0, this.flowProgress - 0.2);
-                    const flowY1 = this.y1 + (this.y2 - this.y1) * Math.max(0, this.flowProgress - 0.2);
-                    const flowX2 = this.x1 + (this.x2 - this.x1) * this.flowProgress;
-                    const flowY2 = this.y1 + (this.y2 - this.y1) * this.flowProgress;
-
-                    ctx.moveTo(flowX1, flowY1);
-                    ctx.lineTo(flowX2, flowY2);
-                    ctx.stroke();
-
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = glowColor;
-                    ctx.stroke();
-                    ctx.shadowBlur = 0;
-                }
-            }
-        }
-
-        function createCircuitPath() {
-            const cols = Math.floor(canvas.width / gridSize);
-            const rows = Math.floor(canvas.height / gridSize);
-
-            const points = [];
-            for (let i = 0; i < rows; i++) {
-                points[i] = [];
-                for (let j = 0; j < cols; j++) {
-                    points[i][j] = {
-                        x: j * gridSize + gridSize / 2,
-                        y: i * gridSize + gridSize / 2,
-                        connected: false
-                    };
-                }
-            }
-
-            for (let pathCount = 0; pathCount < 5; pathCount++) {
-                let currentRow = Math.floor(Math.random() * rows);
-                let currentCol = 0;
-                let currentPath = [];
-
-                while (currentCol < cols - 1) {
-                    const current = points[currentRow][currentCol];
-                    if (!current.connected) {
-                        current.connected = true;
-
-                        let nextRow = currentRow;
-                        const direction = Math.random();
-                        if (direction < 0.3 && currentRow > 0) nextRow--;
-                        else if (direction < 0.6 && currentRow < rows - 1) nextRow++;
-
-                        const nextCol = currentCol + 1 + Math.floor(Math.random() * 2);
-                        if (nextCol < cols) {
-                            currentPath.push(new PathSegment(
-                                current.x,
-                                current.y,
-                                points[currentRow][nextCol].x,
-                                current.y
-                            ));
-
-                            if (nextRow !== currentRow) {
-                                currentPath.push(new PathSegment(
-                                    points[currentRow][nextCol].x,
-                                    current.y,
-                                    points[nextRow][nextCol].x,
-                                    points[nextRow][nextCol].y
-                                ));
-                            }
-
-                            currentRow = nextRow;
-                            currentCol = nextCol;
-                        } else {
-                            break;
-                        }
-                    } else {
-                        currentCol++;
-                    }
-                }
-                paths.push(...currentPath);
-            }
-        }
-
-        function drawGrid() {
-            ctx.strokeStyle = gridColor;
-            ctx.lineWidth = 1;
-
-            for (let x = 0; x <= canvas.width; x += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
-            }
-
-            for (let y = 0; y <= canvas.height; y += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-            }
-        }
-
-        function animate() {
-            ctx.fillStyle = backgroundColor;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            drawGrid();
-
-            paths.forEach((segment, index) => {
-                if (index === 0) {
-                    segment.flowProgress = (segment.flowProgress + 0.005) % 1.2;
-                } else {
-                    const prevSegment = paths[index - 1];
-                    if (prevSegment.flowProgress > 0.2) {
-                        segment.flowProgress = Math.min(1, (segment.flowProgress + 0.005));
-                    }
-                    if (segment.flowProgress >= 1) {
-                        segment.illuminated = true;
-                    }
-                }
-                segment.draw();
-            });
-
-            // When the last segment is fully illuminated, reset
-            if (paths.length > 0 && paths[paths.length - 1].illuminated) {
-                paths.forEach(segment => {
-                    segment.flowProgress = 0;
-                    segment.illuminated = false;
-                });
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        createCircuitPath();
-        animate();
-
-        /****************************************
-         * Render drift.md with Marked + Prism
-         ****************************************/
+        // Render howigotin.md with Marked + Prism
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/blog_uchicago/howigotin.md')
+            fetch('howigotin.md')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -557,47 +75,40 @@
                     return response.text();
                 })
                 .then((markdownText) => {
-                    // 1) Parse with Marked (default renderer)
+                    // Parse with Marked
                     const renderedHtml = marked.parse(markdownText);
                     
-                    // 2) Insert into our page
+                    // Insert into page
                     document.getElementById('markdown-content').innerHTML = renderedHtml;
 
-                    // 3) Highlight code blocks with Prism
+                    // Highlight code blocks with Prism
                     if (window.Prism) {
                         Prism.highlightAll();
                     }
 
-                    // 4) Add "Copy" button to each code block
+                    // Add copy buttons to code blocks
                     addCopyButtons();
                 })
                 .catch((err) => {
                     console.error('Error fetching howigotin.md:', err);
                     document.getElementById('markdown-content').innerHTML = 
-                        `<div class="error">Error loading content: ${err.message}<br>Path: /blog_uchicago/howigotin.md</div>`;
+                        `<div class="error">Error loading content: ${err.message}<br>Path: howigotin.md</div>`;
                 });
         });
 
         function addCopyButtons() {
-            // Find each code block
             const codeBlocks = document.querySelectorAll('pre > code');
             codeBlocks.forEach((codeElem) => {
-                // The <pre> parent
                 const preElem = codeElem.parentNode;
-
-                // Create a container
                 const container = document.createElement('div');
                 container.classList.add('code-block-container');
                 
-                // Clone our <pre><code> block into the container
                 container.appendChild(preElem.cloneNode(true));
 
-                // Create a copy button
                 const copyBtn = document.createElement('button');
                 copyBtn.textContent = 'Copy';
                 copyBtn.classList.add('copy-button');
 
-                // Copy logic
                 copyBtn.addEventListener('click', async () => {
                     const codeToCopy = codeElem.textContent;
                     try {
@@ -614,10 +125,7 @@
                     }
                 });
 
-                // Append button to the container
                 container.appendChild(copyBtn);
-
-                // Replace the original <pre> in the DOM with our container
                 preElem.parentNode.replaceChild(container, preElem);
             });
         }

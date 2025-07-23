@@ -1,312 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Manuel - AI Tools with Circuit Background</title>
+    <title>Manuel Arce - Data Engineer & ML Specialist</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-    <style>
-        /* Background code styles */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: Inconsolata, monospace;
-            font-size: 18px;
-            color: #fff;
-        }
-
-        @supports (padding-top: env(safe-area-inset-top)) {
-            body {
-                height: calc(100% + env(safe-area-inset-top));
-            }
-        }
-
-        body {
-            background: black;
-        }
-
-        ::selection {
-            background: #0080FF;
-            text-shadow: none;
-        }
-
-        canvas {
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        pre {
-            margin: 0;
-        }
-
-        a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        /* Front code styles (over the background) */
-        .page-content {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background-color: #000;
-            border-bottom: 1px solid #222;
-            font-family: Inconsolata, monospace;
-        }
-
-        .logo-area {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .header-right svg {
-            width: 16px;
-            height: 16px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .header-right svg:hover {
-            opacity: 1;
-        }
-
-        .banner {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .banner p {
-            font-size: 1.5em;
-            margin: 0;
-            color: #ddd;
-        }
-
-        .hover-text {
-            color: #888;
-            font-size: 0.9em;
-            margin-top: 15px;
-        }
-
-        .future-section .header {
-            padding: 20px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .future-section .header h1 {
-            color: #e2813c; /* Manuel Arce in orange */
-            margin-bottom: 10px;
-        }
-
-        .future-section .header .description {
-            color: #fff;
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        /* Compact card grid with borders */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            width: 750px; /* Desktop width */
-            margin: 0 auto;
-            border: 1px solid #fff;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .tool-card {
-            background-color: #0e0e0e;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 0.5rem;
-            position: relative;
-            text-align: center;
-            border: 1px solid #fff;
-        }
-
-        .icon-box {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        .tool-button {
-            background-color: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: background-color 0.2s;
-        }
-
-        .tool-button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .tool-button svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .tool-card h3 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .tool-card p {
-            color: #888;
-            font-size: 0.8rem;
-            line-height: 1.4;
-            margin: 0 0 1rem 0;
-            max-width: 200px;
-        }
-
-        .learn-more-button {
-            background-color: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-        }
-
-        .new-badge {
-            background-color: #ff6b00;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 2px;
-            font-size: 0.7rem;
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-weight: 500;
-        }
-
-        .pending-badge {
-            background-color: #ffa500;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 2px;
-            font-size: 0.7rem;
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-weight: 500;
-        }
-
-        footer {
-            background-color: #000;
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid #222;
-            margin-top: 40px;
-        }
-
-        footer p {
-            margin: 0 0 20px 0;
-            font-size: 1rem;
-        }
-
-        .trusted-logos img {
-            vertical-align: middle;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        /* MEDIA QUERY for iPhone (and small screens) */
-        @media only screen and (max-width: 600px) {
-            /* Let the background scroll on smaller devices */
-            html, body {
-                overflow: auto;
-            }
-            header {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px;
-            }
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
-            /* Make the grid go to one column */
-            .tools-grid {
-                grid-template-columns: 1fr;
-                width: 90%; 
-                margin: 0 auto;
-            }
-            /* Adjust font sizes if needed */
-            .logo-area {
-                font-size: 1.1em;
-            }
-            .tool-card h3 {
-                font-size: 0.95rem;
-            }
-            .tool-card p {
-                font-size: 0.75rem;
-            }
-            .header-right svg {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    </style>
+    <meta name="description" content="Risk-focused Data Engineer who builds enterprise-grade ML monitoring and validation systems">
+    <meta name="keywords" content="Data Engineering, Machine Learning, AWS, XGBoost, Model Monitoring, Data Drift">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <!-- Background code canvas -->
+    <!-- Background circuit canvas -->
     <canvas id="circuitCanvas"></canvas>
 
-    <!-- Front code content -->
+    <!-- Page content -->
     <div class="page-content">
         <header>
             <div class="logo-area">
@@ -328,7 +38,7 @@
                         <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
                     </svg>
                 </a>
-                <a href="https://twitter.com/doomsdayi0" title="X">
+                <a href="https://twitter.com/doomsdayi0" title="X (Twitter)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
                     </svg>
@@ -362,31 +72,37 @@
                         </svg>
                         CODE
                     </a>
-                    <a href="https://arce.my/blog_sns" class="tool-button">
+                    <a href="blog_sns/" class="tool-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
-                        MORE
+                        BLOG
                     </a>
                 </div>
             </div>
 
             <div class="tool-card">
+                <span class="new-badge">AWS</span>
                 <div class="icon-box">
-                    <span class="new-badge">AWS</span>
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
                         <path d="M4 4h16v16H4z"/>
                         <path d="M4 8h16"/>
                     </svg>
                 </div>
                 <h3>Stock Price Prediction with AWS</h3>
-                <p>Real-time stock prediction with AWS.</p>
+                <p>Real-time stock prediction with AWS Lambda and SageMaker</p>
                 <div class="button-container">
                     <a href="https://github.com/manuelarceaguirre/aws_ml_stock_email" class="tool-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                         </svg>
                         CODE
+                    </a>
+                    <a href="docs/aws-notebooks/" class="tool-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                        DOCS
                     </a>
                 </div>
             </div>
@@ -399,7 +115,7 @@
                     </svg>
                 </div>
                 <h3>Insurance Charges Visualizer</h3>
-                <p>Visualize how Gradient Boosting parameters affect insurance charges  </p>
+                <p>Visualize how Gradient Boosting parameters affect insurance charges</p>
                 <div class="button-container">
                     <a href="https://github.com/manuelarceaguirre/insurancemodel" class="tool-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -411,7 +127,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
-                        MORE
+                        DEMO
                     </a>
                 </div>
             </div>
@@ -425,7 +141,7 @@
                     </svg>
                 </div>
                 <h3>Project In Development</h3>
-                <p>Coming soon...</p>
+                <p>AI research monitoring system - coming soon...</p>
                 <div class="button-container">
                     <span class="tool-button" style="opacity: 0.5; cursor: not-allowed;">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -443,8 +159,8 @@
                         <path d="M3 9h18"/>
                     </svg>
                 </div>
-                <h3>Drift and Ft Importance Visualizer</h3>
-                <p>Upload your file and generate a Ft importance and drift dashboard</p>
+                <h3>Drift and Feature Importance Visualizer</h3>
+                <p>Upload your file and generate a feature importance and drift dashboard</p>
                 <div class="button-container">
                     <a href="https://github.com/manuelarceaguirre/ProgrammingSupplement" class="tool-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -456,7 +172,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
-                        MORE
+                        DEMO
                     </a>
                 </div>
             </div>
@@ -469,70 +185,26 @@
                         <path d="M2 12l10 5 10-5"/>
                     </svg>
                 </div>
-                <h3>Grupo México Journal Contribution MATLAB</h3>
-                <p>Analysis of options using MATLAB.</p>
+                <h3>Grupo México Journal Contribution</h3>
+                <p>Analysis of options using MATLAB for financial modeling</p>
                 <div class="button-container">
                     <a href="https://figshare.com/articles/journal_contribution/Valuation_of_Call_and_Put_Options_for_Grupo_M_xico_A_Comparative_Analysis_Using_Binomial_and_Black-Scholes-Merton_Models/25201037/1" class="tool-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                         </svg>
-                        MORE
+                        PAPER
+                    </a>
+                    <a href="blog_uchicago/" class="tool-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        STORY
                     </a>
                 </div>
             </div>
         </main>
-
-        <!-- <footer>
-            <p>Trusted by:</p>
-            <div class="trusted-logos">
-                <img src="company1.png" alt="Company 1" />
-                <img src="company2.png" alt="Company 2" />
-                <img src="company3.png" alt="Company 3" />
-            </div>
-        </footer> -->
     </div>
 
-    <script>
-        // Background code script
-        const canvas = document.getElementById('circuitCanvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const gridSize = 40;
-        const paths = [];
-        const backgroundColor = '#000';
-        // Changed all line related colors to orange
-        const gridColor = '#1a1a1a';
-        const lineColor = '#ff6b00';
-        const glowColor = '#ff6b00';
-        const flowingColor = '#ff6b00';
-
-        class PathSegment {
-            constructor(x1, y1, x2, y2) {
-                this.x1 = x1;
-                this.y1 = y1;
-                this.x2 = x2;
-                this.y2 = y2;
-                this.length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                this.illuminated = false;
-                this.flowProgress = 0;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.strokeStyle = this.illuminated ? lineColor : '#222';
-                ctx.lineWidth = 3;
-                ctx.moveTo(this.x1, this.y1);
-                ctx.lineTo(this.x2, this.y2);
-                ctx.stroke();
-
-                if (this.flowProgress > 0 && this.flowProgress < 1) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = flowingColor;
-                    ctx.lineWidth = 4;
-                    
-                    const flowX1 = this.x1 + (this.x2 - this.x1) * Math.max(0, this.flowProgress - 0.2);
-                    const flowY1 = this.y1 + (this.y2 - this.y1) * Math.max(0, this.flowProgress - 0.2);
-                    const flowX2 = this.x1 + (this.x2
+    <script src="assets/js/circuit-animation.js"></script>
+</body>
+</html>
