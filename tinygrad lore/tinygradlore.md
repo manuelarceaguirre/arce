@@ -25,8 +25,6 @@ Making computational power available and affordable
 # Why should I care? 
 so if you type geohot in google and click in his github pages blog you will see he points this potential problem. The best companies of AI chips failed. Many of them managed to tape out chips and some of them worked. The only problem is no one made a decent framework to use those chips. They had similar performance to NVIDIA but worse software. so NVIDIA became the hottest stock and the only reliable option for ML (like realistically?)
 
-First I like putting myself into impossible tasks. If not I do not get motivated, I have lots of those impossible tasks in mind but I think this is one I would want to have. There is in my mind this possibility. Somehow I get to know more of the tinygrad library even tho I am not a good coder. I get some PRs. I became good enough so I can improve this and could get hired. The fun thing about this company is they do not see your resume at all. They just care about your PRs. I think this is a really cool way to hire and you could work anywhere?
-
 reading more about tinygrad you get into this paragraph
 "
 I think the only way to start an AI chip company is to start with the software. The computing in ML is not *general purpose computing*. 95% of models in use today (including LLMs and image generation) have all their *compute and memory accesses statically computable*.
@@ -43,3 +41,5 @@ I am going to be honest with you I did not understand these highlighted parts
     this was a little troubling for me because I thought we did not understand wtf llms were doing. But after more digging. There is a difference on model interpretability and execution. We do not understand why a neural network predict something is a cat or a dog. Butttt we know what steps the model takes: matrix multiply then another operations etc
 
 so ok too much fluff the story is interesting so how about the technical stuff?
+
+I'll do another entry for this.
