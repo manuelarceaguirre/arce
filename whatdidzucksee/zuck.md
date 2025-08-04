@@ -17,7 +17,7 @@ Meta’s CFO Susan Li emphasized this trend in back-to-back quarterly calls:
 
 > "Within our Reality Labs segment, Q2 revenue was \$370 million, up 5% year-over-year due to increased sales of AI glasses, partially offset by lower Quest sales."
 
-Yet, despite strong sales, users frequently express frustration with the glasses' AI functionality. Common feedback describes interactions as slow, ineffective, and overly guided, underscoring a significant gap in user experience. Right now, the glasses feel more like novelty toys than indispensable gadgets. The comparison to Apple's success with the iPhone is instructive: Apple dominated because the software seamlessly complemented the hardware.
+Yet, despite strong sales, users frequently express frustration with the glasses' AI functionality. Common feedback describes interactions as slow, ineffective, and overly guided, underscoring a significant gap in user experience. Right now, the glasses feel more like novelty toys than indispensable gadgets. The comparison to Apple's success with the iPhone is instructive: Apple dominated because the software simply just worked.
 
 In my mind:
 
