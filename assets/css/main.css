@@ -399,10 +399,9 @@ footer p {
 .post-content blockquote {
     border-left: 3px solid #e2813c;
     margin: 1em 0;
-    padding-left: 1em;
-    color: #bbb;
-    background: rgba(226, 129, 60, 0.1);
     padding: 1em;
+    color: #fff;
+    background: rgba(226, 129, 60, 0.1);
     border-radius: 4px;
     font-style: italic;
 }
@@ -679,12 +678,12 @@ footer p {
 
 /* Link colors */
 .blog-page a {
-    color: #6bb0f5;
+    color: #a3c7f5;
     text-decoration: none;
 }
 
 .blog-page a:hover {
-    color: #8ec5f7;
+    color: #c1d7f8;
     text-decoration: underline;
 }
 
