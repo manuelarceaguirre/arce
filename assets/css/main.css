@@ -400,7 +400,11 @@ footer p {
     border-left: 3px solid #e2813c;
     margin: 1em 0;
     padding-left: 1em;
-    color: #888;
+    color: #bbb;
+    background: rgba(226, 129, 60, 0.1);
+    padding: 1em;
+    border-radius: 4px;
+    font-style: italic;
 }
 
 .post-content h1,
@@ -675,8 +679,13 @@ footer p {
 
 /* Link colors */
 .blog-page a {
-    color: #0080FF;
+    color: #6bb0f5;
     text-decoration: none;
+}
+
+.blog-page a:hover {
+    color: #8ec5f7;
+    text-decoration: underline;
 }
 
 .blog-page header a {
