@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Theme Test - Manuel Arce</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="page-content">
+        <header>
+            <div class="logo-area">
+                <a href="/">Manuel</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="testTheme()">TEST THEME</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="#" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <section class="future-section">
+            <div class="header">
+                <h1>Theme Test Page</h1>
+                <p class="description">Testing light/dark mode toggle functionality</p>
+            </div>
+        </section>
+
+        <main class="tools-grid">
+            <div class="tool-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3"/>
+                    </svg>
+                </div>
+                <h3>Test Card</h3>
+                <p>This card should change colors when you toggle themes</p>
+                <div class="button-container">
+                    <a href="#" class="tool-button">TEST</a>
+                </div>
+            </div>
+        </main>
+
+        <div id="debug-info" style="margin-top: 2rem; padding: 1rem; border: 1px solid var(--border-color);">
+            <h3>Debug Info:</h3>
+            <p>Current theme: <span id="current-theme">Loading...</span></p>
+            <p>Data attribute: <span id="data-attr">Loading...</span></p>
+            <p>Local storage: <span id="local-storage">Loading...</span></p>
+        </div>
+    </div>
+
+    <script src="assets/js/theme-toggle.js"></script>
+    <script>
+        function testTheme() {
+            console.log('Theme test clicked');
+            updateDebugInfo();
+        }
+        
+        function updateDebugInfo() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            const dataAttr = document.documentElement.getAttribute('data-theme') || 'none';
+            
+            document.getElementById('current-theme').textContent = theme;
+            document.getElementById('data-attr').textContent = dataAttr;
+            document.getElementById('local-storage').textContent = localStorage.getItem('theme') || 'null';
+        }
+        
+        // Update debug info every second
+        setInterval(updateDebugInfo, 1000);
+        
+        // Initial update
+        setTimeout(updateDebugInfo, 100);
+    </script>
+</body>
+</html>

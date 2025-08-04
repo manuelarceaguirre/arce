@@ -34,7 +34,7 @@
     --selection-bg: #0080FF;
     --code-bg: #f0f0f0;
     --pre-bg: #f5f5f5;
-    --blockquote-bg: rgba(255, 255, 255, 0.3);
+    --blockquote-bg: rgba(0, 0, 0, 0.05);
     --link-color: #2563eb;
     --link-hover: #1d4ed8;
 }
@@ -746,32 +746,26 @@ footer p {
 
 /* Theme toggle button */
 .theme-toggle {
-    background: var(--button-bg);
-    border: 1px solid var(--border-color);
+    background: none;
+    border: none;
     color: var(--text-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s, transform 0.1s;
-    margin-left: 15px;
-}
-
-.theme-toggle:hover {
-    background-color: var(--button-hover);
-}
-
-.theme-toggle:active {
-    transform: scale(0.95);
+    padding: 0;
+    margin: 0;
 }
 
 .theme-toggle svg {
-    width: 20px;
-    height: 20px;
-    transition: opacity 0.3s ease;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.theme-toggle:hover svg {
+    opacity: 1;
 }
 
 .theme-toggle .sun-icon {

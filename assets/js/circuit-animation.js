@@ -8,13 +8,18 @@ class CircuitAnimation {
         this.ctx = this.canvas.getContext('2d');
         this.paths = [];
         this.gridSize = 40;
-        this.backgroundColor = '#000';
-        this.gridColor = '#1a1a1a';
+        this.updateColors();
+        
+        this.init();
+    }
+    
+    updateColors() {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        this.backgroundColor = isLight ? '#ffffff' : '#000000';
+        this.gridColor = isLight ? '#f0f0f0' : '#1a1a1a';
         this.lineColor = '#ff6b00';
         this.glowColor = '#ff6b00';
         this.flowingColor = '#ff6b00';
-        
-        this.init();
     }
     
     init() {
@@ -123,6 +128,9 @@ class CircuitAnimation {
     }
     
     animate() {
+        // Update colors in case theme changed
+        this.updateColors();
+        
         this.ctx.fillStyle = this.backgroundColor;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
