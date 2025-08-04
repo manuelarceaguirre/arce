@@ -403,6 +403,7 @@ footer p {
 
 .post-content p {
     margin-bottom: 1.5rem;
+    text-align: justify;
 }
 
 .post-content code {
