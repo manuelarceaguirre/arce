@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="blog-page">
+<head>
+    <title>Meta's Vision (literally)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Personal story about getting accepted to the University of Chicago">
+    <meta name="keywords" content="University of Chicago, College Admissions, Personal Story, Education">
+
+    <!-- External dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-bash.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body class="blog-page">
+    <!-- Background circuit canvas -->
+    <canvas id="circuitCanvas"></canvas>
+    
+    <div class="page-content">
+        <header>
+            <div class="logo-area">
+                <a href="../">Manuel</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://arce.my">HOME</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="https://github.com/manuelarceaguirre" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/manuelarceaguirre/" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <section class="post-header">
+            <h1>Meta's way out</h1>
+            <div class="reading-time">9 min read</div>
+        </section>
+
+        <div class="post-image">
+            <img src="../assets/images/zuck.png" alt="The Bear TV Show" onerror="this.style.display='none'"/>
+        </div>
+
+        <article class="post-content" id="markdown-content">
+            <!-- Markdown content will be rendered here -->
+        </article>
+    </div>
+
+    <!-- Load theme toggle first -->
+    <script src="../assets/js/theme-toggle.js"></script>
+    <script src="../assets/js/circuit-animation.js"></script>
+    <script>
+        // Render howigotin.md with Marked + Prism
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('zuck.md')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then((markdownText) => {
+                    // Parse with Marked
+                    const renderedHtml = marked.parse(markdownText);
+                    
+                    // Insert into page
+                    document.getElementById('markdown-content').innerHTML = renderedHtml;
+
+                    // Highlight code blocks with Prism
+                    if (window.Prism) {
+                        Prism.highlightAll();
+                    }
+
+                    // Add copy buttons to code blocks
+                    addCopyButtons();
+                })
+                .catch((err) => {
+                    console.error('Error fetching howigotin.md:', err);
+                    document.getElementById('markdown-content').innerHTML = 
+                        `<div class="error">Error loading content: ${err.message}<br>Path: howigotin.md</div>`;
+                });
+        });
+
+        function addCopyButtons() {
+            const codeBlocks = document.querySelectorAll('pre > code');
+            codeBlocks.forEach((codeElem) => {
+                const preElem = codeElem.parentNode;
+                const container = document.createElement('div');
+                container.classList.add('code-block-container');
+                
+                container.appendChild(preElem.cloneNode(true));
+
+                const copyBtn = document.createElement('button');
+                copyBtn.textContent = 'Copy';
+                copyBtn.classList.add('copy-button');
+
+                copyBtn.addEventListener('click', async () => {
+                    const codeToCopy = codeElem.textContent;
+                    try {
+                        await navigator.clipboard.writeText(codeToCopy);
+                        copyBtn.textContent = 'Copied!';
+                        copyBtn.classList.add('copied');
+                        setTimeout(() => {
+                            copyBtn.textContent = 'Copy';
+                            copyBtn.classList.remove('copied');
+                        }, 2000);
+                    } catch (copyErr) {
+                        console.error('Failed to copy:', copyErr);
+                        copyBtn.textContent = 'Error';
+                    }
+                });
+
+                container.appendChild(copyBtn);
+                preElem.parentNode.replaceChild(container, preElem);
+            });
+        }
+    </script>
+</body>
+</html>
