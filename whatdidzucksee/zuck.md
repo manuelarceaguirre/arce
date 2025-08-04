@@ -1,6 +1,6 @@
 # Meta's Dream
 
-I have been seeing many guesses as to why Meta is investing so much in talent. Even though pay packages have allegedly been misrepresented or exaggerated, it is clear that Meta's final goal is to be at the top of the frontier labs. But what are Mark's intentions? Why now? Meta has never caught up to the SOTA models, so why not a year ago? I do not think Meta is aiming to be the leading API provider like Anthropic or seeking the popularity of OpenAI. 
+I have been seeing many guesses as to why Meta is recently investing so much in talent. Even though pay packages have allegedly been misrepresented or exaggerated, it is clear that Meta's final goal is to be at the top of the frontier labs. But what are Mark's intentions? Meta has never caught up to the SOTA models, so why not a year ago? I do not think Meta is aiming to be the leading API provider like Anthropic or seeking the popularity of OpenAI. 
 
 Meta has the trend hit, but its model roadmap is still behind. Mark's Super Intelligence gamble is an attempt to close the gap before all the other teams crack the hardware dilemma around AI.
 
@@ -20,14 +20,14 @@ While anecdotal, my observations indicate significant public interest in these g
 
 > "You want to ask AI questions? It's frustratingly slow and ineffective unless you guide it step-by-step."
 
-Right now, these glasses feel like a toy. Mark's gamble is set up for AI glasses to stop feeling this way, they are meant to replicate Apple's magic. Apple won the smartphone war because IOS worked. If the next generations of Llama feel slow or dumb, all the FLOPS in the US won't save them.
+Right now, these glasses feel like a toy. Mark's gamble is set up for AI glasses to stop feeling this way; they are meant to replicate Apple's magic. Apple won the smartphone war because IOS worked. If the next generations of Llama feel slow or dumb, all the FLOPS in the US won't save them.
 
 In my mind:
 
 * **Meta has the product but not the model.**
 * **All other companies have the model but not the product.**
 
-We do not have all the information heads of million-dollar corporations do, but the players at this table have all placed their bets. Not all bets succeed (looking at you, Metaverse). However, Meta could genuinely succeed if they aggressively close the performance-per-TFLOP gap to bring back the magic we felt with Sonnet 3.5 but through glasses. This situation feels familiar to another bet that initially didn't seem logical the ballad of Sam Altman and Jony Ive, who want to create something Meta already has.
+We do not have all the information heads of million-dollar corporations do, but the players at this table have all placed their bets. Not all bets succeed (looking at you, Metaverse). However, Meta could genuinely succeed if they aggressively close the performance-per-TFLOP gap to bring back the magic we felt with Sonnet 3.5 but through glasses. This situation feels familiar to another bet that initially didn't seem logical: the ballad of Sam Altman and Jony Ive. This new duo want to create something Meta already has.
 
 When Meta lands both the software and hardware, all the other big labs will become just apps on Meta's platform. Their SOTA models could become features that users access through "Hey Meta" with Mark controlling the distribution and the users.
 
@@ -35,7 +35,7 @@ When Meta lands both the software and hardware, all the other big labs will beco
 
 I couldn't confirm exactly which Llama model versions are linked to the Ray-Ban or Oakley glasses, but let's imagine they're using the best Vision Llama 4 model: meta-llama/Llama-4-Maverick-17B-128E-Instruct. Ranked 21st on the Vision Arena at [Hugging Face](https://huggingface.co/spaces/lmarena-ai/lmarena-leaderboard), this model may leave users who already love the product desperately wishing for more advanced features.
 
-One of the most impressive abilities of o3 was its capability to reliably pinpoint your exact location from just a photo. While writing this entry, I found myself daydreaming about how amazing it would be to pair these glasses with o3. Imagine asking for directions without having to pull out your phone or specify your location explicitly. For instance, while driving, instead of dangerously reaching for your phone on the highway, you could simply ask, "Hey Meta, which exit takes me to work?" The o3 model would intelligently analyze your surroundings from the glasses' view, identify your exact location, and provide precise instructions.
+One of the most impressive abilities I personally found of OpenAI's o3 model was its capability to reliably pinpoint your exact location from just a photo. While writing this entry, I found myself daydreaming about how amazing it would be to pair these glasses with o3. Imagine asking for directions without having to pull out your phone or specify your location explicitly. For instance, while driving, instead of dangerously reaching for your phone on the highway, you could simply ask, "Hey Meta, which exit takes me to work?" The o3 model would intelligently analyze your surroundings from the glasses' view, identify your exact location, and provide precise instructions.
 
 This vision aligns with the sentiment expressed by SemiAnalysis, suggesting that Meta remains a strong competitor in the AI race. The company's significant ramp-up in training FLOPS could potentially rival OpenAI. For more on this perspective, check out the recent [SemiAnalysis article](https://semianalysis.com/2025/07/11/meta-superintelligence-leadership-compute-talent-and-data/).
 
