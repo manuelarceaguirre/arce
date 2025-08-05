@@ -1,17 +1,73 @@
-# Quiz
 
-## Question 1:
+QTCM -> Questions that came to mind
+# Question 1:
 
 What is the L2 Norm of the vector u = [4,3,0]?
+
+```python
+import torch
+
+# Step 1: Define the vector as a Pytorch vector
+u = torch.tensor([4.0, 3.0, 0.0]) # float is important for norm ops
+
+l2_norm = torch.norm(u, p=2) # computes the l2 norm euclidean norm
+
+print("L2 Norm:", l2_norm.item()) # is used to extract the scalar value from a 0D Tensor
+```
+QTCM
+1. Why is p=2 in the L2 norm?
+p in torch.norm(..., p=...) refers to p-norm:
+
+p=1 → Manhattan norm
+
+p=2 → Euclidean norm (L2 norm)
+
+p=∞ → Max norm (largest absolute value)
+
+2. What happens if you don't use .item()?
+l2_norm stays a 0 dimensional tensor
+```python
+print(l2_norm)
+# tensor(5.)
+
+print(type(l2_norm))
+# <class 'torch.Tensor'>
+```
 
 ## Question 2:
 
 What is the L2 Norm of the vector u = [-2,2,1]?
 
+```python
+u = torch.tensor([-2.0, 2.0, 1.0])
+
+l2_norm = torch.norm(u, p=2)
+print(l2_norm.item())
+```
+
+
 ## Question 3:
 What is the cosine of the angle between the following two vectors?
 
 U = [1 , 2, 2], v= [0, 4, 3]
+
+```python
+# define the vectors
+u = torch.tensor([1.0, 2.0, 2.0])
+v = torch.tensor([0.0, 4.0, 3.0])
+
+# dot product
+dot_product = torch.dot(u,v)
+
+# Compute l2 norms
+u_l2norm = torch.norm(u, p=2)
+v_l2norm = torch.norm(v, p=2)
+
+cos_theta = dot_product / (u_l2norm * v_l2norm)
+
+print(cos_theta.item())
+
+```
 
 
 ## Question 4:
@@ -31,6 +87,16 @@ $$
 \end{pmatrix}
 $$
 
+```python
+A = torch.tensor([[-1.0, 2.0],
+                  [4.0, 3.0]])
+
+B = torch.tensor([[-1.0, 0.0],
+                  [5.0, 1.0]])
+
+result = A @ B
+```
+
 ## Question 5:
 What is the determinant of the follwowing matrix?
 
@@ -41,6 +107,29 @@ $$
     4 & -8 & 1 \\
 \end{pmatrix}
 $$
+
+```python
+A = torch.tensor([[1.0, -2.0, 2.0],
+                  [2.0, -4.0, 1.0]
+                  [4.0, -8.0, 1.0]
+])
+
+det_A = torch.linalg.det(A)
+print(det_A.item())
+```
+QTCM:
+1. What is torch.linalg
+Linear Algebra Toolbox
+| Function                     | What it does                   |
+| ---------------------------- | ------------------------------ |
+| `torch.linalg.norm()`        | Computes vector/matrix norms   |
+| `torch.linalg.det()`         | Determinant of a square matrix |
+| `torch.linalg.inv()`         | Matrix inverse                 |
+| `torch.linalg.eig()`         | Eigenvalues and eigenvectors   |
+| `torch.linalg.svd()`         | Singular Value Decomposition   |
+| `torch.linalg.matrix_rank()` | Rank of a matrix               |
+| `torch.linalg.qr()`          | QR decomposition               |
+| `torch.linalg.solve()`       | Solves linear systems $Ax = b$ |
 
 ## Question 6:
 
