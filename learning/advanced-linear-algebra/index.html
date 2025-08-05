@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Advanced Linear Algebra - Manuel Arce</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Advanced Linear Algebra study notes with practical PyTorch implementations">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        .learning-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.7;
+        }
+        .question-block {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #ff6b00;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .question-title {
+            color: #ff6b00;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .qtcm-section {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        .qtcm-title {
+            color: #00ffff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.8) !important;
+            border-radius: 8px;
+            padding: 1.5rem !important;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+        }
+        .math-display {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+        .nav-breadcrumb {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        .nav-breadcrumb a {
+            color: #ff6b00;
+            text-decoration: none;
+        }
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        th {
+            background: rgba(255, 107, 0, 0.2);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background circuit canvas -->
+    <canvas id="circuitCanvas"></canvas>
+
+    <!-- Page content -->
+    <div class="page-content">
+        <header>
+            <div class="logo-area">
+                <a href="../../">Manuel</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://arce.my">HOME</a></li>
+                    <li><a href="../../about/">ABOUT ME</a></li>
+                    <li><a href="../../learning/">LEARNING</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="https://github.com/manuelarceaguirre" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/manuelarceaguirre/" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/doomsdayi0" title="X (Twitter)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <div class="learning-content">
+            <div class="nav-breadcrumb">
+                <a href="../../learning/">Learning</a> / Advanced Linear Algebra
+            </div>
+
+            <h1>Advanced Linear Algebra</h1>
+            <p><strong>QTCM</strong> → Questions that came to mind</p>
+
+            <div class="question-block">
+                <div class="question-title">Question 1: L2 Norm Calculation</div>
+                <p>What is the L2 Norm of the vector u = [4,3,0]?</p>
+                
+                <pre><code class="language-python">import torch
+
+# Step 1: Define the vector as a PyTorch vector
+u = torch.tensor([4.0, 3.0, 0.0])  # float is important for norm ops
+
+l2_norm = torch.norm(u, p=2)  # computes the l2 norm euclidean norm
+
+print("L2 Norm:", l2_norm.item())  # is used to extract the scalar value from a 0D Tensor</code></pre>
+
+                <div class="qtcm-section">
+                    <div class="qtcm-title">QTCM</div>
+                    <p><strong>1. Why is p=2 in the L2 norm?</strong><br>
+                    p in torch.norm(..., p=...) refers to p-norm:</p>
+                    <ul>
+                        <li>p=1 → Manhattan norm</li>
+                        <li>p=2 → Euclidean norm (L2 norm)</li>
+                        <li>p=∞ → Max norm (largest absolute value)</li>
+                    </ul>
+                    
+                    <p><strong>2. What happens if you don't use .item()?</strong><br>
+                    l2_norm stays a 0 dimensional tensor</p>
+                    <pre><code class="language-python">print(l2_norm)
+# tensor(5.)
+
+print(type(l2_norm))
+# &lt;class 'torch.Tensor'&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Question 2: Another L2 Norm</div>
+                <p>What is the L2 Norm of the vector u = [-2,2,1]?</p>
+                
+                <pre><code class="language-python">u = torch.tensor([-2.0, 2.0, 1.0])
+
+l2_norm = torch.norm(u, p=2)
+print(l2_norm.item())</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Question 3: Cosine of Angle Between Vectors</div>
+                <p>What is the cosine of the angle between the following two vectors?<br>
+                U = [1, 2, 2], v = [0, 4, 3]</p>
+                
+                <pre><code class="language-python"># define the vectors
+u = torch.tensor([1.0, 2.0, 2.0])
+v = torch.tensor([0.0, 4.0, 3.0])
+
+# dot product
+dot_product = torch.dot(u, v)
+
+# Compute l2 norms
+u_l2norm = torch.norm(u, p=2)
+v_l2norm = torch.norm(v, p=2)
+
+cos_theta = dot_product / (u_l2norm * v_l2norm)
+
+print(cos_theta.item())</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Question 4: Matrix Multiplication</div>
+                <p>What is the matrix multiplication of the following two matrices?</p>
+                
+                <div class="math-display">
+                    $$\begin{pmatrix}
+                        1 & 2 \\
+                        4 & 3 \\
+                    \end{pmatrix}
+                    \times
+                    \begin{pmatrix}
+                        -1 & 0 \\
+                        5 & 1 \\
+                    \end{pmatrix}$$
+                </div>
+                
+                <pre><code class="language-python">A = torch.tensor([[1.0, 2.0],
+                  [4.0, 3.0]])
+
+B = torch.tensor([[-1.0, 0.0],
+                  [5.0, 1.0]])
+
+result = A @ B</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Question 5: Matrix Determinant</div>
+                <p>What is the determinant of the following matrix?</p>
+                
+                <div class="math-display">
+                    $$\begin{pmatrix}
+                        1 & -2 & 2 \\
+                        2 & -4 & 1 \\
+                        4 & -8 & 1 \\
+                    \end{pmatrix}$$
+                </div>
+                
+                <pre><code class="language-python">A = torch.tensor([[1.0, -2.0, 2.0],
+                  [2.0, -4.0, 1.0],
+                  [4.0, -8.0, 1.0]])
+
+det_A = torch.linalg.det(A)
+print(det_A.item())</code></pre>
+
+                <div class="qtcm-section">
+                    <div class="qtcm-title">QTCM: What is torch.linalg?</div>
+                    <p>Linear Algebra Toolbox</p>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Function</th>
+                                    <th>What it does</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>torch.linalg.norm()</code></td><td>Computes vector/matrix norms</td></tr>
+                                <tr><td><code>torch.linalg.det()</code></td><td>Determinant of a square matrix</td></tr>
+                                <tr><td><code>torch.linalg.inv()</code></td><td>Matrix inverse</td></tr>
+                                <tr><td><code>torch.linalg.eig()</code></td><td>Eigenvalues and eigenvectors</td></tr>
+                                <tr><td><code>torch.linalg.svd()</code></td><td>Singular Value Decomposition</td></tr>
+                                <tr><td><code>torch.linalg.matrix_rank()</code></td><td>Rank of a matrix</td></tr>
+                                <tr><td><code>torch.linalg.qr()</code></td><td>QR decomposition</td></tr>
+                                <tr><td><code>torch.linalg.solve()</code></td><td>Solves linear systems $Ax = b$</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Question 9: System Analysis</div>
+                <p>Is the following system of equations overdetermined or underdetermined?</p>
+                
+                <div class="math-display">
+                    $$\begin{pmatrix}
+                        1 & 2 & -1 \\
+                        2 & 10 & 3 \\
+                    \end{pmatrix}
+                    \begin{pmatrix}
+                        x \\
+                        y \\
+                        z \\
+                    \end{pmatrix}
+                    =
+                    \begin{pmatrix}
+                        1 \\
+                        2 \\
+                    \end{pmatrix}$$
+                </div>
+                
+                <pre><code class="language-python">dtype = torch.float32
+
+# 1. Define the matrices
+A = torch.tensor([
+    [1.0, 2.0, -1.0],
+    [2.0, 10.0, 3.0],
+], dtype=dtype)
+
+b = torch.tensor([1.0, 2.0], dtype=dtype)
+
+# 2. Reshape b to be a column vector (2, 1) for matrix operations
+b = b.reshape(2, 1)
+
+# 3. Analyze the system
+num_equations = A.shape[0]
+num_unknowns = A.shape[1]
+print(f"Number of equations: {num_equations}")
+print(f"Number of unknowns: {num_unknowns}")
+
+if num_unknowns > num_equations:
+    print("Result: the system is underdetermined")
+elif num_equations > num_unknowns:
+    print("Result: the system is overdetermined")
+else:
+    print("Result: the system has an equal number of equations and unknowns")
+
+# Find the minimum norm solution using torch.linalg.lstsq
+try:
+    solution_tuple = torch.linalg.lstsq(A, b)
+    x = solution_tuple.solution
+    print(f"Solution: {x}")
+
+    # Verify solution: check if A @ x ≈ b
+    reconstruction = torch.matmul(A, x)
+    print(reconstruction)
+    
+    is_close = torch.allclose(reconstruction, b)
+    print(f"Is A @ x = b? {is_close}")
+    if is_close:
+        print("Valid solution")
+except torch.linalg.LinAlgError as e:
+    print(f"Error: {e}")</code></pre>
+
+                <div class="qtcm-section">
+                    <div class="qtcm-title">Understanding Underdetermined Systems</div>
+                    <p><strong>Intuitive Explanation:</strong></p>
+                    <p>You and I are trying to find a location on a map — a flat grid.
+                    You must end up somewhere where the sum of your east and north steps is 5:</p>
+                    <p>x + y = 5</p>
+                    <p>This one rule doesn't lock in exactly where you are... but it does tell you all the places you could be.</p>
+                    
+                    <p><strong>In 3D Space:</strong><br>
+                    Instead of walking on a flat map (2D), now you can walk east (x), north (y), and climb upstairs (z).</p>
+                    <p>x + y + z = 6</p>
+                    <p>This is just one equation with three unknowns. There are infinitely many combinations that satisfy this.</p>
+                    
+                    <p>Our system:</p>
+                    <ul>
+                        <li>1·x + 2·y - 1·z = 1 → equation 1</li>
+                        <li>2·x + 10·y + 3·z = 2 → equation 2</li>
+                    </ul>
+                    <p>A.shape = (2, 3) → 2 equations, 3 unknowns → underdetermined system</p>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Question 10: Solving Linear Systems</div>
+                <p>Solve the following system of equations:</p>
+                <ul>
+                    <li>2x + 3y + 4z = 6</li>
+                    <li>2x + 3y - 4z = 4</li>
+                    <li>2x - 3y + 4z = 2</li>
+                </ul>
+                
+                <pre><code class="language-python">import torch
+
+# It's best practice to use a floating-point dtype for these operations.
+dtype = torch.float32
+
+# 1. Define the coefficient matrix A and the constant vector b
+A = torch.tensor([[2.,  3.,  4.],
+                  [2.,  3., -4.],
+                  [2., -3.,  4.]], dtype=dtype)
+
+b = torch.tensor([6., 4., 2.], dtype=dtype)
+
+print("Matrix A:")
+print(A)
+print("\nVector b:")
+print(b)
+print("-" * 25)
+
+# 2. Solve for the vector x in the equation Ax = b
+# torch.linalg.solve is the recommended function for this.
+try:
+    solution = torch.linalg.solve(A, b)
+
+    print("The system has a unique solution.")
+    print("Solution vector (x, y, z):")
+    print(solution)
+    print("-" * 25)
+
+    # 3. Print the results in a more readable format
+    x, y, z = solution[0].item(), solution[1].item(), solution[2].item()
+    print(f"Solved values are:")
+    print(f"x = {x:.4f}")
+    print(f"y = {y:.4f}  (fractional value is 2/3)")
+    print(f"z = {z:.4f}  (fractional value is 1/4)")
+    print("-" * 25)
+
+    # 4. (Optional but recommended) Verify the solution
+    # We check if A multiplied by our solution vector gives us back b.
+    print("Verification: Multiplying A by the solution...")
+    reconstructed_b = torch.matmul(A, solution)
+    print("Result of A @ x:")
+    print(reconstructed_b)
+
+    # Use torch.allclose to confirm the result is numerically close to the original b
+    is_correct = torch.allclose(reconstructed_b, b)
+    print(f"\nIs the solution correct? {is_correct}")
+
+except torch.linalg.LinAlgError:
+    print("The matrix A is singular (not invertible).")
+    print("The system either has no solution or infinite solutions.")</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Additional Questions (11-20)</div>
+                <p>Here are the remaining questions for further exploration:</p>
+                
+                <h3>Question 11: Orthogonal Matrix</h3>
+                <p>Is matrix Q an orthogonal matrix?</p>
+                <div class="math-display">
+                    $$\begin{bmatrix}
+                    -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+                    \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+                    \end{bmatrix}$$
+                </div>
+
+                <h3>Question 12: Dot Product</h3>
+                <p>Calculate v · u where u = [5,-1,1,2], v = [1, 2, -1, 3]</p>
+
+                <h3>Question 13: Another Dot Product</h3>
+                <p>Calculate v · u where u = [1,-1,2], v = [1, 5, 1]</p>
+
+                <h3>Question 14: Characteristic Equation</h3>
+                <p>What is the characteristic equation of the following matrix?</p>
+                <div class="math-display">
+                    $$\begin{pmatrix}
+                        0 & 1 & -2 \\
+                        2 & 1 & 0 \\
+                        4 & -2 & 5 \\
+                    \end{pmatrix}$$
+                </div>
+
+                <h3>Question 15: Eigenvalues</h3>
+                <p>Calculate the eigenvalue(s) of the following matrix:</p>
+                <div class="math-display">
+                    $$\begin{pmatrix}
+                        3 & 1\\
+                        1 & 3\\
+                    \end{pmatrix}$$
+                </div>
+
+                <h3>Questions 16-20</h3>
+                <ul>
+                    <li><strong>Q16:</strong> What is the projection of vector b = [1, 3, 1] onto vector a = [-1, -3, -1]?</li>
+                    <li><strong>Q17:</strong> Are vectors v = [0, 1, 0] and u = [4, 0, -1] linearly independent?</li>
+                    <li><strong>Q18:</strong> Are vectors v = [1, 1] and u = [-1, -1] linearly independent?</li>
+                    <li><strong>Q19:</strong> What is the rank of the 2x2 matrix with values [3,1] and [1,3]?</li>
+                    <li><strong>Q20:</strong> Is the set of vectors [0,1,0] and [4,0,-1] a basis for R³?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/circuit-animation.js"></script>
+    <script src="../../assets/js/theme-toggle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>
