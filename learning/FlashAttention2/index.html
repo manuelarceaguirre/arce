@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FlashAttention2 - Learning - Manuel Arce</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="FlashAttention2 deep dive - GPU memory optimization and attention computation fundamentals">
+    <meta name="keywords" content="FlashAttention2, GPU, Memory Optimization, Attention Mechanism, Machine Learning">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <style>
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .flashattention-content {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 107, 0, 0.2);
+        }
+        
+        .question-block {
+            background: rgba(255, 107, 0, 0.05);
+            border-left: 4px solid #ff6b00;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .question-block h4 {
+            color: #ff6b00;
+            margin-top: 0;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        th, td {
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background: rgba(255, 107, 0, 0.2);
+            font-weight: bold;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid #ff6b00;
+            border-radius: 8px;
+            color: #ff6b00;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 107, 0, 0.2);
+            transform: translateX(-5px);
+        }
+        
+        .back-button svg {
+            margin-right: 0.5rem;
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background circuit canvas -->
+    <canvas id="circuitCanvas"></canvas>
+
+    <!-- Page content -->
+    <div class="page-content">
+        <header>
+            <div class="logo-area">
+                <a href="../../">Manuel</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://arce.my">HOME</a></li>
+                    <li><a href="../../about/">ABOUT ME</a></li>
+                    <li><a href="../">LEARNING</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="https://github.com/manuelarceaguirre" title="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/manuelarceaguirre/" title="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/doomsdayi0" title="X (Twitter)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <a href="../" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                Back to Learning
+            </a>
+
+            <section class="future-section">
+                <div class="header">
+                    <h1>FlashAttention2 Deep Dive</h1>
+                    <p class="description">GPU Memory Optimization and Attention Computation Fundamentals</p>
+                </div>
+            </section>
+
+            <div class="flashattention-content">
+                <p><strong>QTCM → Questions that came to mind</strong><br>
+                <strong>Level 0:</strong></p>
+                
+                <hr>
+
+                <div class="question-block">
+                    <h4>Q1. L2 Norm</h4>
+                    <p>What is the L2 norm of the vector <strong>u = [3, 4]</strong>?<br>
+                    Give the answer as a number.</p>
+                    <div class="code-block">
+                        <pre>u = torch.tensor([3.0, 4.0])
+torch.norm(u, p=2).item()  # → 5.0</pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q2. Dot Product</h4>
+                    <p>Given <strong>u = [1, 2, 3]</strong> and <strong>v = [4, 5, 6]</strong>, what is the dot product <strong>u · v</strong>?</p>
+                    <div class="code-block">
+                        <pre>u = torch.tensor([1.0, 2.0, 3.0])
+v = torch.tensor([4.0, 5.0, 6.0])
+torch.dot(u, v)  # → 32</pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q3. Matrix Multiplication</h4>
+                    <p>Multiply the matrices:</p>
+                    <p>A = [[1, 2], [3, 4]], B = [[2, 0], [1, 3]]</p>
+                    <p>What is the resulting matrix?</p>
+                    <div class="code-block">
+                        <pre>A = torch.tensor([
+    [1.0, 2.0],
+    [3.0, 4.0],
+], dtype = torch.float32)
+B = torch.tensor([
+    [2.0, 0.0],
+    [1.0, 3.0],
+], dtype = torch.float32)
+
+result = A @ B
+print(result)</pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q4. Softmax</h4>
+                    <p>If you apply the softmax function to the vector [1, 2, 3], which number gets the highest probability?</p>
+                    <p>Softmax is a function that takes a list of numbers and turns each one into probabilities between 0 and 1.</p>
+                    <p><strong>Softmax(xᵢ) = exp(xᵢ) / sum(exp(xⱼ))</strong></p>
+                    <div class="code-block">
+                        <pre>import torch
+import torch.nn.functional as F
+x = torch.tensor([1.0, 2.0, 3.0])
+probabilities = F.softmax(x, dim=0)</pre>
+                    </div>
+                    <p><strong>QTCM:</strong> What happens with different dimensions?</p>
+                    <div class="code-block">
+                        <pre>x = torch.tensor([
+    [1.0, 2.0, 3.0],
+    [4.0, 5.0, 6.0]
+])
+# dim=0: apply softmax column by column
+# dim=1: apply softmax row by row</pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q5. Memory Hierarchy (GPU)</h4>
+                    <p>Which is faster for access: DRAM or SRAM?</p>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>SRAM</th>
+                                    <th>DRAM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Full name</td>
+                                    <td><strong>Static</strong> RAM</td>
+                                    <td><strong>Dynamic</strong> RAM</td>
+                                </tr>
+                                <tr>
+                                    <td>Speed</td>
+                                    <td><strong>Faster</strong></td>
+                                    <td>Slower</td>
+                                </tr>
+                                <tr>
+                                    <td>Power use</td>
+                                    <td>Uses <strong>more</strong> power</td>
+                                    <td>Uses <strong>less</strong> power</td>
+                                </tr>
+                                <tr>
+                                    <td>Cost</td>
+                                    <td><strong>More expensive</strong></td>
+                                    <td>Cheaper</td>
+                                </tr>
+                                <tr>
+                                    <td>Density</td>
+                                    <td>Less dense</td>
+                                    <td>More dense</td>
+                                </tr>
+                                <tr>
+                                    <td>Where used?</td>
+                                    <td>Caches (L1, L2, GPU on-chip)</td>
+                                    <td>Main RAM (system, GPU VRAM)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>SRAM is fastest:</strong> No need to refresh data, while DRAM must constantly refresh stored bits.</p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q6. Numerical Stability</h4>
+                    <p>Why do we subtract the maximum value from inputs before applying softmax?</p>
+                    <p>a) To make values closer together<br>
+                    b) To prevent overflow in exponentiation<br>
+                    c) To sort the inputs first<br>
+                    d) To increase GPU speed</p>
+                    
+                    <p><strong>Solution:</strong> Exponentials grow super fast. exp(1000) causes overflow!</p>
+                    <div class="code-block">
+                        <pre># Instead of x, use:
+x_stable = x - max(x)
+# [1000, 1001, 1002] becomes [-2, -1, 0]</pre>
+                    </div>
+                    <p><strong>Answer: b) To prevent overflow in exponentiation</strong></p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q7. Tiling</h4>
+                    <p>What is the purpose of <strong>tiling</strong> when running computations on a GPU?</p>
+                    <p>a) To make memory allocation easier<br>
+                    b) To process large data in smaller, cache-friendly blocks<br>
+                    c) To remove attention bottlenecks<br>
+                    d) To improve model accuracy</p>
+                    
+                    <p><strong>Tiling:</strong> Breaking large computations into small blocks that:</p>
+                    <ul>
+                        <li>Fit into fast local memory (shared memory/cache)</li>
+                        <li>Process independently and in parallel</li>
+                        <li>Avoid constantly reaching into slow global memory</li>
+                    </ul>
+                    <p><strong>Answer: b) To process large data in smaller, cache-friendly blocks</strong></p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q8. Causal vs Non-Causal Attention</h4>
+                    <p>Given the attention score matrix A for a 4-token input, what should the causal attention mask look like?</p>
+                    
+                    <p><strong>Causal model:</strong> Can only attend to past or present tokens, not future ones.</p>
+                    
+                    <div class="code-block">
+                        <pre># Causal mask:
+[[ 0,   -inf, -inf, -inf],
+ [ 0,    0,   -inf, -inf], 
+ [ 0,    0,    0,   -inf],
+ [ 0,    0,    0,    0 ]]</pre>
+                    </div>
+                    
+                    <div class="code-block">
+                        <pre># Implementation example:
+mask = torch.tril(torch.ones_like(A))
+mask = mask.masked_fill(mask == 0, float('-inf'))
+mask = mask.masked_fill(mask == 1, 0.0)
+masked_scores = A + mask
+attention_weights = F.softmax(masked_scores, dim=1)</pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q9. Attention Masking in Code</h4>
+                    <p>How to apply a mask so that masked values are ignored by softmax?</p>
+                    <div class="code-block">
+                        <pre>scores = torch.tensor([
+    [1.0, 2.0, 3.0],
+    [4.0, 5.0, 6.0], 
+    [7.0, 8.0, 9.0]
+])
+
+mask = torch.tensor([
+    [0, 0, 1],
+    [0, 1, 1],
+    [0, 0, 0]
+])
+
+# Apply mask - set masked positions to -inf
+masked_scores = scores.masked_fill(mask == 1, float('-inf'))
+attn_weights = F.softmax(masked_scores, dim=1)</pre>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q10. GPU Kernel Fusion</h4>
+                    <p>Why is kernel fusion critical in FlashAttention 2?</p>
+                    <p>a) It increases the model's accuracy<br>
+                    b) It reduces DRAM reads/writes by combining QKᵀ, softmax, and V projection<br>
+                    c) It allows larger model sizes to be stored on disk<br>
+                    d) It simplifies the math behind attention</p>
+                    
+                    <p><strong>The Problem:</strong> Naive attention causes excessive DRAM traffic:</p>
+                    <div class="code-block">
+                        <pre>QK = Q @ K.T           # Step 1 — writes to DRAM
+S  = softmax(QK)       # Step 2 — reads from DRAM, writes back
+O  = S @ V             # Step 3 — reads again, writes output</pre>
+                    </div>
+                    
+                    <p><strong>Kernel Fusion Solution:</strong> FlashAttention 2 merges all 3 operations into one kernel. Intermediate steps never leave fast shared memory!</p>
+                    
+                    <p><strong>Answer: b) Reduces DRAM reads/writes by combining operations</strong></p>
+                </div>
+
+                <div class="question-block">
+                    <h4>Q11. Mixed Precision</h4>
+                    <p>What's the main reason FlashAttention 2 uses FP16 or BF16?</p>
+                    <p>a) To avoid numerical underflow<br>
+                    b) To improve numerical precision<br>
+                    c) To reduce memory usage and increase throughput<br>
+                    d) Because softmax only works in FP16</p>
+                    
+                    <p><strong>Precision comparison:</strong></p>
+                    <ul>
+                        <li><strong>FP32:</strong> 32-bit float = ~7 decimal digits</li>
+                        <li><strong>FP16:</strong> 16-bit float = ~3.5 digits, smaller range</li>
+                        <li><strong>BF16:</strong> 16-bit float = same range as FP32, ~3 digits precision</li>
+                    </ul>
+                    
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Modern GPUs have tensor cores optimized for FP16/BF16</li>
+                        <li>Higher throughput (more FLOPs per second)</li>
+                        <li>Lower memory usage = more fits in GPU RAM</li>
+                        <li>Mixed precision: FP16/BF16 for speed, FP32 where precision matters</li>
+                    </ul>
+                    
+                    <p><strong>Answer: c) To reduce memory usage and increase throughput</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/circuit-animation.js"></script>
+    <script src="../../assets/js/theme-toggle.js"></script>
+</body>
+</html>
