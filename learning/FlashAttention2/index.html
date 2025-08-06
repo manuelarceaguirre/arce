@@ -1,99 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>FlashAttention2 - Learning - Manuel Arce</title>
+    <title>FlashAttention2 - Manuel Arce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="FlashAttention2 deep dive - GPU memory optimization and attention computation fundamentals">
-    <meta name="keywords" content="FlashAttention2, GPU, Memory Optimization, Attention Mechanism, Machine Learning">
+    <meta name="description" content="FlashAttention2 study notes - GPU memory optimization and attention computation fundamentals">
     <link rel="stylesheet" href="../../assets/css/main.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
     <style>
-        .content-wrapper {
-            max-width: 1200px;
+        .learning-content {
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
-        
-        .flashattention-content {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 107, 0, 0.2);
-        }
-        
         .question-block {
-            background: rgba(255, 107, 0, 0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-left: 4px solid #ff6b00;
             padding: 1.5rem;
             margin: 2rem 0;
             border-radius: 0 8px 8px 0;
         }
-        
-        .question-block h4 {
+        .question-title {
             color: #ff6b00;
-            margin-top: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
-        
-        .code-block {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
+        .qtcm-section {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
             padding: 1rem;
             margin: 1rem 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
+            border-radius: 0 6px 6px 0;
         }
-        
-        .table-wrapper {
+        .qtcm-title {
+            color: #00ffff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.8) !important;
+            border-radius: 8px;
+            padding: 1.5rem !important;
             overflow-x: auto;
             margin: 1rem 0;
         }
-        
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+        }
+        .math-display {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+        .nav-breadcrumb {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        .nav-breadcrumb a {
+            color: #ff6b00;
+            text-decoration: none;
+        }
+        .nav-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
             background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        
         th, td {
-            border: 1px solid rgba(255, 107, 0, 0.3);
-            padding: 0.75rem;
+            padding: 0.8rem;
             text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
         th {
             background: rgba(255, 107, 0, 0.2);
-            font-weight: bold;
-        }
-        
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 107, 0, 0.1);
-            border: 1px solid #ff6b00;
-            border-radius: 8px;
-            color: #ff6b00;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-        }
-        
-        .back-button:hover {
-            background: rgba(255, 107, 0, 0.2);
-            transform: translateX(-5px);
-        }
-        
-        .back-button svg {
-            margin-right: 0.5rem;
-            width: 16px;
-            height: 16px;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -111,7 +117,7 @@
                 <ul>
                     <li><a href="https://arce.my">HOME</a></li>
                     <li><a href="../../about/">ABOUT ME</a></li>
-                    <li><a href="../">LEARNING</a></li>
+                    <li><a href="../../learning/">LEARNING</a></li>
                 </ul>
             </nav>
             <div class="header-right">
@@ -133,54 +139,56 @@
             </div>
         </header>
 
-        <div class="content-wrapper">
-            <a href="../" class="back-button">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-                Back to Learning
-            </a>
+        <div class="learning-content">
+            <div class="nav-breadcrumb">
+                <a href="../../learning/">Learning</a> / FlashAttention2
+            </div>
 
-            <section class="future-section">
-                <div class="header">
-                    <h1>FlashAttention2 Deep Dive</h1>
-                    <p class="description">GPU Memory Optimization and Attention Computation Fundamentals</p>
-                </div>
-            </section>
+            <h1>FlashAttention2</h1>
+            <p><strong>QTCM</strong> → Questions that came to mind<br>
+            <strong>Level 0:</strong></p>
 
-            <div class="flashattention-content">
-                <p><strong>QTCM → Questions that came to mind</strong><br>
-                <strong>Level 0:</strong></p>
-                
-                <hr>
+            <hr>
 
-                <div class="question-block">
-                    <h4>Q1. L2 Norm</h4>
-                    <p>What is the L2 norm of the vector <strong>u = [3, 4]</strong>?<br>
-                    Give the answer as a number.</p>
-                    <div class="code-block">
-                        <pre>u = torch.tensor([3.0, 4.0])
-torch.norm(u, p=2).item()  # → 5.0</pre>
-                    </div>
-                </div>
+            <div class="question-block">
+                <div class="question-title">Q1. L2 Norm</div>
+                <p>What is the L2 norm of the vector $\mathbf{u} = [3, 4]$?<br>
+                Give the answer as a number.</p>
 
-                <div class="question-block">
-                    <h4>Q2. Dot Product</h4>
-                    <p>Given <strong>u = [1, 2, 3]</strong> and <strong>v = [4, 5, 6]</strong>, what is the dot product <strong>u · v</strong>?</p>
-                    <div class="code-block">
-                        <pre>u = torch.tensor([1.0, 2.0, 3.0])
+                <pre><code class="language-python">u = torch.tensor([3.0, 4.0])
+torch.norm(u, p=2).item()  # → 5.0</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q2. Dot Product</div>
+                <p>Given $\mathbf{u} = [1, 2, 3]$ and $\mathbf{v} = [4, 5, 6]$, what is the dot product $\mathbf{u} \cdot \mathbf{v}$?</p>
+
+                <pre><code class="language-python">u = torch.tensor([1.0, 2.0, 3.0])
 v = torch.tensor([4.0, 5.0, 6.0])
-torch.dot(u, v)  # → 32</pre>
-                    </div>
+torch.dot(u, v)  # → 32</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q3. Matrix Multiplication</div>
+                <p>Multiply the matrices:</p>
+
+                <div class="math-display">
+                    $$A = 
+                    \begin{pmatrix}
+                    1 & 2 \\
+                    3 & 4 \\
+                    \end{pmatrix}
+                    ,\quad
+                    B = 
+                    \begin{pmatrix}
+                    2 & 0 \\
+                    1 & 3 \\
+                    \end{pmatrix}$$
                 </div>
 
-                <div class="question-block">
-                    <h4>Q3. Matrix Multiplication</h4>
-                    <p>Multiply the matrices:</p>
-                    <p>A = [[1, 2], [3, 4]], B = [[2, 0], [1, 3]]</p>
-                    <p>What is the resulting matrix?</p>
-                    <div class="code-block">
-                        <pre>A = torch.tensor([
+                <p>What is the resulting matrix?</p>
+
+                <pre><code class="language-python">A = torch.tensor([
     [1.0, 2.0],
     [3.0, 4.0],
 ], dtype = torch.float32)
@@ -190,211 +198,617 @@ B = torch.tensor([
 ], dtype = torch.float32)
 
 result = A @ B
-print(result)</pre>
-                    </div>
-                </div>
+print(result)</code></pre>
+            </div>
 
-                <div class="question-block">
-                    <h4>Q4. Softmax</h4>
-                    <p>If you apply the softmax function to the vector [1, 2, 3], which number gets the highest probability?</p>
-                    <p>Softmax is a function that takes a list of numbers and turns each one into probabilities between 0 and 1.</p>
-                    <p><strong>Softmax(xᵢ) = exp(xᵢ) / sum(exp(xⱼ))</strong></p>
-                    <div class="code-block">
-                        <pre>import torch
+            <div class="question-block">
+                <div class="question-title">Q4. Softmax</div>
+                <p>If you apply the softmax function to the vector $[1, 2, 3]$, which number gets the highest probability?</p>
+
+                <p>Softmax is a function that takes a list of numbers a vector in this case and turns each one of them into probabilities between 0 and 1.</p>
+
+                <p>Softmax(xᵢ) = exp(xᵢ) / sum(exp(xⱼ))<br>
+                This means it takes e^x for each input value, then divides by the total sum.</p>
+
+                <p>The model might output numbers like [2.1, 1.3, 5.6], and softmax will turn that into something like [0.1, 0.05, 0.85]</p>
+
+                <pre><code class="language-python">import torch
 import torch.nn.functional as F
 x = torch.tensor([1.0, 2.0, 3.0])
-probabilities = F.softmax(x, dim=0)</pre>
-                    </div>
-                    <p><strong>QTCM:</strong> What happens with different dimensions?</p>
-                    <div class="code-block">
-                        <pre>x = torch.tensor([
+probabilities = F.softmax(x, dim=0) # </code></pre>
+
+                <div class="qtcm-section">
+                    <div class="qtcm-title">QTCM:</div>
+                    <p>What will happen if we select d=1?<br>
+                    in my example error because there is no second dimention<br>
+                    but...</p>
+                    <pre><code class="language-python">x = torch.tensor([
     [1.0, 2.0, 3.0],
     [4.0, 5.0, 6.0]
-])
-# dim=0: apply softmax column by column
-# dim=1: apply softmax row by row</pre>
-                    </div>
+])</code></pre>
+                    <p>This is a 2D tensor — it has:<br>
+                    2 rows<br>
+                    3 columns<br>
+                    It looks like this:<br>
+                    Row 0 → [1.0, 2.0, 3.0]<br>
+                    Row 1 → [4.0, 5.0, 6.0]</p>
+                    
+                    <p>What does dim=0 do?<br>
+                    It means: apply softmax column by column.<br>
+                    Let's break that down:</p>
+
+                    <p>Column 0: [1.0, 4.0]</p>
+                    <p>Column 1: [2.0, 5.0]</p>
+                    <p>Column 2: [3.0, 6.0]</p>
+
+                    <p>So it applies softmax down each column:<br>
+                    What about dim=1?<br>
+                    Now it applies softmax row by row.</p>
+
+                    <p>Row 0: [1.0, 2.0, 3.0]</p>
+                    <p>Row 1: [4.0, 5.0, 6.0]</p>
+
+                    <p>Each row gets its own softmax:</p>
+
+                    <p>softmax([1, 2, 3]) → [0.09, 0.24, 0.66]</p>
+                    <p>softmax([4, 5, 6]) → [0.09, 0.24, 0.66]</p>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q5. Memory Hierarchy (GPU)</div>
+                <p>Which is faster for access: DRAM or SRAM?</p>
+
+                <p>SRAM -> Static Random Access Memory<br>
+                DRAM -> Dynamic Random Access Memory</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th><strong>SRAM</strong></th>
+                                <th><strong>DRAM</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Full name</td>
+                                <td><strong>Static</strong> RAM</td>
+                                <td><strong>Dynamic</strong> RAM</td>
+                            </tr>
+                            <tr>
+                                <td>Speed</td>
+                                <td><strong>Faster</strong></td>
+                                <td>Slower</td>
+                            </tr>
+                            <tr>
+                                <td>Power use</td>
+                                <td>Uses <strong>more</strong> power</td>
+                                <td>Uses <strong>less</strong> power</td>
+                            </tr>
+                            <tr>
+                                <td>Cost</td>
+                                <td><strong>More expensive</strong></td>
+                                <td>Cheaper</td>
+                            </tr>
+                            <tr>
+                                <td>Density</td>
+                                <td>Less dense (more space per bit)</td>
+                                <td>More dense (can store more bits)</td>
+                            </tr>
+                            <tr>
+                                <td>Where used?</td>
+                                <td>Caches (L1, L2, GPU on-chip memory)</td>
+                                <td>Main RAM (system memory, GPU VRAM)</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="question-block">
-                    <h4>Q5. Memory Hierarchy (GPU)</h4>
-                    <p>Which is faster for access: DRAM or SRAM?</p>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Feature</th>
-                                    <th>SRAM</th>
-                                    <th>DRAM</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Full name</td>
-                                    <td><strong>Static</strong> RAM</td>
-                                    <td><strong>Dynamic</strong> RAM</td>
-                                </tr>
-                                <tr>
-                                    <td>Speed</td>
-                                    <td><strong>Faster</strong></td>
-                                    <td>Slower</td>
-                                </tr>
-                                <tr>
-                                    <td>Power use</td>
-                                    <td>Uses <strong>more</strong> power</td>
-                                    <td>Uses <strong>less</strong> power</td>
-                                </tr>
-                                <tr>
-                                    <td>Cost</td>
-                                    <td><strong>More expensive</strong></td>
-                                    <td>Cheaper</td>
-                                </tr>
-                                <tr>
-                                    <td>Density</td>
-                                    <td>Less dense</td>
-                                    <td>More dense</td>
-                                </tr>
-                                <tr>
-                                    <td>Where used?</td>
-                                    <td>Caches (L1, L2, GPU on-chip)</td>
-                                    <td>Main RAM (system, GPU VRAM)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p><strong>SRAM is fastest:</strong> No need to refresh data, while DRAM must constantly refresh stored bits.</p>
+                <p>SRAM is the fastest:<br>
+                SRAM keeps data as long as power is on — no need to refresh.<br>
+                DRAM must constantly refresh its stored bits (like every few milliseconds), which slows it down.</p>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q6. Numerical Stability</div>
+                <p>Why do we subtract the maximum value from inputs before applying softmax?</p>
+
+                <p>a) To make values closer together<br>
+                b) To prevent overflow in exponentiation<br>
+                c) To sort the inputs first<br>
+                d) To increase GPU speed</p>
+
+                <p>So lets remember softmax = Softmax(xᵢ) = exp(xᵢ) / sum(exp(xⱼ))<br>
+                this basically takes e^x of every input and then divides by the total sum<br>
+                xponentials grow super fast:</p>
+
+                <p>exp(10) ≈ 22,000</p>
+                <p>exp(100) ≈ huge (~2.7e43)</p>
+                <p>exp(1000) → OverflowError (the number is too big for memory)</p>
+
+                <p>So if your x vector has large values, like [1000, 1001, 1002], you'll break softmax. It tries to compute things that are too large to handle.</p>
+
+                <p><strong>Solution</strong><br>
+                Instead of using x, we use this:<br>
+                x_stable = x - max(x)<br>
+                So [1000, 1001, 1002] becomes [-2, -1, 0]<br>
+                Then we do softmax(x_stable)</p>
+
+                <p>So the answer is <strong>b) to prevent overflow in exponentiation</strong></p>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q7. Tiling</div>
+                <p>What is the purpose of <strong>tiling</strong> when running computations on a GPU?</p>
+
+                <p>a) To make memory allocation easier<br>
+                b) To process large data in smaller, cache-friendly blocks<br>
+                c) To remove attention bottlenecks<br>
+                d) To improve model accuracy</p>
+
+                <p>So what is tiling:<br>
+                breaking a large computation (like multiplication of matrices) into small tiles</p>
+
+                <p>Fits into fast local memory (like shared memory or cache),</p>
+                <p>Is processed independently and in parallel, and</p>
+                <p>Avoids constantly reaching into slow global memory.</p>
+
+                <p>GPUs are really fast, but only if you feed them data from fast memory (like SRAM).<br>
+                If they have to constantly reach into slow DRAM, they waste time.</p>
+
+                <p>So tiling:</p>
+                <p>Keeps data close to the processor,</p>
+                <p>Reduces memory access time, and</p>
+                <p>Allows efficient parallelization.</p>
+
+                <p>so <strong>b) is the correct answer to provess large data in smaller cache friendly blocks</strong></p>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q8. Causal vs Non Causal Attention</div>
+                <p>Given the attention score matrix A for a 4-token input:</p>
+                <pre><code class="language-python">[[?, ?, ?, ?],
+ [?, ?, ?, ?],
+ [?, ?, ?, ?],
+ [?, ?, ?, ?]]</code></pre>
+                <p>If this is for a causal language model, what should the attention mask look like and why?</p>
+                
+                <p><strong>Prereq:</strong><br>
+                Attention:<br>
+                "The cat sat"</p>
+                <pre><code class="language-python">Token 0: "The"
+Token 1: "cat"
+Token 2: "sat"</code></pre>
+
+                <p>Now let's walk through what happens for token 1: "cat"<br>
+                Step 1: Each token turns into:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Query (Q)</th>
+                                <th>Key (K)</th>
+                                <th>Value (V)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>"The"</td><td>Q₀</td><td>K₀</td><td>V₀</td></tr>
+                            <tr><td>"cat"</td><td>Q₁</td><td>K₁</td><td>V₁</td></tr>
+                            <tr><td>"sat"</td><td>Q₂</td><td>K₂</td><td>V₂</td></tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="question-block">
-                    <h4>Q6. Numerical Stability</h4>
-                    <p>Why do we subtract the maximum value from inputs before applying softmax?</p>
-                    <p>a) To make values closer together<br>
-                    b) To prevent overflow in exponentiation<br>
-                    c) To sort the inputs first<br>
-                    d) To increase GPU speed</p>
-                    
-                    <p><strong>Solution:</strong> Exponentials grow super fast. exp(1000) causes overflow!</p>
-                    <div class="code-block">
-                        <pre># Instead of x, use:
-x_stable = x - max(x)
-# [1000, 1001, 1002] becomes [-2, -1, 0]</pre>
-                    </div>
-                    <p><strong>Answer: b) To prevent overflow in exponentiation</strong></p>
+                <p>Now we're focusing on token 1: "cat", so we use Q₁ (its query).</p>
+
+                <p><strong>Step 2: Compare "cat"'s Query to All Keys (Dot Products)</strong><br>
+                Q_1 takes a look at all the other keys to see who of them is more related to its own:<br>
+                This takes place in the form of (Dot products)</p>
+
+                <p>score₀ = dot(Q₁, K₀)   # How much does "cat" relate to "the"?<br>
+                score₁ = dot(Q₁, K₁)   # How much does "cat" relate to "cat"?<br>
+                score₂ = dot(Q₁, K₂)   # How much does "cat" relate to "sat"?</p>
+
+                <p>-> This gives us raw attention scores like:<br>
+                [2.1, 6.5, 3.4]</p>
+
+                <p>These scores say:</p>
+                <p>"cat" thinks "cat" is most important (6.5)</p>
+                <p>"sat" is next (3.4)</p>
+                <p>"the" is least important (2.1)</p>
+                
+                <p><strong>Step 3: Turn Scores into Probabilities (Softmax)</strong></p>
+
+                <p>attention_weights = softmax([2.1, 6.5, 3.4])<br>
+                that gives us for example:<br>
+                [0.05, 0.80, 0.15]<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Look 80% at "cat"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Look 15% at "sat"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Look 5% at "the"</p>
+
+                <p><strong>Step 4: Use the Weights to Blend the Values</strong><br>
+                output = 0.05 * V₀ + 0.80 * V₁ + 0.15 * V₂</p>
+
+                <p>Okk so for each token we do this:</p>
+
+                <ol>
+                    <li>Compare its query to every other key → gives a list of scores</li>
+                    <li>Apply softmax → get a list of weights</li>
+                    <li>Multiply those weights by the values → get one output vector</li>
+                </ol>
+
+                <p>So, for a sequence of 3 tokens:</p>
+
+                <p>"The" → outputs vector O₀<br>
+                "cat" → outputs vector O₁<br>
+                "sat" → outputs vector O₂<br>
+                Stack those outputs → you get the output sequence: [O₀, O₁, O₂]</p>
+
+                <p>This would be the long way of doing it:<br>
+                There is a parallel version of doing this</p>
+
+                <p>To do that, we stack all the query vectors together into a matrix called Q:</p>
+                <pre><code class="language-python">Q = [Q₀
+     Q₁
+     Q₂]     # 3 tokens × d dimensions</code></pre>
+                <p>Same for the keys:</p>
+                <pre><code class="language-python">K = [K₀
+     K₁
+     K₂]</code></pre>
+                <p>And the attention score matrix is just:<br>
+                A[i][j] = dot(Qᵢ, Kⱼ)</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>K₀</th>
+                                <th>K₁</th>
+                                <th>K₂</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Q₀</strong></td><td>Q₀·K₀</td><td>Q₀·K₁</td><td>Q₀·K₂</td></tr>
+                            <tr><td><strong>Q₁</strong></td><td>Q₁·K₀</td><td>Q₁·K₁</td><td>Q₁·K₂</td></tr>
+                            <tr><td><strong>Q₂</strong></td><td>Q₂·K₀</td><td>Q₂·K₁</td><td>Q₂·K₂</td></tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="question-block">
-                    <h4>Q7. Tiling</h4>
-                    <p>What is the purpose of <strong>tiling</strong> when running computations on a GPU?</p>
-                    <p>a) To make memory allocation easier<br>
-                    b) To process large data in smaller, cache-friendly blocks<br>
-                    c) To remove attention bottlenecks<br>
-                    d) To improve model accuracy</p>
-                    
-                    <p><strong>Tiling:</strong> Breaking large computations into small blocks that:</p>
-                    <ul>
-                        <li>Fit into fast local memory (shared memory/cache)</li>
-                        <li>Process independently and in parallel</li>
-                        <li>Avoid constantly reaching into slow global memory</li>
-                    </ul>
-                    <p><strong>Answer: b) To process large data in smaller, cache-friendly blocks</strong></p>
+                <p>reference:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Query (Q)</th>
+                                <th>Key (K)</th>
+                                <th>Value (V)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>"The"</td><td>Q₀</td><td>K₀</td><td>V₀</td></tr>
+                            <tr><td>"cat"</td><td>Q₁</td><td>K₁</td><td>V₁</td></tr>
+                            <tr><td>"sat"</td><td>Q₂</td><td>K₂</td><td>V₂</td></tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="question-block">
-                    <h4>Q8. Causal vs Non-Causal Attention</h4>
-                    <p>Given the attention score matrix A for a 4-token input, what should the causal attention mask look like?</p>
-                    
-                    <p><strong>Causal model:</strong> Can only attend to past or present tokens, not future ones.</p>
-                    
-                    <div class="code-block">
-                        <pre># Causal mask:
-[[ 0,   -inf, -inf, -inf],
- [ 0,    0,   -inf, -inf], 
+                <p>Apply softmax to each row, one at a time.<br>
+                Row 0 → softmax over [Q₀·K₀, Q₀·K₁, Q₀·K₂]<br>
+                Row 1 → softmax over [Q₁·K₀, Q₁·K₁, Q₁·K₂]<br>
+                Row 2 → softmax over [Q₂·K₀, Q₂·K₁, Q₂·K₂]</p>
+
+                <p>It will become:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>K₀</th>
+                                <th>K₁</th>
+                                <th>K₂</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Q₀</strong></td><td>w₀₀</td><td>w₀₁</td><td>w₀₂</td></tr>
+                            <tr><td><strong>Q₁</strong></td><td>w₁₀</td><td>w₁₁</td><td>w₁₂</td></tr>
+                            <tr><td><strong>Q₂</strong></td><td>w₂₀</td><td>w₂₁</td><td>w₂₂</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>Ok last step:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Value (V)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>"The"</td><td>V₀</td></tr>
+                            <tr><td>"cat"</td><td>V₁</td></tr>
+                            <tr><td>"sat"</td><td>V₂</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>We can write all values as a matrix V:</p>
+                <pre><code class="language-python">V = [
+  V₀
+  V₁
+  V₂
+]      # 3 × d</code></pre>
+                <p>then we do:</p>
+
+                <p>Output = Attention_Matrix @ V<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= A @ V</p>
+
+                <p>Row 0: w₀₀×V₀ + w₀₁×V₁ + w₀₂×V₂ = what "The" pays attention to</p>
+                <p>Row 1: w₁₀×V₀ + w₁₁×V₁ + w₁₂×V₂ = what "cat" pays attention to</p>
+                <p>Row 2: w₂₀×V₀ + w₂₁×V₁ + w₂₂×V₂ = what "sat" pays attention to</p>
+
+                <p>Back to the original question:<br>
+                Given the attention score matrix A for a 4-token input:</p>
+                <pre><code class="language-python">[[?, ?, ?, ?],
+ [?, ?, ?, ?],
+ [?, ?, ?, ?],
+ [?, ?, ?, ?]]</code></pre>
+                <p>If this is for a causal language model, what should the attention mask look like and why?</p>
+                
+                <p><strong>What does causal mean?</strong><br>
+                A causal language model can only attend to past or present tokens — not future ones.<br>
+                So:</p>
+
+                <p>Token 0 can look at: token 0</p>
+                <p>Token 1 can look at: tokens 0, 1</p>
+                <p>Token 2 can look at: tokens 0, 1, 2</p>
+                <p>Token 3 can look at: tokens 0, 1, 2, 3</p>
+
+                <p>So what should the mask look like?<br>
+                We block future tokens by assigning -inf or a large negative number (so softmax makes them 0).<br>
+                We leave allowed positions as 0.</p>
+
+                <p>The causal mask looks like this:</p>
+                <pre><code class="language-python">[[ 0,   -inf, -inf, -inf],
+ [ 0,    0,   -inf, -inf],
  [ 0,    0,    0,   -inf],
- [ 0,    0,    0,    0 ]]</pre>
-                    </div>
-                    
-                    <div class="code-block">
-                        <pre># Implementation example:
-mask = torch.tril(torch.ones_like(A))
-mask = mask.masked_fill(mask == 0, float('-inf'))
-mask = mask.masked_fill(mask == 1, 0.0)
+ [ 0,    0,    0,    0 ]]
+Because the attention score matrix will go through:
 masked_scores = A + mask
-attention_weights = F.softmax(masked_scores, dim=1)</pre>
-                    </div>
-                </div>
+softmax(masked_scores)</code></pre>
 
-                <div class="question-block">
-                    <h4>Q9. Attention Masking in Code</h4>
-                    <p>How to apply a mask so that masked values are ignored by softmax?</p>
-                    <div class="code-block">
-                        <pre>scores = torch.tensor([
+                <pre><code class="language-python">import torch
+import torch.nn.functional as F
+
+# Step 1: Create a fake attention score matrix for 4 tokens
+A = torch.tensor([
+    [1.0, 2.0, 3.0, 4.0],
+    [1.0, 2.0, 3.0, 4.0],
+    [1.0, 2.0, 3.0, 4.0],
+    [1.0, 2.0, 3.0, 4.0]
+])
+print("Original attention scores (A):\n", A)
+
+# Output:
+# tensor([[1., 2., 3., 4.],
+#         [1., 2., 3., 4.],
+#         [1., 2., 3., 4.],
+#         [1., 2., 3., 4.]])
+
+# Step 2a: Create lower triangular mask of 1s
+mask = torch.tril(torch.ones_like(A))
+print("\nStep 2a - Lower triangular mask (1s and 0s):\n", mask)
+
+# Output:
+# tensor([[1., 0., 0., 0.],
+#         [1., 1., 0., 0.],
+#         [1., 1., 1., 0.],
+#         [1., 1., 1., 1.]])
+
+# Step 2b: Replace 0s with -inf
+mask = mask.masked_fill(mask == 0, float('-inf'))
+print("\nStep 2b - Mask after replacing 0s with -inf:\n", mask)
+
+# Output:
+# tensor([[ 1., -inf, -inf, -inf],
+#         [ 1.,   1., -inf, -inf],
+#         [ 1.,   1.,   1., -inf],
+#         [ 1.,   1.,   1.,   1.]])
+
+# Step 2c: Replace remaining 1s with 0.0 (so adding it to A doesn't change valid scores)
+mask = mask.masked_fill(mask == 1, 0.0)
+print("\nStep 2c - Final mask to add to A:\n", mask)
+
+# Output:
+# tensor([[ 0., -inf, -inf, -inf],
+#         [ 0.,   0., -inf, -inf],
+#         [ 0.,   0.,   0., -inf],
+#         [ 0.,   0.,   0.,   0.]])
+
+# Step 3: Apply mask to attention scores
+masked_scores = A + mask
+print("\nStep 3 - Masked scores (A + mask):\n", masked_scores)
+
+# Output:
+# tensor([[1., -inf, -inf, -inf],
+#         [1.,  2., -inf, -inf],
+#         [1.,  2.,  3., -inf],
+#         [1.,  2.,  3.,  4.]])
+
+# Step 4: Apply softmax row by row
+attention_weights = F.softmax(masked_scores, dim=1)
+print("\nStep 4 - Final attention weights (after softmax):\n", attention_weights)
+
+# Output:
+# tensor([[1.0000, 0.0000, 0.0000, 0.0000],
+#         [0.2689, 0.7311, 0.0000, 0.0000],
+#         [0.0900, 0.2447, 0.6652, 0.0000],
+#         [0.0321, 0.0871, 0.2369, 0.6439]])</code></pre>
+
+                <p><strong>FINAL ANSWER:</strong></p>
+                <pre><code class="language-python">[
+  [0.,   -inf, -inf, -inf],
+  [0.,    0.,  -inf, -inf],
+  [0.,    0.,   0.,  -inf],
+  [0.,    0.,   0.,   0.]
+]</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q9. Attention Masking in Code</div>
+                <p>You're given this PyTorch tensor of scores:</p>
+                <pre><code class="language-python">scores = torch.tensor([
     [1.0, 2.0, 3.0],
-    [4.0, 5.0, 6.0], 
+    [4.0, 5.0, 6.0],
+    [7.0, 8.0, 9.0]
+])</code></pre>
+                <p>And a mask like:</p>
+                <pre><code class="language-python">mask = torch.tensor([
+    [0, 0, 1],
+    [0, 1, 1],
+    [0, 0, 0]
+])</code></pre>
+                <p>How would you apply this mask so that masked values are ignored by softmax?</p>
+                <pre><code class="language-python">import torch
+import torch.nn.functional as F
+
+# Step 1: Original scores
+scores = torch.tensor([
+    [1.0, 2.0, 3.0],
+    [4.0, 5.0, 6.0],
     [7.0, 8.0, 9.0]
 ])
 
+print("Step 1 - Original Scores:\n", scores)
+
+# Step 2: Define the mask
 mask = torch.tensor([
     [0, 0, 1],
     [0, 1, 1],
     [0, 0, 0]
 ])
 
-# Apply mask - set masked positions to -inf
+print("\nStep 2 - Mask:\n", mask)
+
+# Step 3: Apply the mask — set masked positions to -inf
 masked_scores = scores.masked_fill(mask == 1, float('-inf'))
-attn_weights = F.softmax(masked_scores, dim=1)</pre>
-                    </div>
-                </div>
 
-                <div class="question-block">
-                    <h4>Q10. GPU Kernel Fusion</h4>
-                    <p>Why is kernel fusion critical in FlashAttention 2?</p>
-                    <p>a) It increases the model's accuracy<br>
-                    b) It reduces DRAM reads/writes by combining QKᵀ, softmax, and V projection<br>
-                    c) It allows larger model sizes to be stored on disk<br>
-                    d) It simplifies the math behind attention</p>
-                    
-                    <p><strong>The Problem:</strong> Naive attention causes excessive DRAM traffic:</p>
-                    <div class="code-block">
-                        <pre>QK = Q @ K.T           # Step 1 — writes to DRAM
-S  = softmax(QK)       # Step 2 — reads from DRAM, writes back
-O  = S @ V             # Step 3 — reads again, writes output</pre>
-                    </div>
-                    
-                    <p><strong>Kernel Fusion Solution:</strong> FlashAttention 2 merges all 3 operations into one kernel. Intermediate steps never leave fast shared memory!</p>
-                    
-                    <p><strong>Answer: b) Reduces DRAM reads/writes by combining operations</strong></p>
-                </div>
+print("\nStep 3 - Masked Scores (0s allowed, 1s set to -inf):\n", masked_scores)
+# Output:
+# tensor([
+#   [1.0, 2.0, -inf],
+#   [4.0, -inf, -inf],
+#   [7.0, 8.0, 9.0]
+# ])
 
-                <div class="question-block">
-                    <h4>Q11. Mixed Precision</h4>
-                    <p>What's the main reason FlashAttention 2 uses FP16 or BF16?</p>
-                    <p>a) To avoid numerical underflow<br>
-                    b) To improve numerical precision<br>
-                    c) To reduce memory usage and increase throughput<br>
-                    d) Because softmax only works in FP16</p>
-                    
-                    <p><strong>Precision comparison:</strong></p>
-                    <ul>
-                        <li><strong>FP32:</strong> 32-bit float = ~7 decimal digits</li>
-                        <li><strong>FP16:</strong> 16-bit float = ~3.5 digits, smaller range</li>
-                        <li><strong>BF16:</strong> 16-bit float = same range as FP32, ~3 digits precision</li>
-                    </ul>
-                    
-                    <p><strong>Benefits:</strong></p>
-                    <ul>
-                        <li>Modern GPUs have tensor cores optimized for FP16/BF16</li>
-                        <li>Higher throughput (more FLOPs per second)</li>
-                        <li>Lower memory usage = more fits in GPU RAM</li>
-                        <li>Mixed precision: FP16/BF16 for speed, FP32 where precision matters</li>
-                    </ul>
-                    
-                    <p><strong>Answer: c) To reduce memory usage and increase throughput</strong></p>
-                </div>
+# Step 4: Apply softmax along dim=1 (across each row)
+attn_weights = F.softmax(masked_scores, dim=1)
+
+print("\nStep 4 - Attention Weights After Softmax:\n", attn_weights)
+# Expected Output:
+# tensor([
+#   [0.2689, 0.7311, 0.0000],     # Last entry was -inf → softmax = 0
+#   [1.0000, 0.0000, 0.0000],     # Only first entry is valid
+#   [0.0900, 0.2447, 0.6652]      # No masking
+# ])</code></pre>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q10. GPU Kernel Fusion</div>
+                <p>Why is kernel fusion critical in FlashAttention 2?</p>
+
+                <p>a) It increases the model's accuracy<br>
+                b) It reduces DRAM reads/writes by combining QKᵀ, softmax, and V projection<br>
+                c) It allows larger model sizes to be stored on disk<br>
+                d) It simplifies the math behind attention</p>
+
+                <p>First whats DRAM traffic:<br>
+                On a GPU, there are two main types of memory:</p>
+
+                <p>Global memory (DRAM): Big but slow<br>
+                Shared memory (on-chip): Small but fast</p>
+
+                <p><strong>The Problem:</strong><br>
+                In naive attention, we do:</p>
+                <pre><code class="language-python">QK = Q @ K.T           # Step 1 — writes result to DRAM
+S  = softmax(QK)       # Step 2 — reads from DRAM, writes back to DRAM
+O  = S @ V             # Step 3 — reads again, writes output</code></pre>
+                <p>Reads large matrices from DRAM<br>
+                Writes intermediate results back to DRAM<br>
+                That's billions of slow reads/writes per layer, especially with long sequences.</p>
+
+                <p><strong>What is kernel fusion?</strong><br>
+                Each operation (matmul, softmax, matmul again) launches a separate GPU kernel.</p>
+
+                <p>This means:<br>
+                More overhead<br>
+                More memory bouncing (DRAM again)</p>
+
+                <p>With kernel fusion:<br>
+                FlashAttention 2 merges all 3 into one big kernel:<br>
+                QK -> softmax -> V   all in one<br>
+                Intermediate steps never leave fast shared memory — they never hit DRAM.<br>
+                So we skip memory traffic entirely, except for the final output.</p>
+
+                <p>FlashAttention 2 features:<br>
+                Exact attention, not approximate (vs. some old methods)<br>
+                Uses tiling to break long sequences into chunks<br>
+                Fuses QKᵀ, softmax, and V multiplication into one kernel<br>
+                Uses shared memory efficiently<br>
+                Supports causal and non-causal attention<br>
+                Much faster and more memory-efficient than naive attention</p>
+            </div>
+
+            <div class="question-block">
+                <div class="question-title">Q11. Mixed Precision</div>
+                <p>What's the main reason FlashAttention 2 uses FP16 or BF16 for its attention computations?</p>
+
+                <p>a) To avoid numerical underflow<br>
+                b) To improve numerical precision<br>
+                c) To reduce memory usage and increase throughput<br>
+                d) Because softmax only works in FP16</p>
+
+                <p><strong>FP16 and BF16 vs FP32 (Precision & Range)</strong><br>
+                FP32: 32-bit float = ~7 decimal digits of precision</p>
+
+                <p>FP16: 16-bit float = ~3.5 digits of precision, smaller range</p>
+
+                <p>BF16: 16-bit float = same range as FP32, but ~3 digits precision</p>
+
+                <p>So FP16 and BF16 use half the space and are faster, but you lose some accuracy</p>
+
+                <p><strong>Why use FP16/BF16 on GPUs?</strong><br>
+                Modern GPUs (like NVIDIA's A100 or H100) have tensor cores that are super fast when using FP16 or BF16.</p>
+
+                <p>Throughput (how many FLOPs per second) is much higher in FP16/BF16 than FP32.</p>
+
+                <p>Also: lower memory use = more fits in GPU RAM = less waiting</p>
+
+                <p>We use FP16/BF16 where accuracy isn't critical (e.g., multiplying Q and K)<br>
+                But we upcast (switch to FP32) in places like softmax, where precision matters<br>
+                That's why FlashAttention 2 is mixed precision: some FP16, some FP32</p>
+
+                <p><strong>c) To reduce memory usage and increase throughput.</strong></p>
+
+                <p>Memory Efficiency: Attention matrices (Q·K^T) are huge — using half-precision saves a lot of memory.</p>
+
+                <p>Speed: Modern GPUs are way faster at FP16/BF16 thanks to tensor cores.</p>
+
+                <p>Numerical Tricks: It's still safe because FlashAttention upcasts to FP32 where it matters (like inside softmax), so you don't lose stability.</p>
             </div>
         </div>
     </div>
 
     <script src="../../assets/js/circuit-animation.js"></script>
     <script src="../../assets/js/theme-toggle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
