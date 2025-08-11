@@ -397,30 +397,58 @@ $$
 \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
 \end{bmatrix}
 $$
+
+```python
+import torch
+
+# To check if the matrix is orthogonal
+#   [ ] Q (transposed) * Q = I
+
+# Define the matrix Q
+Q = torch.tensor([
+[-1 / torch.sqrt(torch.tensor(2.0)), 1 / torch.sqrt(torch.tensor(2.0))]
+[1 / torch.sqrt(torch.tensor(2.0)), 1 / torch.sqrt(torch.tensor(2.0))]
+], dtype = torch.float32)
+
+# Multiply the Q for by its Transpose
+Q_T = Q.T @ Q 
+
+# Identity
+I = torch.eye(2)
+
+is_orthogonal = torch.allclose(Q_T, I, atol = 1e-6)
+print(is_orthogonal)
+```
+
 ## Question 12:
 Calculate 𝑣 ∙ 𝑢 
 
 u = [5,-1,1,2], v= [1, 2,- 1,3] 
+```python
+import torch
+dtype = torch.float32
+u = torch.tensor([5.0, -1.0, 1.0, 2.0], dtype = dtype)
+v = torch.tensor([1.0, 2.0, -1.0, 3.0], dtype = dtype)
 
+result = torch.dot(u,v)
+print(result.item())
+```
 ## Question 13:
 Calculate 𝑣 ∙ 𝑢 
 
 u = [1,-1,2], v= [1, 5, 1] 
 
-## Question 14:
-What is the characteristic equation of the following matrix?
+```python
+import torch
+dtype = torch.float32
+u = torch.tensor([1.0,-1.0,2.0], dtype = dtype)
+v = torch.tensor([1.0, 5.0, 1.0], dtype = dtype)
 
-$$
-\begin{pmatrix}
-    0 & 1 & -2 \\
-    2 & 1 & 0 \\
-    4 & -2 & 5 \\
-\end{pmatrix}
-$$
-
+result = torch.dot(u,v)
+print(result.item())
+```
 ## Question 15:
 Calculate the eigenvalue(s) of the following matrix? 
-
 
 $$
 \begin{pmatrix}
@@ -428,6 +456,26 @@ $$
     1 & 3\\
 \end{pmatrix}
 $$
+
+```python
+import torch
+type = torch.float32
+
+# define the matrix
+A = torch.tensor([
+[3.0, 1.0],
+[1.0, 3.0]
+]dtype = dtype)
+
+# compute the eigenvalues and eigenvectors?
+eigenvalues, eigenvectors = torch.linalg.eig(A)
+
+# since the result can be complex extract only the real part
+eigenvalues_real  eigenvalues.real
+
+print(eigenvalues_real)
+```
+
 
 ## Question 16:
 What is the projection of vector b = [1, 3, 1] onto vector a= [-1, -3 , -1]? 
