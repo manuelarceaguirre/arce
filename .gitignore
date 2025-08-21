@@ -1,1 +1,12 @@
 \ignore
+# Ignore PowerPoint files
+*.ppt
+*.pptx
+*.pps
+*.ppsx
+
+# Ignore Word files
+*.doc
+*.docx
+*.dot
+*.dotx
