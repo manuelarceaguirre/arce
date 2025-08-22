@@ -1,6 +1,6 @@
 # Prerequisites
 
-# **Curriculum: Understanding GPUs (H100 Case Study)**
+# Understanding GPUs (H100 Case Study)**
 Architecture generations in this case define the GPU Model. The Hopper Architecture defines the name H100. But when we say an H100 gpu what exactly are we refering to:
 So there are 2 main variants on this gpu the PCIe based and the HGX based:
 
@@ -80,36 +80,49 @@ flowchart TD
     class D,E,F,G variantBox
 ```
 
-3. Memory & Interconnects
-HBM (High Bandwidth Memory) — stacked DRAM close to the GPU die; H100 uses HBM3
+Ok so we kind of have some knowledge on some of the Prerequisites we need to understand:
 
-NVLink — NVIDIA’s high-speed GPU↔GPU interconnect
+Let's start with the die
+https://www.reddit.com/r/nvidia/comments/18gfeb8/h100_bare_die/#lightbox
 
-NVSwitch — a chip that connects multiple NVLink GPUs in a full-mesh
+So the square on the center is the die specifically the H100 GPU Die (GH100)
+The die is the small rectangular piece of silicon cut from a wafer (TSMC)
 
-PCIe Gen5 — the latest standard for CPU↔GPU data transfer
+## From Wafer to Die
+At FEOL (Front End of Line) the step where the wafer is just raw sillicon, we start by getting the Wafer. The only information I could find is the following: H100 uses TSMC N4 process. 
+## The 300mm claim
+The mm of the wafers are not quoted anywhere but since the 5nm chips are made on 300mm wafers we can infer it's the same case as the 4nm variation for the h100. Also the H100 is build on the 4N family process. TSMC manufacturers its 5nm in 12 in
 
-4. Server Integration Concepts
-Baseboard — motherboard-like PCB that holds GPUs, switches, and connectors
+## The specific substrate
+The specific substrate grade and crystal growth method details are not publicly documented by the manufacturers. LLMS tend to hallucinate that the specific wafer is the prime grade 300mm Si wafers (Czochralski-grown, defect-free) but I have not found one direct quote confirming this? So going back to our questions: Where does TSMC get them? 
 
-Node — a single server unit in a cluster (can have 4–8 GPUs)
+Down the rabbit hole I went and I found in the 2024 annual report this table
+https://investor.tsmc.com/sites/ir/annual-report/2024/2024%20Annual%20Report.E.pdf
+page 55
 
-Cooling types — air vs liquid cooling in data center GPUs
+They anonymously list only five companies responsible for raw wafers, but in 2024
+https://investor.tsmc.com/sites/ir/annual-report/2023/2023_Annual_Report_E.pdf page 55 
+THEY DO LIST THEM!
+Raw Wafers:
+    FST
+    GlobalWafers
+    SEH
+    Siltronic
+    SK siltron
+    SUMCO
 
-TDP (Thermal Design Power) — how much heat a chip needs to dissipate
+Not only we don't know which companies supply raw wafers for TSMC in 2024, we don't even know which companies supply them the specific wafer they use for the H100.
 
-5. Performance Metrics
-FP64 / FP32 / FP16 / BF16 / INT8 — numeric formats GPUs use (precision trade-offs)
+https://www.mordorintelligence.com/industry-reports/semiconductor-silicon-wafer-market
+Shin-Etsu Handotai -> SEH
+Siltronic AG  -> Siltronic
+SUMCO Corporation  -> SUMCO
+SK Siltron Co. Ltd  -> SK siltron
+Globalwafers Co. Ltd  -> GlobalWafers
 
-Tensor Cores — specialized GPU units for matrix math (AI workloads)
+This study claims these are the biggest players, we can see it almost is the same as the TSMC report from 2023 list of suppliers.
+So how do we short this list?
+ok hear me out:
+TSMC’s Fab 18 is the main 5nm production facility
+https://www.tsmc.com/english/dedicatedFoundry/technology/logic/l_5nm
 
-Throughput (TFLOPS, TOPS) — measures of performance
-
-Bandwidth (GB/s) — memory or interconnect data transfer rate
-
-6. Product Ecosystem & Deployment
-DGX — NVIDIA’s own AI supercomputer line
-
-OEM (Original Equipment Manufacturer) — Dell, Supermicro, etc., making NVIDIA-based servers
-
-Cloud instance naming — AWS p5, Azure ND H100, etc., correspond to server configs

@@ -1,11 +1,5 @@
 # The H100 prereqs
 
-
-
-
-
-
-
 # From sand to server
 So quoting AJ KUORABI https://chipchatter.substack.com/p/the-real-bottleneck-in-gpu-manufacturing#footnote-1-149769846
 

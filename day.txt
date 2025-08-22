@@ -3,12 +3,13 @@
 * apply jobs in uchicago
 * study neetcode
   study pandas
-  study stats
+* study stats
+  article h100
 
 tickets:
 * Improve the accuracy for grizzly and velo 
   Improve zone accuracy to 80%
-  LONGHORN Tubs
+  LONGHORN TUBS
 
 
 pending:
