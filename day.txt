@@ -3,11 +3,11 @@
 * apply jobs in uchicago
 * study neetcode
   study pandas
-* study stats
+  study stats
   article h100
 
 tickets:
-* Improve the accuracy for grizzly and velo 
+  Improve the accuracy for grizzly and velo 
   Improve zone accuracy to 80%
   LONGHORN TUBS
 
@@ -15,5 +15,6 @@ tickets:
 pending:
   vaccines:  Measles (Rubeola), Rubella (German Measles), Mumps, Tetanus/Diphtheria/Pertussis, and Meningococcal (under age 22).
   insurnance: https://www.psiservice.com/UCHICAGO
+  apartment ask the keys
 
 codex --dangerously-bypass-approvals-and-sandbox --model gpt-5 -c model_reasoning_effort="high"
