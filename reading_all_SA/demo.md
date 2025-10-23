@@ -3464,3 +3464,183 @@ Oct 27, 2022
 ∙ Paid
 
 No notes
+
+Teradyne is the leading automated test equipment firm
+UNC is the leading trailing edge fab in Taiwan
+
+# Arm Changes Business Model – OEM Partners Must Directly License From Arm
+### No More External GPU, NPU, or ISP’s Allowed In Arm-Based SOCs
+[Dylan Patel](https://substack.com/@semianalysis)
+Oct 27, 2022
+
+Arm is no longer going to license their CPUs to semiconductor companies
+under TLA
+only license to the device makers
+Samsung deal with AMD for GPU or
+Mediatek with Imagination GPU is no longer allowed after 2024
+Nvidia has a 20 year Arm license secured
+
+Is Arm angry Qualcomm got the regulators to block the Nvidia acquisition
+
+# The Future Of Packaging Gets Blurry – Fanouts, ABF, Organic Interposers, Embedded Bridges – Advanced Packaging Part 4
+### Advanced Packaging Part 4
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 01, 2022
+blurring lines of 2.1D 2.3D and 2.5D advanced packaging
+
+4 main groups of advanced packages
+3D = Active silicon stacked on active silicon
+	AMD 3D VCache utilizing TSMC SoIC CoW
+2.4D = Active silicon stacked on passive silicon
+	Nvidia AI GPUs with HBM memory utilizing TSMC's SoWoS-S
+Fanout RDL = Laminate with epoxy mold compounds
+	TSMC InFO utilized in Apple/s A series
+Build up ABF substrate ( copper core clad with Ajinomoto build up fil layers and RDL layers)
+	Intel and AMD datacenter chips
+in most cases of advanced packaging a build up ABF substrate is still utilized
+	hybrid substrates
+
+![[Pasted image 20251022095324.png]]
+# The Future Of Military Sensing And Communications Systems – Co-Packaged Optics Enable Converged RF Phased Arrays
+### Lockheed Martin NGAD enabled by Ayar Labs
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 02, 2022
+Ayar Labs and Lockheed Martin published a fascinating paper regarding radio frequency converged phased array antennas utilizing silicon photonics for communications
+![[Pasted image 20251022100313.png]]
+F22 Raptor or F35 Lightning
+arrays of sophisticated sensors for targeting tracking communications and more
+	infrared sensors
+the electro optical infra red system will be completely separate from another RF sensing or communications system
+the RF subsystems are a big part of that
+	a few major classes of sensors could be optimized for RF gain, noise, and other attributes instead of being tuned for the exact use case
+The RF processing algorithms could be updated on a faster cadence to introduce new sensing and communications capabilities based on the data coming in and being sent out of the RF elements
+
+MIMO -> multiple inputs and multiple outputs for a transmit and receive device
+the benefits for the total data throughput are huge
+5G small cells have in the range of 64 transmit and 64 receive pairs
+
+RF sensing applications
+	detect targets that want to hide from the infrared systems
+![[Pasted image 20251022101310.png]]
+
+when we go from the first image to the second
+the IO requirements are massively higher with the next generation architecture
+
+optical IO
+lower electromagnetic interference (EMI)
+Electrical copper-based interconnects must deal with interference from higher radiation levels, the earth's magnetic field or combatants' countermeasures
+
+# Q3 Semiconductor Roundup – $ENTG $AMD $CRUS $MPWR $POWI $ON $AMKR $ASX $GFS $QCOM $QRVO $SWKS $MKSI $ICHR $COHR $MXL $KLA $NVMI $ONTO
+### Smartphones and RFFE expectations bottoming, but there's reasons to get bullish here
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 03, 2022
+∙ Paid
+
+AMDs reaffirmance of datacenter and embeedded meant that investors did not quite care about the client driven losses
+
+# AMD Genoa Detailed – Architecture Makes Xeon Look Like A Dinosaur
+### Twice the CPU without twice the power
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 10, 2022
+∙ Paid
+
+Genoa -> general purpose and mainstream
+
+Begamo -> cloud native workloads the IO die and platform are shared with Genoa
+
+Genoa X -> technical computational fluid dynamics, EDA, other workloads with more cache
+
+Siena -> Telco and Edge
+
+AMD's next generation is Turin
+
+AMDs genoa is ~2x the performance of Milan with only a modest power consumption increase
+gains are larger in float point
+There are no major surprises with the specs 96 cores 12 channels of DDR5 and 160 PCIe Gen 5 lanes 
+Mike Clark
+N6 process node rather than N5 like the cpu chiplet
+
+# Arm’s Nuclear Option – Qualcomm Must Cancel Next-Generation Products If Arm Succeeds
+### Arm denies allegations of changing its business model
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 16, 2022
+∙ Paid
+Arm is defending against Qualcomm's counterclaims
+Arm is threatening the termination of Qualcomm's architecture license agreement for breach of contract
+
+Arm has demanded Qualcomm dsetroy only the nuvia derived work, including phoenix core
+IPs such as branch predictor, FPU, our of order engine, micro op decoder
+are wholly the property of qualcomm/nuvia or Arm has the rights to these pieces of IP
+terminating the Qualcomm ALA would kill this custom core effort at Qualcomm
+Arm qualcomm's 2.b acquisition of Cambridge silicon radio
+arm claims qualcomm received written consent as they were obligated to under their license agreement with Cambridge Silicon Radio and that qualcomm needs to do the same iwth Nuvia
+
+# Q3 Earnings Ends With A Bang – $NVDA $MU $KLIC
+### Micron, Nvidia, and K&S Join Forces For The Most Negative News Day Of The Cycle
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 16, 2022
+∙ Paid
+Micron is tanking expectations
+microns is guiding single digits bit growth for nand
+
+```
+This means NAND WFE is likely down >70% at Micron, and DRAM WFE should be near 0 outside of any EUV and Litho commitments they have made. Micron likely continues to build the shells, but possibly cuts out on materials infrastructure as well.
+```
+# ASML & The Semiconductor Market In 2025 & 2030
+### A critical look at ASML's long term projections and assumptions
+[Dylan Patel](https://substack.com/@semianalysis)
+Nov 22, 2022
+
+discussions is around the total wafer fabrication equipment market and lithography intensity through the decade
+ASML alive in Moore's law
+the semiconductor end market will grow at a rate of 9% annually from 2020 to 2030
+sales in 2025 would exceed 700B and 2030 would reach 1.1Trillion
+
+wafer capacity grows by 780k WPM = wafer starts per month
+ASML also plans for 600 DUV tools and 90 EUV tools by 2025
+20 High NA EUV tools by 2027 / 2028
+this is the capacity target 
+it is doubtful ASML can ship these many tools or there is even demand
+
+fabrication margins falling
+they have increased their estimate for VR/AR off the backs of Meta subsidizing the crap out of the Quest 2 The Quest Pro is a flop and we head the Quest 3 will not be subsidized nearly as much
+AR will be as big as the smartphone industry one day but that world is not coming soon
+
+ASML revenue to reach 44B to 60B by 2030
+total wafer fabrication equipment market is more like 150B to 280B
+
+# Lithography Intensity And Long-Term Wafer Demand
+### ASML’s long-term model is highly questionable
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Nov 30, 2022
+∙ Paid
+
+NEW PLAYER
+![[Pasted image 20251022114750.png]]
+ASML showed their estimates for millions of wafer per year
+![[Pasted image 20251022115042.png]]
+# GPT Model Training Competition Heats Up - Nvidia Has A Legitimate Challenger
+### Cerebras Is Now Cost Competitive For Training GPT-like Large Language Models
+[Dylan Patel](https://substack.com/@semianalysis)
+Dec 01, 2022
+
+```
+If you’ve followed our newsletter for a while, you know that we aren’t the best at grammar, but over the last few months, that’s changed. We even use semicolons in sentences! No, we didn’t hire an editor; we use a GPT-like model to grammar check and suggest rephrasing. Some firms have even disclosed that language models’ code generation capacities now contribute to as much as 25% of new additions to their codebases.
+```
+how much bigger can we go in model size and datsets
+how much it costs to train
+is there anyone who can break the moat of nvidia bc gpus are so expensive
+Andromeda system
+
+Mosaic ML is a machine learning training orchestration platform
+cloud and hardware agnostic 
+Cerebras catches up as model sizes increase
+
+# Marvell's Next $1B Business Is Security – Hardware Security Modules HSMs
+### Cloud based LiquidSecurity HSMs will eat the world
+[Dylan Patel](https://substack.com/@semianalysis)
+Dec 05, 2022
+∙ Paid
+œ
