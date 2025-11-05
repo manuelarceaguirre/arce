@@ -183,7 +183,7 @@ nav ul {
     font-size: 1.2rem;
     line-height: 1.8;
     margin-bottom: 2rem;
-    color: #e0e0e0;
+    color: var(--text-color);
 }
 
 .about-details {
