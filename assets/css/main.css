@@ -1,43 +1,45 @@
 /* CSS Variables for theme */
 :root {
-    --bg-color: #000000;
-    --text-color: #ffffff;
-    --text-secondary: #dddddd;
-    --text-muted: #888888;
-    --text-light: #cccccc;
-    --border-color: #ffffff;
-    --border-secondary: #222222;
-    --card-bg: #0e0e0e;
-    --accent-color: #e2813c;
-    --button-bg: transparent;
-    --button-hover: rgba(255, 255, 255, 0.1);
-    --selection-bg: #0080FF;
-    --code-bg: #222222;
-    --pre-bg: #1a1a1a;
-    --blockquote-bg: rgba(0, 0, 0, 0.3);
-    --link-color: #a3c7f5;
-    --link-hover: #c1d7f8;
-}
-
-[data-theme="light"] {
     --bg-color: #ffffff;
     --text-color: #000000;
     --text-secondary: #333333;
     --text-muted: #666666;
-    --text-light: #444444;
+    --text-light: #999999;
     --border-color: #000000;
-    --border-secondary: #dddddd;
-    --card-bg: #f8f8f8;
-    --accent-color: #e2813c;
+    --border-secondary: #cccccc;
+    --card-bg: #ffffff;
+    --accent-color: #000000;
     --button-bg: transparent;
     --button-hover: rgba(0, 0, 0, 0.1);
-    --selection-bg: #0080FF;
-    --code-bg: #f0f0f0;
-    --pre-bg: #f5f5f5;
-    --blockquote-bg: rgba(0, 0, 0, 0.05);
-    --link-color: #2563eb;
-    --link-hover: #1d4ed8;
+    --selection-bg: #cccccc;
+    --code-bg: #f5f5f5;
+    --pre-bg: #f0f0f0;
+    --blockquote-bg: rgba(245, 245, 245, 0.7);
+    --link-color: #000000;
+    --link-hover: #666666;
 }
+
+[data-theme="dark"] {
+    --bg-color: #1d2021;
+    --text-color: #ebdbb2;
+    --text-secondary: #d5c4a1;
+    --text-muted: #a89984;
+    --text-light: #bdae93;
+    --border-color: #665c54;
+    --border-secondary: #3c3836;
+    --card-bg: #282828;
+    --accent-color: #d79921;
+    --button-bg: transparent;
+    --button-hover: rgba(235, 219, 178, 0.1);
+    --selection-bg: #458588;
+    --code-bg: #3c3836;
+    --pre-bg: #32302f;
+    --blockquote-bg: rgba(40, 40, 40, 0.5);
+    --link-color: #83a598;
+    --link-hover: #8ec07c;
+}
+
+
 
 /* Base styles */
 html, body {
@@ -45,7 +47,7 @@ html, body {
     padding: 0;
     height: 100%;
     overflow: auto;
-    font-family: Inconsolata, monospace;
+    font-family: CommitMono, monospace;
     font-size: 18px;
     color: var(--text-color);
     background: var(--bg-color);
@@ -97,7 +99,7 @@ header {
     padding: 15px 30px;
     background-color: var(--bg-color);
     border-bottom: 1px solid var(--border-secondary);
-    font-family: Inconsolata, monospace;
+    font-family: CommitMono, monospace;
 }
 
 .logo-area {
@@ -155,7 +157,7 @@ nav ul {
 }
 
 .future-section .header h1 {
-    color: #e2813c;
+    color: var(--accent-color);
     margin-bottom: 10px;
 }
 
@@ -339,10 +341,9 @@ nav ul {
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
+    gap: 20px;
     width: 750px;
     margin: 0 auto;
-    border: 1px solid var(--border-color);
     padding: 10px;
     box-sizing: border-box;
 }
@@ -356,7 +357,6 @@ nav ul {
     padding: 0.5rem;
     position: relative;
     text-align: center;
-    border: 1px solid var(--border-color);
 }
 
 .icon-box {
@@ -419,8 +419,8 @@ nav ul {
 }
 
 .new-badge {
-    background-color: #ff6b00;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
     padding: 2px 6px;
     border-radius: 2px;
     font-size: 0.7rem;
@@ -431,8 +431,8 @@ nav ul {
 }
 
 .pending-badge {
-    background-color: #ffa500;
-    color: white;
+    background-color: #d65d0e;
+    color: var(--bg-color);
     padding: 2px 6px;
     border-radius: 2px;
     font-size: 0.7rem;
@@ -473,7 +473,7 @@ footer p {
 }
 
 .post-header h1 {
-    color: #e2813c;
+    color: var(--accent-color);
     margin-bottom: 10px;
 }
 
@@ -518,7 +518,7 @@ footer p {
     background: var(--code-bg);
     padding: 0.2em 0.4em;
     border-radius: 3px;
-    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-family: CommitMono, monospace;
 }
 
 .post-content pre {
@@ -564,7 +564,7 @@ footer p {
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-    color: #e2813c;
+    color: var(--accent-color);
     margin-top: 1.5em;
     margin-bottom: 0.5em;
 }
@@ -588,10 +588,10 @@ footer p {
     top: 8px;
     right: 8px;
     padding: 4px 8px;
-    background: #333;
-    border: 1px solid #444;
+    background: var(--border-secondary);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    color: #fff;
+    color: var(--text-color);
     font-size: 12px;
     cursor: pointer;
     opacity: 0.7;
@@ -601,12 +601,13 @@ footer p {
 
 .copy-button:hover {
     opacity: 1;
-    background: #444;
+    background: var(--border-color);
 }
 
 .copy-button.copied {
-    background: #e79a09;
-    border-color: #e79a09;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--bg-color);
 }
 
 .code-block-container pre {
@@ -616,7 +617,7 @@ footer p {
 }
 
 .code-block-container code {
-    font-family: 'Fira Code', monospace;
+    font-family: CommitMono, monospace;
     font-size: 14px;
 }
 
@@ -750,12 +751,13 @@ footer p {
 }
 
 .entry-category {
-    background-color: #333;
+    background-color: var(--border-secondary);
     padding: 2px 8px;
     border-radius: 2px;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    color: var(--text-color);
 }
 
 .learning-list {
@@ -764,7 +766,7 @@ footer p {
 }
 
 .learning-list .entry-card {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--border-secondary);
     padding-bottom: 14px;
 }
 
@@ -786,8 +788,8 @@ footer p {
 }
 
 .entry-category.notes {
-    background: rgba(138, 180, 248, 0.18);
-    color: #9abdfd;
+    background: rgba(68, 133, 136, 0.18);
+    color: var(--link-color);
 }
 
 @media (max-width: 640px) {
@@ -822,7 +824,7 @@ footer p {
 }
 
 .entry-card h3 a:hover {
-    color: #e2813c;
+    color: var(--accent-color);
 }
 
 .entry-card p {
@@ -839,8 +841,8 @@ footer p {
 }
 
 .tag {
-    background-color: #222;
-    color: #ccc;
+    background-color: var(--border-secondary);
+    color: var(--text-secondary);
     padding: 3px 8px;
     border-radius: 2px;
     font-size: 0.7rem;
@@ -929,17 +931,19 @@ footer p {
 }
 
 .theme-toggle .sun-icon {
-    display: none;
+    display: block;
 }
 
 .theme-toggle .moon-icon {
-    display: block;
-}
-
-[data-theme="light"] .theme-toggle .sun-icon {
-    display: block;
-}
-
-[data-theme="light"] .theme-toggle .moon-icon {
     display: none;
 }
+
+[data-theme="dark"] .theme-toggle .sun-icon {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+    display: block;
+}
+
+

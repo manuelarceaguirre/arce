@@ -3643,4 +3643,405 @@ Cerebras catches up as model sizes increase
 [Dylan Patel](https://substack.com/@semianalysis)
 Dec 05, 2022
 ∙ Paid
-œ
+
+hardware security modules
+HSM = Hardware security modules
+	the HSM creates keys
+	backup and storage
+	the HSM deploys the keys to only authorized devices
+	the keys must be monitored and rotated as they expire
+	archiving 
+	disposal
+
+traditional cost tens of thousands of dollars and are on premise
+not well geared for cloud
+HSM as a service
+
+Marvell LiqidSecurity lineup
+they provide the HSM hardware as a PCIe card -> replace the traditinoal 1U HSM modules at lower capital
+LiquidSecurity2 -> improvements
+
+# Samsung Backstabs The DRAM Cartel – Capital Expenditure Cuts, 130 Manufacturing Projects, 60 Companies Report
+### Samsung swims against the tide as the industry cuts capital expenditures and delays manufacturing ramps
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Dec 07, 2022
+∙ Paid
+
+recession semi companies uncertainty
+-> change -> foundries and IDM = integrated device manufacturers have fonud themselves in a crossfire
+Moores Second Law = Rock's Law = the cost of a fab doubles every 4 years
+the latest nodes are not available to recently GlobalFoundres and UMC
+fabs require extreme high utilization rate to just break even on immense capital investment
+
+Samsung
+DRAM and NAND manufacturer
+most of the spending is on memory
+spending more extreme on DRAM
+oligopoly => Samsung, Micron, SK Hynix
+TSMC largest and most profitable logic foundry
+N7 and N6 plummeted 
+AMD and MediaTek migrated to the newer family N5
+
+SMIC 
+getting fucked by restrictions
+
+# Marvell's Vision – Custom Silicon, CXL, DPUs, Ethernet, Optical, Telecom, Storage, Automotive, SerDes, 2025 Revenue & EPS
+### Transforming into the leader in infrastructure silicon & EPS estimates
+[Dylan Patel](https://substack.com/@semianalysis)
+Dec 11, 2022
+∙ Paid
+Marvell
+Santa Clara
+leader in infra silicon
+
+4 verticals
+datacenter
+telecom infra
+automotive
+enterprise network
+
+big transition for Marvell with the 5nm process before with 7nm and 16nm marvell did not run their first test chips until more than a year after the process node went to high volume manufacturing = HVM
+
+electro optical domain
+inphi has that leadership in the ethernet world
+
+DPU is a catch all term for any product with compute acceleratos and networking interfaces required for a specific task in a single package
+
+5G dpu
+6 million macro radios deployed anually the potential volume and sales for telecom focused silicon could be huge 
+
+PHY physical layer of networking responsbile for converting digital data into a physical form that can be transmitted over a communication channel
+
+Electro optical connectivity
+PAM4 signaling
+
+Datacenter switches
+Innovium and Teralynx
+	the bandwitdth demands are soaring at an exponential rate
+
+# Fungible DPUs Are Dead – Acquired By Major US Cloud – Acquisition Details
+### When the first mover’s advantage doesn’t help you succeed
+[Dylan Patel](https://substack.com/@semianalysis)
+Dec 12, 2022
+∙ Paid
+Fungible
+370M since 2015
+MIPS 
+
+# TSMC’s 3nm Conundrum, Does It Even Make Sense? – N3 & N3E Process Technology & Cost Detailed
+### Shrinking finally costs more, Moore's Law is now dead in economic terms
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Dec 21, 2022
+∙ Paid
+
+40B into Arizona
+2018 investment in a new fab
+most advanced N5 
+Apple and Huawei commiting N5 for 2020
+
+500Billion or around 17 billion
+80 thousand wafers each month
+in Q1 2020 Earnings call TSMC confirmed that N% was in high volume production
+Fab 18 in the Tainan Science Park will remain the primary location for N5 production 
+Phoenix Arizona 12 billion and 20,000 wafers per month
+
+80% of the total cost of a fab during buildout is from equipment
+60% operational costs are from materials chemicals tools maintenance energy
+
+Tainan Science Park N3 nodes
+N3 25 EUV layers double that of N5
+problems surface
+
+RTO = re-tapeout
+
+The N3 family of nodes includes N3B, N3E, N3P, N3X and N3S.
+N3B is the original N3
+```
+N3B features a CGP of 45nm, 0.88X scaling versus N5. TSMC also implemented [self-aligned contacts](https://en.wikichip.org/wiki/self-aligned_contact), which allows greater scaling of the CGP. We will detail this, as well as other DTCO scaling, in a future series. TSMC also demonstrated a 6-transistor high-density SRAM bit-cell of 0.0199 μm2. This is only a 5% shrink, which bodes poorly for SRAM scaling into the future.
+```
+N3B will not be TSMC primary node
+N3E was supposed to fix the issues with N3B
+N3E will be the most popular one
+N3P will be the follow up node
+N5P minor performance and power gains
+N3S is the final we don't know about it
+
+# Ventana RISC-V CPUs Beating Next Generation Intel Sapphire Rapids! – Overview of 13 RISC-V Companies, CPUs, and Ecosystem
+### SiFive, Tenstorrent, Rivos, Codasip, Akeana, Alibaba, Imagination, Western Digital, Andes, Krakatoa, MIPS, XMOS, and Ventana
+[Dylan Patel](https://substack.com/@semianalysis)
+Dec 26, 2022
+∙ Paid
+
+RISC-V in san jose
+Qulacomm ship total of 650 million RISC V cores
+RISC-V will surpass Arm in the embedded and micro controller space by 2024 or 2025
+Ventana Micro Systems
+making cpu chiplets that can be intergrated into general purpose CPU markets 
+```
+Ultimately, Ventana's strongest selling point is bringing the incremental cost of custom silicon to tens of millions of dollars from the current hundreds. When hyperscalers only buy some chiplets from fabless firms and the rest of their silicon directly from the foundries, the incremental cost per deployed package for a specific workload is significantly lower.
+```
+
+SiFive
+RISC-V space
+
+TPUs to Nasa space chiplets
+Chisel is a hardware design language for designing cpus
+
+
+# India’s Semiconductor Scam: Indian Mining Tycoon and Pro-CCP Assembly Giant Swindle India’s Semi Subsidy Program
+### Overview of incentive program, 3 major proposals feasibility
+[Dylan Patel](https://substack.com/@semianalysis)
+Dec 28, 2022
+∙ Paid
+Gov of india set up Semiconductor Complex Limited (SCL)
+only used for research
+few hundred wafer a month
+integrated device manufacturer or play foundry
+
+Make in India
+low hanging fruit such as low value assembly cna create many jobs in india
+MEITY
+Assemble in India
+money the gov give to companies
+International Semiconductor Consortium (ISMC)
+Mumbai based Venture capital group
+Next Orbit Venture Fund
+65 nm is not important enough
+
+Innovative Global Solutions and Services
+IGSS is a singapore based consortium that has proposed setting up a high tech semiconductor park
+IGSS ex fab manager for Global
+no funding in indian investor
+
+Foxconn and Vedanta
+Foxconn and Vedanta
+indian multinational corporation in the mining industry
+Gujarat the site for the fab
+```
+Most of the criticisms of this project come from the political side, clamoring that Vedanta may receive $10s of billions of incentives from the Central and State governments combined, which is more than the annual budget allocated to certain social welfare programs. Those criticisms don’t make much sense as India needs to kickstart a semiconductor industry, and these two spending categories are not mutually exclusive.
+```
+no company has skipped forward that many process nodes in development
+
+# Intel Roadmap and PC TAM Update – Tone Deaf, Out Of Touch, Living In a Fantasy World, or Disconnected From Reality?
+[Dylan Patel](https://substack.com/@semianalysis)
+Jan 13, 2023
+∙ Paid
+
+Intel is not getting a free pass on missing 2022 data
+in the west increased density of PCs per household
+PCs sales are weak  257 to 272 million range based 
+the part of the daughter was so funny
+
+# How Nvidia’s CUDA Monopoly In Machine Learning Is Breaking - OpenAI Triton And PyTorch 2.0
+[Dylan Patel](https://substack.com/@semianalysis)
+Jan 16, 2023
+∙ Paid
+OpenAI Triton and 
+the default stack for ML models will no longer be Nvidia's closed source CUDA
+Pytorch won
+Google uses Jax
+PyTorch differed from TensorFlow in using Eager mode rather than Graph Mode
+
+Eager mode
+	standard sripting execution method
+	the DL framework executes each operation immediately as it is called line by line 
+Graph mode
+	2 phases
+		first phase is the definition of a computation graph representing 
+		operations to perform
+		computation graph is a series of interconnected nodes representing operations or variables 
+		edges between nodes repesent the data flow between them
+	second phase
+		the deferred execution of an optimized version of the computation graph
+
+interpreted vs compiled
+python    vs      C++
+
+2 major time components in a ML training time
+	Compute FLOPS: running dense matrix multiplication within each layer
+	memory bandwidth: waiting for data or layer weights to get to the compute resources. 
+	normalizations, pointwise operations, softmax, ReLU
+
+the dominant factor was compute time
+Nvidias FLOPS have increased multiple orders of magnitude by leveraging Moore's Law 
+memory has not folllowed the same path
+![[Pasted image 20251023165956.png]]
+BERT model was SOTA 
+
+purely bound workloads made up 99.8% of FLOPS but only 61% of runtime
+
+The memory wall
+as models continue to increase in size LLM take 100s of Gbs if not terabytes for the model weights alone
+![[Pasted image 20251023170211.png]]
+close and fast to slow and cheap
+
+SRAM is the nearest shared memory pool is on the same chip
+![[Pasted image 20251023170422.png]]
+even with heavy optimizations from leading researchers 60% FLOPS is considered very high utilization rate
+operator fusion
+	instead of writing each intermediate result to memory operations are fused so multiple functions are computed in one pass to minimize memory reads/writes.
+this optimization involves writing custom CUDA kernels
+
+Ease of use is king
+
+PrimTorch
+	backend for PyTocrch that supports all 2000+ operators 
+	down to 250 primitive operators 
+	Meta and PyTorch have been attempting to work on implementing 
+	ingest any PyTorch user script incuding those that call outside 3rd party libraries and generate an FXgraph
+
+```
+- Partial graph capture allows the model to include unsupported/non-python constructs. When a graph cannot be generated for that portion of the model, a graph break is inserted, and the unsupported constructs will be executed in eager mode between the partial graphs.
+    
+- Guarded graph capture checks if the captured graph is valid for execution. A guard is a change that would require recompilation. This is important because running the same code multiple times won't recompile multiple times.
+    
+- Just-in-time recapture allows the graph to be recaptured if the captured graph is invalid for execution.
+```
+
+```
+PyTorch’s goal is to create a unified front end with a smooth UX that leverages Dynamo to generate graphs. The user experience of this solution would be unchanged, but the performance can be significantly improved. Capturing the graph means execution can be parallelized more efficiently over a large base of compute resources.
+
+Dynamo and [AOT Autograd](https://pytorch.org/functorch/stable/notebooks/aot_autograd_optimizations.html) then pass the optimized FX graphs to the PyTorch native compiler level, TorchInductor. Hardware companies can also take this graph and input it into their own backend compilers.
+```
+Triton takes in Python directly or feeds through the PyTorch inductor stack
+Triton then converts the input to an LLVM intermediate representation and then generates code
+for Nvidias Gpus it generates ptx code 
+
+```
+Triton bridges the gap enabling higher-level languages to achieve performance comparable to those using lower-level languages. The Triton kernels themselves are quite legible to the typical ML researcher which is huge for usability. Triton automates memory coalescing, shared memory management, and scheduling within SMs. Triton is not particularly helpful for the element-wise matrix multiplies, which are already done very efficiently. Triton is incredibly useful for costly pointwise operations and [reducing overhead from more complex operations](https://github.com/HazyResearch/flash-attention/blob/main/flash_attn/flash_attn_triton.py) such as [Flash Attention](https://github.com/HazyResearch/flash-attention) that involve matrix multiplies as a portion of a larger fused operation.
+```
+
+# The AI Brick Wall – A Practical Limit For Scaling Dense Transformer Models, and How GPT 4 Will Break Past It
+[Dylan Patel](https://substack.com/@semianalysis)
+Jan 24, 2023
+∙ Paid
+
+Transformers -> type of multi layer perceptron = (MLP) 
+generally considered dense matrix models
+dense models are fully connected with all neurons in one layer connecting to all neurons in the next layer
+the model to learn complex interactions between the features and learn non linear functions
+the brains in the animal kingdom does not map well to existing hardware and would operate at much lower FLOPS utilization rate
+
+dense matrix models scale up in 
+	parameters
+	data (tokens)
+	complexity
+
+the nvidia gpu architecture is well tailored to run dense matrix models
+```
+[MosaicML](https://www.mosaicml.com/blog/gpt-3-quality-for-500k) already claims to be able to train GPT-3 quality models for less than $500,000 and [Chinchilla](https://arxiv.org/pdf/2203.15556.pdf) size and quality models for ~$2,500,000. [They offer that pricing to customers, today](https://www.mosaicml.com/cloud).
+```
+even with all the optimization techniques 
+A100 upper bound of 60% model hardware FLOPS utilization rates
+
+```
+The research arm of SemiAnalysis has done surveys of many startups and enterprises and arrived at ~$1.5 per SXM A100 GPU per hour as a baseline cost for **large clusters of 256 GPUs** with NVLink and 1.6T networking. Some companies have better deals with AWS, Azure, Oracle Cloud, CoreWeave, etc., but this is a baseline.
+```
+![[Pasted image 20251028133546.png]]
+
+Training efficiency:
+	amount of compute and training time used to achieve superior model quality vs the prior SOAT
+
+# Semiconductor Bear Market Rally? – Inventory Analysis Of 71 Companies Over 25 Years
+[Dylan Patel](https://substack.com/@semianalysis)
+Jan 27, 2023
+∙ Paid
+
+stock prices reach their lowest point when the industry only starts to experience a fall in earnings
+well before the though of earnings
+the stocks were already recovering and surging by the time layoffs and consolidation ocurred
+days of inventory are currently at all time highs
+this inventory will take a lot longer than 2 quarters to digest
+
+```
+The ~37% increase in semiconductor equities is based on the belief that the semiconductor down cycle bottoms in Q2 2023, but this would only make sense if the current down cycle was typical.
+
+It is not. There is a significant downside for many firms, especially with some whose inventory hasn’t even started to grow yet, as they stuffed their end channel partners instead. That channel stuffing is extreme and will exacerbate the days of inventory problems even more as revenue slows.
+```
+```
+Companies and investors in the space alike should track inventory and revenue deacceleration at suppliers and end markets to see if inventory is stuffed in hidden parts of the supply chain (it is). This investigation must be thorough to ensure the channel has begun to clear. In most parts of the industry, channel clearing has yet to start. The bright side is that the inventory is already clearing in small pockets of the industry.
+```
+# The Gaps In The New China Lithography Restrictions – ASML, SMEE, Nikon, Canon, EUV, DUV, ArFi, ArF Dry, KrF, and Photoresist
+[Dylan Patel](https://substack.com/@semianalysis)
+Jan 29, 2023
+
+ArFi tools
+```
+In the [Rayleigh criterion equation](https://www.asml.com/en/technology/lithography-principles/rayleigh-criterion) (CD = k1 • λ / NA), the CD is the critical dimension, the smallest possible feature size. λ is the wavelength of light used. NA is the numerical aperture of the optics, defining how much light they can collect. Finally, k1 (or the k1 factor) is a coefficient that depends on many factors related to the chip manufacturing process. [The physical limit lithography is k1 = 0.25.](https://www.asml.com/en/technology/lithography-principles/rayleigh-criterion)
+```
+
+# Intel Cuts Pay For Employees To Keep Their Quarterly Dividend
+[Dylan Patel](https://substack.com/@semianalysis)
+Jan 31, 2023
+I can sense the content just by the title
+
+When are dividends a good option?
+
+# TSMC 3nm FinFlex + Self-Aligned Contacts, Intel EMIB 3 + Foveros Direct, AMD Yield Issues, IBM Vertical Transport FET (VTFET) + RU Interconnects, CFET, Sequential Stacking, Samsung Yield, and more
+### IEDM 2022 Round-Up
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Feb 02, 2023
+∙ Paid
+
+TSMC finflex
+	DTCO = design technology co optimization
+16 to 23 nm on N7 to 12 - 14nm on N3B
+DTCO = Design Technology Co Optimisation
+SAC = Self Aligned Contacts
+
+# The Inference Cost Of Search Disruption – Large Language Model Cost Analysis
+### $30B Of Google Profit Evaporating Overnight, Performance Improvement With H100 TPUv4 TPUv5
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Feb 09, 2023
+∙ Paid
+Inference costs > Training costs
+
+ChatGPT costs 694,444 per day to operate in compute hardware costs
+
+deploying chatgpt into search done by google would require 
+ 512,820.51 A100 HGX servers with a total of 4,102,568 A100 GPUs
+ total cost of these servers and networking > 100B capex alone
+It's funny to see what were the ballparks on search now every model has search and Google seems to not be affected? 
+
+# Peeling The Onion’s Layers - Large Language Models Search Architecture And Cost
+### Ad Engine, Crawl, Index, and Query Processing disrupted by LLMs
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Feb 13, 2023
+∙ Paid
+
+search and conversational AI assistant that scans document emails excel pdf and messages 
+
+# Thick Cables, Thin Margins – Microsoft, Amazon, and Google Demand Overstated By $CRDO Credo
+### Future Demand Booming But Active Electrical Cables Are Not The Salvation
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Feb 15, 2023
+∙ Paid
+
+Faster networking speeds have come every 3 years in datacenters
+cables
+	each generation is causing problems with passive direct attached copper cables
+	optical fiber 
+		but optical transceivers are too expensive
+	Active electrical cables (AEC)
+
+```
+Oddly, Credo is only alerting investors now as the sell side happily went crazy with their speculation on business. Some sell-side and buy-side even said Credo would sell 500,000 AEC this year at a $200 ASP to Microsoft alone. That’s not happening. Instead,
+```
+# The Future of the Transistor
+### Planar to FinFET to Nanosheet to Complementary FET to 2D
+[Dylan Patel](https://substack.com/@semianalysis)
+ and 
+[Afzal Ahmad](https://substack.com/@afzalahmad)
+Feb 21, 2023

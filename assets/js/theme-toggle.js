@@ -2,12 +2,12 @@
 (function() {
     'use strict';
     
-    let currentTheme = localStorage.getItem('theme') || 'dark';
+    let currentTheme = localStorage.getItem('theme') || 'light';
     
     // Apply theme immediately to prevent flash
     function applyTheme(theme) {
-        if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
         } else {
             document.documentElement.removeAttribute('data-theme');
         }

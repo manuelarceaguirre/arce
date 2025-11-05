@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gruvbox Theme Test - Manuel Arce</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="page-content">
+        <header>
+            <div class="logo-area">
+                <a href="/">Manuel</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="about/">ABOUT</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <!-- Theme toggle will be added here by JavaScript -->
+            </div>
+        </header>
+        
+        <section style="padding: 40px; text-align: center;">
+            <h1>Gruvbox Theme Test</h1>
+            <p>This page showcases the new Gruvbox Dark Hard Contrast theme.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 40px 0;">
+                <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px;">
+                    <h3 style="color: var(--accent-color);">Light Mode (Default)</h3>
+                    <p style="color: var(--text-secondary);">Warm, creamy background with comfortable contrast.</p>
+                    <div style="background: var(--code-bg); padding: 10px; margin: 10px 0; font-family: monospace;">
+                        <code style="color: var(--text-color);">code example</code>
+                    </div>
+                </div>
+                
+                <div style="background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px;">
+                    <h3 style="color: var(--accent-color);">Dark Mode</h3>
+                    <p style="color: var(--text-secondary);">Deep, rich colors inspired by Gruvbox palette.</p>
+                    <div style="background: var(--code-bg); padding: 10px; margin: 10px 0; font-family: monospace;">
+                        <code style="color: var(--text-color);">code example</code>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: var(--blockquote-bg); border-left: 3px solid var(--accent-color); padding: 20px; margin: 20px 0; text-align: left;">
+                <p style="color: var(--text-color); font-style: italic;">"The Gruvbox color scheme provides excellent readability with its carefully chosen contrast ratios."</p>
+            </div>
+            
+            <div style="margin: 30px 0;">
+                <h3 style="color: var(--accent-color);">Color Palette</h3>
+                <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; margin: 20px 0;">
+                    <div style="background: #1d2021; color: #ebdbb2; padding: 10px; text-align: center; font-size: 12px;">bg</div>
+                    <div style="background: #cc241d; color: #ebdbb2; padding: 10px; text-align: center; font-size: 12px;">red</div>
+                    <div style="background: #98971a; color: #ebdbb2; padding: 10px; text-align: center; font-size: 12px;">green</div>
+                    <div style="background: #d79921; color: #1d2021; padding: 10px; text-align: center; font-size: 12px;">yellow</div>
+                    <div style="background: #458588; color: #ebdbb2; padding: 10px; text-align: center; font-size: 12px;">blue</div>
+                    <div style="background: #b16286; color: #ebdbb2; padding: 10px; text-align: center; font-size: 12px;">purple</div>
+                    <div style="background: #689d6a; color: #ebdbb2; padding: 10px; text-align: center; font-size: 12px;">aqua</div>
+                    <div style="background: #ebdbb2; color: #1d2021; padding: 10px; text-align: center; font-size: 12px;">fg</div>
+                </div>
+            </div>
+            
+            <p style="color: var(--text-muted);">Click the theme toggle button in the header to switch between light and dark modes!</p>
+        </section>
+    </div>
+    
+    <script src="assets/js/theme-toggle.js"></script>
+</body>
+</html>
