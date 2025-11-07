@@ -5,8 +5,8 @@
 Architecture generations in this case define the GPU Model. The Hopper Architecture defines the name H100. But when we say an H100 gpu what exactly are we refering to:
 So there are 2 main variants on this gpu the PCIe based and the HGX based:
 
-Architecture generations — NVIDIA’s naming (Hopper for H100, Ampere for A100, etc.) | Generation                 | Year Released | Example GPU Models  | Key Innovations                               |
-| -------------------------- | ------------- | ------------------- | --------------------------------------------- |
+## Architecture generations — NVIDIA's naming (Hopper for H100, Ampere for A100, etc.)
+| Generation                 | Year Released | Example GPU Models  | Key Innovations                               |
 | **Volta**                  | 2017          | V100                | First Tensor Cores, HBM2 memory               |
 | **Turing**                 | 2018          | RTX 2080, T4        | Real-time ray tracing, INT8/INT4 inference    |
 | **Ampere**                 | 2020          | A100, RTX 30 series | 3rd-gen Tensor Cores, HBM2e, PCIe 4.0         |

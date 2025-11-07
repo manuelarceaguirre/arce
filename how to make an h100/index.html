@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/themes/prism-tomorrow.min.css">
     
     <!-- Mermaid for flowcharts -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/main.css">
@@ -69,17 +69,19 @@
     <script src="../assets/js/circuit-animation.js"></script>
     <script>
         // Initialize Mermaid
-        mermaid.initialize({ 
-            startOnLoad: false,
-            theme: 'default',
-            themeVariables: {
-                primaryColor: '#ff6b00',
-                primaryTextColor: '#fff',
-                primaryBorderColor: '#ff6b00',
-                lineColor: '#333',
-                secondaryColor: '#f8f9fa',
-                tertiaryColor: '#e9ecef'
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.initialize({ 
+                startOnLoad: false,
+                theme: 'default',
+                themeVariables: {
+                    primaryColor: '#ff6b00',
+                    primaryTextColor: '#fff',
+                    primaryBorderColor: '#ff6b00',
+                    lineColor: '#333',
+                    secondaryColor: '#f8f9fa',
+                    tertiaryColor: '#e9ecef'
+                }
+            });
         });
 
         // Render prerequisites.md with Marked + Prism + Mermaid
@@ -108,20 +110,26 @@
                     document.getElementById('markdown-content').innerHTML = renderedHtml;
 
                     // Render Mermaid diagrams
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         const mermaidElements = document.querySelectorAll('.language-mermaid');
-                        mermaidElements.forEach(async (element) => {
-                            const graphDefinition = element.textContent;
+                        for (const element of mermaidElements) {
+                            const graphDefinition = element.textContent.trim();
                             try {
-                                const { svg } = await mermaid.render('mermaid-' + Math.random().toString(36).substr(2, 9), graphDefinition);
-                                element.innerHTML = svg;
-                                element.classList.remove('language-mermaid');
+                                if (typeof mermaid !== 'undefined') {
+                                    const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
+                                    const { svg } = await mermaid.render(id, graphDefinition);
+                                    element.innerHTML = svg;
+                                    element.classList.remove('language-mermaid');
+                                } else {
+                                    // Fallback: show as pre-formatted text
+                                    element.innerHTML = `<pre style="background: var(--pre-bg); padding: 1em; border-radius: 5px; overflow-x: auto;">${graphDefinition}</pre>`;
+                                }
                             } catch (error) {
                                 console.error('Mermaid rendering error:', error);
                                 element.innerHTML = `<div class="error">Error rendering diagram: ${error.message}</div>`;
                             }
-                        });
-                    }, 100);
+                        }
+                    }, 1000);
 
                     // Highlight code blocks with Prism
                     if (window.Prism) {
