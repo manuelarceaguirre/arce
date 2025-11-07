@@ -7,6 +7,7 @@ So there are 2 main variants on this gpu the PCIe based and the HGX based:
 
 ## Architecture generations — NVIDIA's naming (Hopper for H100, Ampere for A100, etc.)
 | Generation                 | Year Released | Example GPU Models  | Key Innovations                               |
+| -------------------------- | ------------- | ------------------- | --------------------------------------------- |
 | **Volta**                  | 2017          | V100                | First Tensor Cores, HBM2 memory               |
 | **Turing**                 | 2018          | RTX 2080, T4        | Real-time ray tracing, INT8/INT4 inference    |
 | **Ampere**                 | 2020          | A100, RTX 30 series | 3rd-gen Tensor Cores, HBM2e, PCIe 4.0         |
@@ -208,6 +209,7 @@ Each component could be traced like this:
 ▢ Specialty gases (NF₃, CF₄, BCl₃, H₂, Ar)
 ▢ CMP slurries & pads (Cabot, DuPont)
 ▢ EUV scanners (ASML NXE-3600 class)
+
 1 Logic & Memory Silicon
 | Item                                        | Function                         | Key Supplier(s)                        | Note                                                           |
 | ------------------------------------------- | -------------------------------- | -------------------------------------- | -------------------------------------------------------------- |
@@ -221,12 +223,15 @@ Each component could be traced like this:
 ## Silicon Manufacturing Process
 
 ### Raw Materials
-    1. Raw Quarts (Silica Sand) or Silicon Dioxide
-        Even though this is one of the most abundant minerals in earth, this one has to be of extremely high purity, very low trace metals
-        This would come from Spruce Pine, North Carolina, USA literally guys in trucks mine it from the mountains. Apparently this is the place where quartz are the purest in the world so they are responsible for 70 to 90% of the global semiconductor grade quartz? 
-    So the Raw Quartz end up in Refiners
-    2. Metallurgical-Grade Silicon
-        Quartz is carbothermically reduced in an electric arc furnace (at ~1500–2000 °C) with carbon to produce metallurgical-grade silicon (≈96–99 % silicon)
+Raw Quarts (Silica Sand) or Silicon Dioxide:
+
+Even though this is one of the most abundant minerals in earth, this one has to be of extremely high purity, very low trace metals
+This would come from Spruce Pine, North Carolina, USA literally guys in trucks mine it from the mountains. Apparently this is the place where quartz are the purest in the world so they are responsible for 70 to 90% of the global semiconductor grade quartz? 
+
+> So the Raw Quartz end up in Refiners:
+
+Metallurgical-Grade Silicon
+Quartz is carbothermically reduced in an electric arc furnace (at ~1500–2000 °C) with carbon to produce metallurgical-grade silicon (≈96–99 % silicon)
     
 ### From Sand to Polysilicon
 Raw Quartz (Silica Sand)
@@ -246,8 +251,6 @@ Polysilicon is melted in a high‑purity quartz crucible at about 1425 °C.
 
 A seed crystal is dipped into the molten silicon, then slowly pulled upward and rotated to grow a single-crystal cylindrical ingot (boule). This is known as the Czochralski method 
 Precise control of temperature, rotation, and pull rate is essential to yield a defect‑free monocrystal 
-Wikipedia
-.
 
 Controlled amounts of dopants like boron or phosphorus can be added during growth to set resistivity for n‑type or p‑type silicon.
 
@@ -255,29 +258,12 @@ Controlled amounts of dopants like boron or phosphorus can be added during growt
 Ingot Conditioning
 The ingot's circumference is ground to a uniform diameter and ends trimmed to ensure crystal orientation and stability 
 Wikipedia
-+1
-waferworld.com
-+1
-sumcosi.com
-.
 
 Slicing
 Using diamond-coated wire saws or inner-diameter saws, the ingot is sliced into ~1 mm thick wafers. A carbon beam is often left attached and later removed to hold discs together during slicing 
-sumcosi.com
-+1
-silybwafers.com
-+1
-.
 
 Lapping and Grinding
 Wafers are ground and polished (lapping) using alumina abrasives to reach target thickness and flatness specifications and to improve parallelism 
-Wikipedia
-+15
-sumcosi.com
-+15
-sumcosi.com
-+15
-.
 
 Polishing
 Chemical–mechanical polishing (CMP) removes surface damage, achieving mirror-smooth, planar wafers ready for advanced use.
@@ -286,11 +272,6 @@ Chemical–mechanical polishing (CMP) removes surface damage, achieving mirror-s
 For applications requiring ultra‑uniform doping or layered resistivity profiles, wafers undergo epitaxial deposition.
 
 In a furnace (~1200 °C), gases like trichlorosilane (SiHCl₃) or silicon tetrachloride (SiCl₄) are introduced to grow a crystalline silicon film atop the wafer surface 
-sumcosi.com
-+1
-Wikipedia
-+1
-.
 
 ### Inspection, Packaging & Shipping
 Finished wafers undergo stringent quality control: flatness, thickness tolerance, resistivity, defect density, micro-contamination.
