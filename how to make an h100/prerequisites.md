@@ -1,4 +1,4 @@
-# Prerequisites
+# Prerequisites (In progress)
 
 ## Understanding GPUs (H100 Case Study)
 
