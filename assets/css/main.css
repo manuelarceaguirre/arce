@@ -575,6 +575,20 @@ footer p {
     padding: 20px;
 }
 
+/* Mermaid diagram styling */
+.post-content .language-mermaid {
+    background: transparent;
+    padding: 1em;
+    margin: 1em 0;
+    text-align: center;
+    overflow-x: auto;
+}
+
+.post-content .language-mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Code block container with copy button */
 .code-block-container {
     position: relative;

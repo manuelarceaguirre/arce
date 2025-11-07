@@ -18,6 +18,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-bash.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/themes/prism-tomorrow.min.css">
     
+    <!-- Mermaid for flowcharts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -65,7 +68,21 @@
 
     <script src="../assets/js/circuit-animation.js"></script>
     <script>
-        // Render prerequisites.md with Marked + Prism
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: false,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#ff6b00',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#ff6b00',
+                lineColor: '#333',
+                secondaryColor: '#f8f9fa',
+                tertiaryColor: '#e9ecef'
+            }
+        });
+
+        // Render prerequisites.md with Marked + Prism + Mermaid
         document.addEventListener('DOMContentLoaded', () => {
             fetch('prerequisites.md')
                 .then(response => {
@@ -75,11 +92,36 @@
                     return response.text();
                 })
                 .then((markdownText) => {
+                    // Configure marked for better rendering
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true,
+                        sanitize: false,
+                        headerIds: true,
+                        mangle: false
+                    });
+                    
                     // Parse with Marked
                     const renderedHtml = marked.parse(markdownText);
                     
                     // Insert into page
                     document.getElementById('markdown-content').innerHTML = renderedHtml;
+
+                    // Render Mermaid diagrams
+                    setTimeout(() => {
+                        const mermaidElements = document.querySelectorAll('.language-mermaid');
+                        mermaidElements.forEach(async (element) => {
+                            const graphDefinition = element.textContent;
+                            try {
+                                const { svg } = await mermaid.render('mermaid-' + Math.random().toString(36).substr(2, 9), graphDefinition);
+                                element.innerHTML = svg;
+                                element.classList.remove('language-mermaid');
+                            } catch (error) {
+                                console.error('Mermaid rendering error:', error);
+                                element.innerHTML = `<div class="error">Error rendering diagram: ${error.message}</div>`;
+                            }
+                        });
+                    }, 100);
 
                     // Highlight code blocks with Prism
                     if (window.Prism) {
