@@ -67,6 +67,15 @@
     <script>
         // Render ocr_experiment.md with Marked + Prism
         document.addEventListener('DOMContentLoaded', () => {
+            marked.setOptions({
+                gfm: true,
+                tables: true,
+                breaks: true,
+                sanitize: false,
+                headerIds: true,
+                mangle: false
+            });
+
             fetch('ocr_experiment.md')
                 .then(response => {
                     if (!response.ok) {
