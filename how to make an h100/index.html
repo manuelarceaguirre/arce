@@ -1,185 +1,659 @@
 <!DOCTYPE html>
 <html lang="en" class="blog-page">
 <head>
-    <title>H100 Prerequisites - Manuel Arce</title>
+    <title>How to Make an H100 - Manuel Arce</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect transform='rotate(45 50 50)' x='29' y='29' width='42' height='42' fill='%23ff6b00'/></svg>">
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Understanding GPU architecture and H100 manufacturing prerequisites">
-    <meta name="keywords" content="H100, GPU, NVIDIA, Semiconductor, Manufacturing, Supply Chain">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="A deep dive into the H100 GPU architecture, manufacturing process, and global supply chain">
+    <meta name="keywords" content="H100, GPU, NVIDIA, Semiconductor, Manufacturing, Supply Chain, TSMC, Silicon">
 
-    <!-- External dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-json.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/components/prism-bash.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prismjs/1.29.0/themes/prism-tomorrow.min.css">
-    
+    <!-- Smooth Scroll & Animation Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
     <!-- Mermaid for flowcharts -->
     <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="scroll-effects.css">
 </head>
 <body class="blog-page">
     <!-- Background circuit canvas -->
     <canvas id="circuitCanvas"></canvas>
-    
-    <div class="page-content">
-        <header>
-            <div class="logo-area">
-                <a href="../">Manuel</a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="https://arce.my">HOME</a></li>
-                </ul>
-            </nav>
-            <div class="header-right">
-                <a href="https://github.com/manuelarceaguirre" title="GitHub">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                </a>
-                <a href="https://www.linkedin.com/in/manuelarceaguirre/" title="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                    </svg>
-                </a>
-            </div>
-        </header>
 
-        <section class="post-header">
-            <h1>H100 Prerequisites</h1>
-            <div class="reading-time">15 min read</div>
-        </section>
-
-        <div class="post-image">
-            <img src="../assets/images/h100.jpg" alt="H100 GPU" onerror="this.style.display='none'"/>
-        </div>
-
-        <article class="post-content" id="markdown-content">
-            <!-- Markdown content will be rendered here -->
-        </article>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar"></div>
     </div>
 
+    <!-- Right Scroll Markers -->
+    <div class="scroll-markers">
+        <div class="scroll-marker" data-section="1"></div>
+        <div class="scroll-marker" data-section="2"></div>
+        <div class="scroll-marker" data-section="3"></div>
+        <div class="scroll-marker" data-section="4"></div>
+        <div class="scroll-marker" data-section="5"></div>
+        <div class="scroll-marker" data-section="6"></div>
+        <div class="scroll-marker" data-section="7"></div>
+        <div class="scroll-marker" data-section="8"></div>
+    </div>
+
+    <!-- Left Sidebar TOC -->
+    <aside class="sidebar-toc">
+        <div class="toc-section">
+            <div class="toc-section-title"><span class="toc-section-number">1.</span> GPU BASICS</div>
+            <ul class="toc-items">
+                <li><a href="#understanding-gpus" data-section="1">Understanding GPUs</a></li>
+                <li><a href="#architecture-generations">Architecture generations</a></li>
+                <li><a href="#h100-variants" data-section="2">H100 Variants</a></li>
+            </ul>
+        </div>
+
+        <div class="toc-section">
+            <div class="toc-section-title"><span class="toc-section-number">2.</span> FORM FACTORS</div>
+            <ul class="toc-items">
+                <li><a href="#sxm-hgx" data-section="3">SXM & HGX Platform</a></li>
+                <li><a href="#pcie-variants" data-section="4">PCIe Variants</a></li>
+                <li><a href="#nvl-cnx">NVL and CNX</a></li>
+            </ul>
+        </div>
+
+        <div class="toc-section">
+            <div class="toc-section-title"><span class="toc-section-number">3.</span> THE DIE</div>
+            <ul class="toc-items">
+                <li><a href="#die-analysis" data-section="5">Understanding the H100 Die</a></li>
+                <li><a href="#manufacturing-process">Manufacturing process</a></li>
+                <li><a href="#die-specifications">Die specifications</a></li>
+            </ul>
+        </div>
+
+        <div class="toc-section">
+            <div class="toc-section-title"><span class="toc-section-number">4.</span> SUPPLY CHAIN</div>
+            <ul class="toc-items">
+                <li><a href="#wafer-suppliers" data-section="6">Raw wafer suppliers</a></li>
+                <li><a href="#component-analysis" data-section="7">Component analysis</a></li>
+                <li><a href="#tiering-system">Tiering system</a></li>
+            </ul>
+        </div>
+
+        <div class="toc-section">
+            <div class="toc-section-title"><span class="toc-section-number">5.</span> MANUFACTURING</div>
+            <ul class="toc-items">
+                <li><a href="#silicon-manufacturing" data-section="8">Silicon manufacturing</a></li>
+                <li><a href="#czochralski-process">Czochralski process</a></li>
+                <li><a href="#wafer-polishing">Wafer polishing</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <section class="hero-section" id="hero">
+            <div class="hero-content">
+                <div class="hero-meta">
+                    <span class="reading-time">15 MIN READ</span>
+                    <span class="meta-divider">|</span>
+                    <span class="date">MANUEL ARCE</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">How to Make an H100.</span>
+                </h1>
+                <p class="hero-subtitle">Understanding the world's most complex semiconductor supply chain, from quartz mines to data centers.</p>
+                <div class="divider-line">-----</div>
+            </div>
+        </section>
+
+        <article class="article-container">
+
+            <!-- Chapter 1: Understanding GPUs -->
+            <section class="chapter" id="chapter-1">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="understanding-gpus">Understanding GPUs</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p>Architecture generations define the GPU model. When we talk about the H100, we're referring to NVIDIA's Hopper architecture&mdash;but what exactly does that mean?</p>
+                    </div>
+
+                    <blockquote class="pull-quote">
+                        <p>The Hopper Architecture defines the name H100. But when we say "an H100 GPU," what exactly are we referring to?</p>
+                    </blockquote>
+
+                    <div class="content-block fade-in-up">
+                        <p>There are two main variants of this GPU: the PCIe-based and the HGX-based. Each serves different markets and use cases, from individual servers to massive AI training clusters.</p>
+                    </div>
+
+                    <h3 id="architecture-generations">Architecture Generations</h3>
+
+                    <div class="data-table-container">
+                        <table class="stripe-table">
+                            <thead>
+                                <tr>
+                                    <th>Generation</th>
+                                    <th>Year</th>
+                                    <th>Example GPUs</th>
+                                    <th>Key Innovations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Volta</strong></td>
+                                    <td>2017</td>
+                                    <td>V100</td>
+                                    <td>First Tensor Cores, HBM2 memory</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Turing</strong></td>
+                                    <td>2018</td>
+                                    <td>RTX 2080, T4</td>
+                                    <td>Real-time ray tracing, INT8/INT4 inference</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ampere</strong></td>
+                                    <td>2020</td>
+                                    <td>A100, RTX 30 series</td>
+                                    <td>3rd-gen Tensor Cores, HBM2e, PCIe 4.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hopper</strong></td>
+                                    <td>2022</td>
+                                    <td>H100</td>
+                                    <td>Transformer Engine, HBM3, NVLink 4.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Blackwell</strong></td>
+                                    <td>2025</td>
+                                    <td>B100, B200</td>
+                                    <td>Faster interconnects, FP8 AI support</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 2: H100 Variants -->
+            <section class="chapter" id="chapter-2">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="h100-variants">H100 Variants</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p>The H100 comes in several form factors, each optimized for different deployment scenarios. Understanding these variants is crucial for matching hardware to workloads.</p>
+                    </div>
+
+                    <div class="data-table-container">
+                        <table class="stripe-table">
+                            <thead>
+                                <tr>
+                                    <th>Family</th>
+                                    <th>Variant</th>
+                                    <th>Form Factor</th>
+                                    <th>Memory</th>
+                                    <th>Power (TDP)</th>
+                                    <th>Best For</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="3"><strong>PCIe-based</strong></td>
+                                    <td>H100 PCIe</td>
+                                    <td>PCIe Gen5 x16 card</td>
+                                    <td>80 GB HBM3</td>
+                                    <td>~350-400W</td>
+                                    <td>General AI, smaller training</td>
+                                </tr>
+                                <tr>
+                                    <td>H100 NVL</td>
+                                    <td>Dual-GPU PCIe board</td>
+                                    <td>94 GB HBM3</td>
+                                    <td>~600-700W total</td>
+                                    <td>LLM inference, high VRAM</td>
+                                </tr>
+                                <tr>
+                                    <td>H100 CNX</td>
+                                    <td>PCIe + ConnectX-7 NIC</td>
+                                    <td>80 GB HBM3</td>
+                                    <td>~350-400W</td>
+                                    <td>Multi-node AI, low-latency</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>HGX-based</strong></td>
+                                    <td>H100 SXM5</td>
+                                    <td>SXM5 module for HGX</td>
+                                    <td>80 GB HBM3</td>
+                                    <td>700-900W</td>
+                                    <td>Large-scale AI training</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 3: SXM & HGX Platform -->
+            <section class="chapter" id="chapter-3">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="sxm-hgx">SXM & HGX Platform</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p><strong>SXM (Server eXpress Module)</strong> is a socketed GPU module used in high-end servers. The SXM5 variant is designed specifically for data center deployment&mdash;it sits flat on a large connector on a specialized baseboard.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <p>The SXM module integrates:</p>
+                        <ul>
+                            <li>The GPU die itself</li>
+                            <li>HBM3 memory stacks</li>
+                            <li>Power delivery circuitry</li>
+                        </ul>
+                        <p>All on a compact board that allows direct NVLink lanes between GPUs without routing through the CPU or PCIe bus.</p>
+                    </div>
+
+                    <blockquote class="pull-quote">
+                        <p>You plug the SXM module into a specialized GPU baseboard called the HGX board&mdash;a motherboard built exclusively for GPUs.</p>
+                    </blockquote>
+
+                    <div class="content-block fade-in-up">
+                        <p><strong>HGX</strong> is NVIDIA's server motherboard platform for multiple SXM GPUs plus NVSwitches. This board doesn't have a CPU or system RAM&mdash;just sockets (SXM slots) for GPUs and NVSwitch chips to link them together.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <p>There are two main variations:</p>
+                        <ul>
+                            <li>HGX with 4 SXM slots</li>
+                            <li>HGX with 8 SXM slots</li>
+                        </ul>
+                        <p>The HGX connects to the main system board using high-speed board-to-board links and cables. While NVIDIA designs the board, it ships through OEM partners like Dell, Supermicro, and Inspur.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 4: PCIe Variants -->
+            <section class="chapter" id="chapter-4">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="pcie-variants">PCIe Variants</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p><strong>PCIe (Peripheral Component Interconnect Express)</strong> is the standard expansion card interface used in normal motherboards. PCIe-based H100s are the more accessible option&mdash;they slot into standard server infrastructure.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up" id="nvl-cnx">
+                        <p><strong>H100 NVL</strong> is a special dual-GPU variant designed for large language model (LLM) inference. It prioritizes huge memory capacity per GPU and super-fast GPU-to-GPU communication over absolute maximum training performance.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <p><strong>H100 CNX</strong> combines an H100 PCIe with a Mellanox ConnectX-7 network adapter on the same PCB. This addresses a critical bottleneck in distributed training:</p>
+                    </div>
+
+                    <blockquote class="pull-quote">
+                        <p>CNX skips that hop by having the network chip connected directly to GPU memory via RDMA&mdash;GPUs in different servers need to exchange data every few milliseconds during training.</p>
+                    </blockquote>
+
+                    <div class="content-block fade-in-up">
+                        <p>The slowest part of multi-node training is typically the extra hop through the CPU and PCIe bus. CNX eliminates this latency by co-locating the network interface.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 5: Die Analysis -->
+            <section class="chapter" id="chapter-5">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="die-analysis">Understanding the H100 Die</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p>The heart of the H100 is the GH100 die&mdash;the small rectangular piece of silicon at the center of the package. This die is cut from a wafer manufactured by TSMC.</p>
+                    </div>
+
+                    <div class="mermaid-container">
+                        <pre><code class="language-mermaid">flowchart TD
+    A[H100 GPU Variants] --> B[PCIe-based]
+    A --> C[HGX-based]
+
+    B --> D[H100 PCIe<br/>80 GB HBM3<br/>~350-400W TDP]
+
+    B --> E[H100 NVL<br/>94 GB HBM3<br/>~600-700W total]
+
+    B --> F[H100 CNX<br/>80 GB HBM3<br/>+ ConnectX-7 NIC]
+
+    C --> G[H100 SXM5<br/>80 GB HBM3<br/>700-900W TDP]
+
+    classDef familyBox fill:#ff6b00,stroke:#ff6b00,stroke-width:2px,color:#fff
+    classDef variantBox fill:#2a2a2a,stroke:#ff6b00,stroke-width:1px,color:#fff
+    classDef rootBox fill:#1a1a1a,stroke:#ff6b00,stroke-width:3px,color:#ff6b00
+
+    class A rootBox
+    class B,C familyBox
+    class D,E,F,G variantBox</code></pre>
+                    </div>
+
+                    <div class="content-block fade-in-up" id="manufacturing-process">
+                        <p><strong>Manufacturing Process:</strong> The H100 uses TSMC's N4 process (4nm node). While the exact wafer specifications aren't publicly documented, 5nm and 4nm chips are manufactured on 300mm (12-inch) wafers.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up" id="die-specifications">
+                        <p><strong>Die Specifications:</strong></p>
+                        <ul>
+                            <li>Die size: approximately 814 mm&sup2;</li>
+                            <li>Transistor count: 80 billion</li>
+                            <li>Process: TSMC 4N (optimized 5nm)</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <p>The specific substrate grade and crystal growth method details aren't publicly documented. The wafers are likely prime-grade 300mm silicon wafers grown using the Czochralski process, but finding direct confirmation proves difficult.</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 6: Supply Chain -->
+            <section class="chapter" id="chapter-6">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="wafer-suppliers">Raw Wafer Suppliers</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p>TSMC's 2023 annual report lists their raw wafer suppliers:</p>
+                    </div>
+
+                    <div class="supply-chain-flow">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <h4>FST</h4>
+                            <p>Formosa Sumco</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <h4>GlobalWafers</h4>
+                            <p>Taiwan/US</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <h4>SEH</h4>
+                            <p>Shin-Etsu</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <h4>Siltronic</h4>
+                            <p>Germany</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">5</div>
+                            <h4>SK Siltron</h4>
+                            <p>South Korea</p>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">6</div>
+                            <h4>SUMCO</h4>
+                            <p>Japan</p>
+                        </div>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <p>While we know TSMC's suppliers, we don't know which specific companies supply the wafers used for H100 production, or even which fab within TSMC's network produces them (though Fab 18 in Tainan is the primary 5nm/4nm facility).</p>
+                    </div>
+
+                    <blockquote class="pull-quote">
+                        <p>Spruce Pine, North Carolina, USA... responsible for 70 to 90% of the global semiconductor-grade quartz.</p>
+                    </blockquote>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 7: Component Tiering -->
+            <section class="chapter" id="chapter-7">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="component-analysis">Component Analysis</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p>The H100 module requires components from across the globe. Here are the key Tier 1 components:</p>
+                    </div>
+
+                    <div class="data-table-container">
+                        <table class="stripe-table">
+                            <thead>
+                                <tr>
+                                    <th>Component</th>
+                                    <th>Supplier</th>
+                                    <th>Facility & Location</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>GH100 GPU Die</strong> (TSMC 4N)</td>
+                                    <td>TSMC</td>
+                                    <td>Fab 18, Tainan, Taiwan</td>
+                                    <td>Confirmed</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>HBM3 Memory Stack</strong></td>
+                                    <td>SK Hynix</td>
+                                    <td>M16 DRAM Fab, Icheon, S. Korea</td>
+                                    <td>High</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CoWoS Silicon Interposer</strong></td>
+                                    <td>TSMC / UMC</td>
+                                    <td>TSMC Advanced Packaging</td>
+                                    <td>Moderate</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Package Substrate</strong> (FC-BGA)</td>
+                                    <td>Ibiden Co., Ltd.</td>
+                                    <td>Ogaki Plant, Gifu, Japan</td>
+                                    <td>High</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-block fade-in-up" id="tiering-system">
+                        <p><strong>Component Tiering System:</strong></p>
+                    </div>
+
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-indicator">0</div>
+                            <div class="step-content">
+                                <h4>Final Assembly</h4>
+                                <p>NVIDIA H100 SXM5 Module</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">1</div>
+                            <div class="step-content">
+                                <h4>Core Silicon & Packaging</h4>
+                                <p>GPU Die, HBM3 Stacks, CoWoS Interposer, Package Substrate</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">2</div>
+                            <div class="step-content">
+                                <h4>Board-Level Active Components</h4>
+                                <p>VRM/Power Stages, PMICs, MCUs, PCIe Retimers</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">3</div>
+                            <div class="step-content">
+                                <h4>PCB & Connectors</h4>
+                                <p>Main Circuit Board, High-Density Connectors</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">4</div>
+                            <div class="step-content">
+                                <h4>Mechanical & Thermal</h4>
+                                <p>Vapor Chamber, Heatsink, Stiffening Bracket, TIM</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">5</div>
+                            <div class="step-content">
+                                <h4>Passives & Other</h4>
+                                <p>MLCCs, Inductors, Resistors, Crystals</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">6</div>
+                            <div class="step-content">
+                                <h4>Upstream Materials</h4>
+                                <p>Wafers, Leadframes, Epoxy, ABF Film, Solder</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">7</div>
+                            <div class="step-content">
+                                <h4>Process Consumables</h4>
+                                <p>Gases, Slurries, Photoresists, Solvents</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-indicator">8</div>
+                            <div class="step-content">
+                                <h4>Raw Materials</h4>
+                                <p>Silicon Metal, Copper Ore, Crude Oil, Lithium Brine</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Chapter 8: Silicon Manufacturing -->
+            <section class="chapter" id="chapter-8">
+                <div class="chapter-content">
+                    <h2 class="chapter-title" id="silicon-manufacturing">Silicon Manufacturing</h2>
+
+                    <div class="content-block fade-in-up">
+                        <p>The journey from raw materials to finished wafer involves multiple complex steps spanning continents.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <h3>Raw Quartz (Silica Sand)</h3>
+                        <p>Even though silicon dioxide is one of the most abundant minerals on Earth, semiconductor-grade material must be of extremely high purity with very low trace metals.</p>
+                    </div>
+
+                    <blockquote class="pull-quote">
+                        <p>Spruce Pine, North Carolina&mdash;where workers mine quartz from the mountains&mdash;is responsible for 70 to 90% of the global semiconductor-grade quartz supply.</p>
+                    </blockquote>
+
+                    <div class="content-block fade-in-up">
+                        <h3>Metallurgical-Grade Silicon</h3>
+                        <p>Quartz is carbothermically reduced in an electric arc furnace (at ~1500-2000&deg;C) with carbon to produce metallurgical-grade silicon (&asymp;96-99% silicon).</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <h3>Polysilicon via the Siemens Process</h3>
+                        <p>That silicon is further purified via the Siemens chemical-vapor-deposition process into electronic-grade polysilicon (&ge;99.999999% pure). Alternatives like fluidized-bed reactor processes exist, but Siemens remains dominant.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up" id="czochralski-process">
+                        <h3>Growing Single-Crystal Ingots (Czochralski Process)</h3>
+                        <p>Polysilicon is melted in a high-purity quartz crucible at about 1425&deg;C. A seed crystal is dipped into the molten silicon, then slowly pulled upward and rotated to grow a single-crystal cylindrical ingot (boule).</p>
+                        <p>Precise control of temperature, rotation, and pull rate is essential to yield a defect-free monocrystal. Controlled amounts of dopants like boron or phosphorus can be added during growth to set resistivity.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up" id="wafer-polishing">
+                        <h3>Wafer Slicing and Polishing</h3>
+                        <p><strong>Ingot Conditioning:</strong> The ingot's circumference is ground to a uniform diameter and ends trimmed to ensure crystal orientation and stability.</p>
+                        <p><strong>Slicing:</strong> Using diamond-coated wire saws, the ingot is sliced into ~1mm thick wafers.</p>
+                        <p><strong>Lapping and Grinding:</strong> Wafers are ground and polished using alumina abrasives to reach target thickness and flatness specifications.</p>
+                        <p><strong>Polishing:</strong> Chemical-mechanical polishing (CMP) removes surface damage, achieving mirror-smooth, planar wafers ready for fabrication.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <h3>Epitaxial Layer (Optional)</h3>
+                        <p>For applications requiring ultra-uniform doping, wafers undergo epitaxial deposition. In a furnace (~1200&deg;C), gases like trichlorosilane (SiHCl&#8323;) are introduced to grow a crystalline silicon film atop the wafer surface.</p>
+                    </div>
+
+                    <div class="content-block fade-in-up">
+                        <h3>Inspection, Packaging & Shipping</h3>
+                        <p>Finished wafers undergo stringent quality control: flatness, thickness tolerance, resistivity, defect density, and micro-contamination testing.</p>
+                        <p>Passing wafers are clean-room packed in FOUPs (Front Opening Unified Pods), then shipped&mdash;typically by air freight under climate-controlled, vibration-damped conditions&mdash;to fabs such as TSMC in Taiwan.</p>
+                    </div>
+
+                    <div class="data-table-container">
+                        <table class="stripe-table">
+                            <thead>
+                                <tr>
+                                    <th>Refiner</th>
+                                    <th>Location</th>
+                                    <th>Supplies To</th>
+                                    <th>Likely Quartz Source</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tokuyama Corporation</td>
+                                    <td>Japan</td>
+                                    <td>SUMCO (Yonezawa, JP)</td>
+                                    <td>Spruce Pine + others</td>
+                                </tr>
+                                <tr>
+                                    <td>Mitsubishi Materials</td>
+                                    <td>Japan</td>
+                                    <td>SUMCO</td>
+                                    <td>Spruce Pine / global HPQ</td>
+                                </tr>
+                                <tr>
+                                    <td>Wacker Chemie</td>
+                                    <td>Germany / USA</td>
+                                    <td>SUMCO, GlobalWafers</td>
+                                    <td>Spruce Pine (via Sibelco)</td>
+                                </tr>
+                                <tr>
+                                    <td>Hemlock Semiconductor</td>
+                                    <td>Michigan, USA</td>
+                                    <td>GlobalWafers, SUMCO</td>
+                                    <td>Spruce Pine quartz</td>
+                                </tr>
+                                <tr>
+                                    <td>OCI</td>
+                                    <td>South Korea</td>
+                                    <td>GlobalWafers</td>
+                                    <td>Spruce Pine, others</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider">-----</div>
+
+            <!-- Closing -->
+            <section class="chapter" id="closing">
+                <div class="chapter-content">
+                    <div class="content-block fade-in-up closing-text">
+                        <p>The H100 represents one of humanity's most complex manufactured objects&mdash;a product of global supply chains, decades of research, and processes operating at the atomic scale.</p>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    <!-- Scripts -->
     <script src="../assets/js/circuit-animation.js"></script>
-    <script>
-        // Initialize Mermaid
-        document.addEventListener('DOMContentLoaded', function() {
-            mermaid.initialize({ 
-                startOnLoad: false,
-                theme: 'default',
-                themeVariables: {
-                    primaryColor: '#ff6b00',
-                    primaryTextColor: '#fff',
-                    primaryBorderColor: '#ff6b00',
-                    lineColor: '#333',
-                    secondaryColor: '#f8f9fa',
-                    tertiaryColor: '#e9ecef'
-                }
-            });
-        });
-
-        // Render prerequisites.md with Marked + Prism + Mermaid
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('prerequisites.md')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then((markdownText) => {
-                    // Configure marked for better rendering
-                    marked.setOptions({
-                        breaks: true,
-                        gfm: true,
-                        sanitize: false,
-                        headerIds: true,
-                        mangle: false
-                    });
-                    
-                    // Parse with Marked
-                    const renderedHtml = marked.parse(markdownText);
-                    
-                    // Insert into page
-                    document.getElementById('markdown-content').innerHTML = renderedHtml;
-
-                    // Render Mermaid diagrams
-                    setTimeout(async () => {
-                        const mermaidElements = document.querySelectorAll('.language-mermaid');
-                        for (const element of mermaidElements) {
-                            const graphDefinition = element.textContent.trim();
-                            try {
-                                if (typeof mermaid !== 'undefined') {
-                                    const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
-                                    const { svg } = await mermaid.render(id, graphDefinition);
-                                    element.innerHTML = svg;
-                                    element.classList.remove('language-mermaid');
-                                } else {
-                                    // Fallback: show as pre-formatted text
-                                    element.innerHTML = `<pre style="background: var(--pre-bg); padding: 1em; border-radius: 5px; overflow-x: auto;">${graphDefinition}</pre>`;
-                                }
-                            } catch (error) {
-                                console.error('Mermaid rendering error:', error);
-                                element.innerHTML = `<div class="error">Error rendering diagram: ${error.message}</div>`;
-                            }
-                        }
-                    }, 1000);
-
-                    // Highlight code blocks with Prism
-                    if (window.Prism) {
-                        Prism.highlightAll();
-                    }
-
-                    // Add copy buttons to code blocks
-                    addCopyButtons();
-                })
-                .catch((err) => {
-                    console.error('Error fetching prerequisites.md:', err);
-                    document.getElementById('markdown-content').innerHTML = 
-                        `<div class="error">Error loading content: ${err.message}<br>Path: prerequisites.md</div>`;
-                });
-        });
-
-        function addCopyButtons() {
-            const codeBlocks = document.querySelectorAll('pre > code');
-            codeBlocks.forEach((codeElem) => {
-                const preElem = codeElem.parentNode;
-                const container = document.createElement('div');
-                container.classList.add('code-block-container');
-                
-                container.appendChild(preElem.cloneNode(true));
-
-                const copyBtn = document.createElement('button');
-                copyBtn.textContent = 'Copy';
-                copyBtn.classList.add('copy-button');
-
-                copyBtn.addEventListener('click', async () => {
-                    const codeToCopy = codeElem.textContent;
-                    try {
-                        await navigator.clipboard.writeText(codeToCopy);
-                        copyBtn.textContent = 'Copied!';
-                        copyBtn.classList.add('copied');
-                        setTimeout(() => {
-                            copyBtn.textContent = 'Copy';
-                            copyBtn.classList.remove('copied');
-                        }, 2000);
-                    } catch (copyErr) {
-                        console.error('Failed to copy:', copyErr);
-                        copyBtn.textContent = 'Error';
-                    }
-                });
-
-                container.appendChild(copyBtn);
-                preElem.parentNode.replaceChild(container, preElem);
-            });
-        }
-    </script>
     <script src="../assets/js/theme-toggle.js"></script>
+    <script src="scroll-effects.js"></script>
 </body>
 </html>

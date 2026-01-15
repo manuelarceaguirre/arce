@@ -1,0 +1,763 @@
+/* ===========================================
+   Stripe Press-Style Scroll Effects
+   For H100 Blog Redesign
+   =========================================== */
+
+/* CSS Variable Extensions */
+:root {
+    /* Stripe Press spacing */
+    --space-section: clamp(80px, 15vh, 160px);
+    --space-chapter: clamp(60px, 10vh, 120px);
+    --content-width: min(720px, 90vw);
+    --wide-content: min(1000px, 95vw);
+
+    /* Animation timing - snappy */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --duration-normal: 0.35s;
+    --duration-slow: 0.5s;
+
+    /* Chapter styling */
+    --chapter-number-color: rgba(255, 107, 0, 0.12);
+    --pull-quote-border: #ff6b00;
+    --accent-gradient: linear-gradient(90deg, #ff6b00, #ff8533);
+}
+
+[data-theme="dark"] {
+    --chapter-number-color: rgba(255, 107, 0, 0.2);
+}
+
+/* ===========================================
+   Smooth Scroll Classes (Lenis)
+   =========================================== */
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+/* ===========================================
+   Reading Progress Bar
+   =========================================== */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--border-secondary, #333);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.reading-progress.visible {
+    opacity: 1;
+}
+
+.reading-progress-bar {
+    height: 100%;
+    background: var(--accent-gradient);
+    width: 0%;
+    will-change: width;
+    transition: none; /* Instant updates */
+}
+
+/* ===========================================
+   Two-Column Layout
+   =========================================== */
+.two-column-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* ===========================================
+   Left Sidebar TOC
+   =========================================== */
+.sidebar-toc {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    padding: 80px 24px 40px 28px;
+    overflow-y: auto;
+    background: transparent;
+    z-index: 50;
+}
+
+.sidebar-toc::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-toc::-webkit-scrollbar-thumb {
+    background: var(--border-secondary, #333);
+    border-radius: 2px;
+}
+
+.toc-section {
+    margin-bottom: 36px;
+}
+
+.toc-section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted, #666);
+    margin-bottom: 16px;
+}
+
+.toc-section-number {
+    color: #ff6b00;
+    margin-right: 6px;
+}
+
+.toc-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-items li {
+    margin: 12px 0;
+    position: relative;
+    padding-left: 16px;
+}
+
+.toc-items li::before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted, #555);
+    font-size: 0.75em;
+}
+
+.toc-items a {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #999);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    line-height: 1.6;
+}
+
+.toc-items a:hover {
+    color: var(--text-color, #fff);
+}
+
+.toc-items a.active {
+    color: #ff6b00;
+}
+
+/* ===========================================
+   Right Scroll Markers
+   =========================================== */
+.scroll-markers {
+    position: fixed;
+    right: 16px;
+    top: 60px;
+    bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.scroll-marker {
+    width: 24px;
+    height: 2px;
+    background: var(--border-secondary, #444);
+    transition: background 0.15s ease, width 0.15s ease;
+}
+
+.scroll-marker.active {
+    background: #ff6b00;
+    width: 32px;
+}
+
+/* ===========================================
+   Main Content Area
+   =========================================== */
+.main-content {
+    margin-left: 280px;
+    margin-right: 60px;
+    padding: 60px 80px 100px;
+    max-width: 840px;
+}
+
+/* Mobile: hide sidebar, full width content */
+@media (max-width: 1024px) {
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar-toc {
+        display: none;
+    }
+
+    .scroll-markers {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 40px 24px;
+        max-width: 100%;
+    }
+}
+
+/* Hide old chapter-nav */
+.chapter-nav {
+    display: none;
+}
+
+/* ===========================================
+   Hero Section (Content Header)
+   =========================================== */
+.hero-section {
+    padding: 40px 0 60px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted, #777);
+    margin-bottom: 24px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin: 0 0 28px;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+}
+
+.title-line {
+    display: block;
+}
+
+.hero-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary, #999);
+    margin: 0 0 40px;
+    line-height: 1.7;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divider-line {
+    color: var(--text-muted, #555);
+    letter-spacing: 0.4em;
+    font-size: 0.85rem;
+}
+
+/* Meta divider */
+.meta-divider {
+    opacity: 0.5;
+    margin: 0 8px;
+}
+
+/* ===========================================
+   Article Container
+   =========================================== */
+.article-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===========================================
+   Chapter Styling
+   =========================================== */
+.chapter {
+    padding: 20px 0;
+    position: relative;
+}
+
+.chapter-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-color, #fff);
+    margin: 0 0 32px;
+    letter-spacing: 0.01em;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.chapter-title.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s var(--ease-out-expo),
+                transform 0.3s var(--ease-out-expo);
+}
+
+.chapter-content {
+    /* Content is already constrained by main-content */
+}
+
+.chapter-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 48px 0 24px;
+    color: var(--text-color, #fff);
+}
+
+/* ===========================================
+   Content Blocks with Fade-in
+   =========================================== */
+.content-block {
+    margin-bottom: 2rem;
+}
+
+.content-block p {
+    line-height: 1.85;
+    color: var(--text-secondary, #bbb);
+    text-align: justify;
+    hyphens: auto;
+    font-size: 1rem;
+}
+
+.content-block ul {
+    margin: 24px 0;
+    padding-left: 28px;
+}
+
+.content-block li {
+    line-height: 1.75;
+    color: var(--text-secondary, #bbb);
+    margin: 12px 0;
+    font-size: 1rem;
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.fade-in-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s var(--ease-out-expo),
+                transform 0.3s var(--ease-out-expo);
+}
+
+/* Stagger delays for sequential reveals */
+.stagger-1 { transition-delay: 0s; }
+.stagger-2 { transition-delay: 0.05s; }
+.stagger-3 { transition-delay: 0.1s; }
+.stagger-4 { transition-delay: 0.15s; }
+.stagger-5 { transition-delay: 0.2s; }
+
+/* ===========================================
+   Pull Quotes (Stripe Press Style)
+   =========================================== */
+.pull-quote {
+    margin: 2.75rem 0;
+    padding: 0;
+    padding-left: 1.75rem;
+    border-left: 4px solid #ff6b00;
+    background: transparent;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-color, #fff);
+    position: relative;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.pull-quote.revealed {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.3s var(--ease-out-expo),
+                transform 0.3s var(--ease-out-expo);
+}
+
+.pull-quote p {
+    margin: 0;
+    line-height: 1.75;
+    text-align: left;
+}
+
+/* ===========================================
+   Data Tables (Stripe Press Style)
+   =========================================== */
+.data-table-container {
+    overflow-x: auto;
+    margin: 2.75rem 0 3.25rem;
+    opacity: 0;
+    transform: translateY(15px);
+    -webkit-overflow-scrolling: touch;
+}
+
+.data-table-container.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s var(--ease-out-expo),
+                transform 0.3s var(--ease-out-expo);
+}
+
+.stripe-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 600px;
+}
+
+.stripe-table th {
+    background: rgba(255, 107, 0, 0.08);
+    color: #ff6b00;
+    text-align: left;
+    padding: 14px 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+}
+
+.stripe-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-secondary, #333);
+    color: var(--text-secondary, #bbb);
+    vertical-align: top;
+    font-size: 0.9rem;
+}
+
+.stripe-table tr:hover td {
+    background: rgba(255, 107, 0, 0.02);
+}
+
+.stripe-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Table scroll hint */
+.table-scroll-hint {
+    display: none;
+    font-size: 0.7rem;
+    color: var(--text-muted, #888);
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .table-scroll-hint {
+        display: block;
+    }
+}
+
+/* ===========================================
+   Mermaid Diagram Container
+   =========================================== */
+.mermaid-container {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: rgba(255, 107, 0, 0.03);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 107, 0, 0.1);
+    overflow-x: auto;
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+.mermaid-container.revealed {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.35s var(--ease-out-expo),
+                transform 0.35s var(--ease-out-expo);
+}
+
+.mermaid-container svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===========================================
+   Supply Chain Flow (Visual Steps)
+   =========================================== */
+.supply-chain-section {
+    padding: var(--space-section) 0;
+    max-width: var(--wide-content);
+    margin: 0 auto;
+}
+
+.flow-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-color, #fff);
+}
+
+.supply-chain-flow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.flow-step {
+    text-align: center;
+    flex: 0 0 100px;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.flow-step.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.25s var(--ease-out-expo),
+                transform 0.25s var(--ease-out-expo);
+}
+
+.step-number {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 0.75rem;
+    border: 1px solid #ff6b00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ff6b00;
+}
+
+.flow-step h4 {
+    margin: 0 0 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color, #fff);
+}
+
+.flow-step p {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--text-muted, #888);
+    line-height: 1.4;
+}
+
+/* ===========================================
+   Process Steps (Manufacturing)
+   =========================================== */
+.process-steps {
+    margin: 1.5rem 0;
+}
+
+.process-step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    transform: translateX(-8px);
+}
+
+.process-step.revealed {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.2s var(--ease-out-expo),
+                transform 0.2s var(--ease-out-expo);
+}
+
+.step-indicator {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ff6b00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ff6b00;
+}
+
+.step-content h4 {
+    margin: 0 0 0.35rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color, #fff);
+}
+
+.step-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #ccc);
+    line-height: 1.55;
+}
+
+/* ===========================================
+   Links
+   =========================================== */
+.chapter-content a {
+    color: #ff6b00;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 107, 0, 0.3);
+    transition: border-color 0.2s ease;
+}
+
+.chapter-content a:hover {
+    border-bottom-color: #ff6b00;
+}
+
+/* ===========================================
+   Code Blocks (if any remain)
+   =========================================== */
+.chapter-content pre {
+    background: var(--pre-bg, #1a1a1a);
+    border-radius: 6px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    margin: 1.5rem 0;
+}
+
+.chapter-content code {
+    font-family: 'CommitMono', monospace;
+}
+
+/* ===========================================
+   Section Divider
+   =========================================== */
+.section-divider {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--text-muted, #555);
+    letter-spacing: 0.4em;
+    font-size: 0.8rem;
+}
+
+/* Closing text */
+.closing-text {
+    text-align: center;
+    padding: 80px 0 120px;
+    font-style: italic;
+}
+
+/* ===========================================
+   Mobile Responsiveness
+   =========================================== */
+@media (max-width: 768px) {
+    :root {
+        --space-section: 60px;
+        --space-chapter: 40px;
+    }
+
+    .hero-section {
+        min-height: 85vh;
+    }
+
+    .hero-title {
+        font-size: 2.25rem;
+    }
+
+    .pull-quote {
+        padding: 1.5rem;
+        padding-left: 1.5rem;
+        font-size: 1rem;
+        margin: 2rem 0;
+    }
+
+    .pull-quote::before {
+        display: none;
+    }
+
+    .chapter-content {
+        padding: 0 1.25rem;
+    }
+
+    .chapter-header {
+        padding: 0 1.25rem;
+    }
+
+    .supply-chain-flow {
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .flow-step {
+        flex: 0 0 100px;
+    }
+
+    .process-step {
+        gap: 1rem;
+    }
+
+    .step-indicator {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ===========================================
+   Reduced Motion
+   =========================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .lenis.lenis-smooth {
+        scroll-behavior: auto;
+    }
+
+    .fade-in-up,
+    .pull-quote,
+    .chapter-title,
+    .data-table-container,
+    .mermaid-container,
+    .flow-step,
+    .process-step {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ===========================================
+   Print Styles
+   =========================================== */
+@media print {
+    .reading-progress,
+    .chapter-nav,
+    .scroll-indicator,
+    .hero-parallax {
+        display: none !important;
+    }
+
+    .fade-in-up,
+    .pull-quote,
+    .chapter-title,
+    .data-table-container {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
